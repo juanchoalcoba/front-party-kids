@@ -10,7 +10,7 @@ const CalendarComponent = ({ onDateChange }) => {
   // Función para obtener fechas reservadas desde el backend
   const fetchBookedDates = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/bookings');
+      const response = await fetch('https://api-party-kids.vercel.app/api/bookings');
       const data = await response.json();
       // Mapeamos solo las fechas de las reservas
       const booked = data.map(booking => new Date(booking.date));
