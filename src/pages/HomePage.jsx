@@ -6,7 +6,7 @@ function HomePage() {
     <div className="relative flex flex-col justify-center items-center w-full min-h-screen">
       {/* Imagen de fondo */}
       <div
-        className="absolute top-0 left-0 w-full h-full bg-no-repeat bg-cover z-[-1]"
+        className="absolute top-0 left-0 w-full h-full bg-no-repeat opacity-75 bg-cover z-[-1]"
         style={{ backgroundImage: `url(${heroImage})` }}
       ></div>
 
@@ -14,7 +14,7 @@ function HomePage() {
         Bienvenidos a <span className="text-3xl sm:text-4xl p-4">Party</span>{' '}
         <span className="text-3xl sm:text-4xl p-4 text-cyan-950">Kids</span>
       </h1>
-      <p className="text-center">Reserva tu party DAY!!!</p>
+      <p className="text-center font-extrabold text-[20px]">Reserva tu Party DAY!!!</p>
 
       {/* Enlace con la etiqueta Link para ir a la página de reservas */}
       <Link to="/booking">
