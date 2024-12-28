@@ -32,7 +32,7 @@ const BookingPage = () => {
     });
 
     if (response.ok) {
-      setModalMessage('Booking successful!');
+      setModalMessage('Reserva completada');
       setShowModal(true); // Mostrar modal si la reserva fue exitosa
     } else {
       setModalMessage('Error submitting the booking');
