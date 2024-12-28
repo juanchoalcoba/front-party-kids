@@ -6,7 +6,7 @@ function HomePage() {
     <div className="relative flex flex-col justify-center items-center w-full min-h-screen">
       {/* Imagen de fondo */}
       <div
-        className="absolute top-0 left-0 w-full h-full bg-no-repeat bg-center  opacity-90 bg-contain z-[-2]"
+        className="absolute top-0 left-0 w-full h-full bg-no-repeat bg-center  opacity-90 bg-auto z-[-2]"
         style={{ backgroundImage: `url(${heroImage})` }}
       ></div>
 
