@@ -14,7 +14,7 @@ function HomePage() {
       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-35 z-[-1]"></div>
 
       {/* Contenedor con fondo blur */}
-      <div className="relative z-10 bg-white/30 backdrop-blur-lg p-8 rounded-xl shadow-lg max-w-xl text-center">
+      <div className="relative z-10 bg-white/30 backdrop-blur-sm p-8 rounded-2xl shadow-lg max-w-xl text-center">
         <h1 className="text-4xl flex text-center flex-col font-extrabold sm:text-4xl p-4 text-red-800">
           Bienvenidos a <span className="text-3xl sm:text-4xl p-4">Party</span>{' '}
           <span className="text-3xl sm:text-4xl p-4 text-cyan-950">Kids</span>
@@ -28,7 +28,7 @@ function HomePage() {
           </button>
         </Link>
         <Link to="/private">
-          <button className="border border-1 border-black py-2 text-white px-8 font-bold rounded-full mt-4">
+          <button className="border border-1 border-black py-2 text-gray-800 hover:bg-slate-400 transition-all hover:text-red-700  px-8 font-bold rounded-full mt-4">
             Panel Privado
           </button>
         </Link>
