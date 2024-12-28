@@ -6,12 +6,12 @@ function HomePage() {
     <div className="relative flex flex-col justify-center items-center w-full min-h-screen">
       {/* Imagen de fondo */}
       <div
-        className="absolute top-0 left-0 w-full h-full bg-no-repeat bg-center  opacity-90 bg-auto z-[-2]"
+        className="absolute top-0 left-0 w-full h-full bg-no-repeat bg-center  opacity-80 bg-auto z-[-1]"
         style={{ backgroundImage: `url(${heroImage})` }}
       ></div>
 
       {/* Overlay con opacidad para dar un efecto más elegante al hero */}
-      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-35 z-[-1]"></div>
+      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-[-2]"></div>
 
       {/* Contenedor con fondo blur */}
       <div className="relative z-10 bg-white/30 backdrop-blur-sm p-8 rounded-2xl shadow-lg max-w-xl text-center">
