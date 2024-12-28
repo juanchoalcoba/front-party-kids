@@ -11,7 +11,7 @@ function HomePage() {
       ></div>
 
       {/* Overlay con opacidad para dar un efecto más elegante al hero */}
-      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-35d z-[-1]"></div>
+      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-35 z-[-1]"></div>
 
       {/* Contenido */}
       <h1 className="text-4xl flex text-center flex-col font-extrabold sm:text-4xl p-4 text-red-800 z-10">
