@@ -12,7 +12,6 @@ function App() {
 
         <Route path="/" element={<HomePage />} />
 
-
         {/* Ruta para la página de reservas */}
         <Route path="/booking" element={<BookingPage />} />
 
