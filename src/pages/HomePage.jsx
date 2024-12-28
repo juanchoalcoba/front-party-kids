@@ -10,6 +10,12 @@ function HomePage() {
       <Link to="/booking">
         <button className="bg-gray-400 py-3 px-12 rounded-full mt-4">Go to Booking Page</button>
       </Link>
+      <Link to="/private">
+        <button className="bg-gray-400 py-3 px-12 rounded-full mt-4">Go to private Page</button>
+      </Link>
+
+
+      
     </div>
   );
 }
