@@ -10,7 +10,7 @@ function HomePage() {
         style={{ backgroundImage: `url(${heroImage})` }}
       ></div>
 
-      <h1 className="text-3xl sm:text-4xl p-4 text-red-800">
+      <h1 className="text-4xl font-extrabold sm:text-4xl p-4 text-red-800">
         Bienvenidos a <span className="text-3xl sm:text-4xl p-4">Party</span>{' '}
         <span className="text-3xl sm:text-4xl p-4 text-cyan-950">Kids</span>
       </h1>
