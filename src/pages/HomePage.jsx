@@ -23,7 +23,7 @@ function HomePage() {
 
         {/* Botones */}
         <Link to="/booking">
-          <button className="bg-yellow-900 text-white hover:bg-orange-950 hover:text-yellow-300 transition-all py-2 px-8 font-bold rounded-full mt-4">
+          <button className="bg-yellow-500 text-black hover:bg-yellow-900 hover:text-gray-300 transition-all py-2 px-8 font-bold rounded-full mt-4">
             Reservar
           </button>
         </Link>
