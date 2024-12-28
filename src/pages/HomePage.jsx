@@ -19,7 +19,7 @@ function HomePage() {
           Bienvenidos a <span className="text-4xl text-blue-700 sm:text-4xl p-4">Party</span>{' '}
           <span className="text-3xl sm:text-4xl p-4 text-cyan-950">Kids</span>
         </h1>
-        <p className="text-center text-cyan-800 font-normal text-[20px]">Reserva tu Party DAY!!!</p>
+        <p className="text-center text-blue-900 font-normal text-[20px]">Reserva tu Party DAY!!!</p>
 
         {/* Botones */}
         <Link to="/booking">
