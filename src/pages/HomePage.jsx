@@ -14,7 +14,7 @@ function HomePage() {
       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-[-2]"></div>
 
       {/* Contenedor con fondo blur */}
-      <div className="relative z-10 bg-white/30 backdrop-blur-sm p-8 rounded-2xl shadow-lg max-w-xl text-center">
+      <div className="relative z-10 bg-white/40 backdrop-blur-sm p-8 rounded-3xl shadow-lg max-w-xl text-center">
         <h1 className="text-4xl flex text-center flex-col font-extrabold sm:text-4xl p-4 text-red-800">
           Bienvenidos a <span className="text-4xl text-blue-700 sm:text-4xl p-4">Party</span>{' '}
           <span className="text-3xl sm:text-4xl p-4 text-cyan-950">Kids</span>
