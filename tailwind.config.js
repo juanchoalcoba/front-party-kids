@@ -1,3 +1,6 @@
+// Importa el plugin de aspecto con la sintaxis correcta
+import aspectRatio from '@tailwindcss/aspect-ratio';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -7,5 +10,7 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    aspectRatio, // Aquí usamos la sintaxis de importación
+  ],
 }
