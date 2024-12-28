@@ -46,8 +46,8 @@ const BookingPage = () => {
   };
 
   return (
-    <div className="p-8 flex flex-col justify-center items-center">
-      <h1 className="text-2xl mb-4 text-center">Book a Date</h1>
+    <div className="p-8 flex flex-col justify-center items-center w-full min-h-screen">
+      <h1 className="text-2xl mb-4 text-center">Completa el formulario para registrar</h1>
       <form onSubmit={handleSubmit} className="space-y-4 flex flex-col justify-center items-center">
         <input
           type="text"
@@ -78,7 +78,7 @@ const BookingPage = () => {
         />
         <CalendarComponent onDateChange={handleDateChange} />
         <button type="submit" className="bg-blue-500 text-white p-2 rounded">
-          Submit
+          Dalo por hecho!
         </button>
       </form>
 
