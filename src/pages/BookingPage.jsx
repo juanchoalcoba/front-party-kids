@@ -46,7 +46,7 @@ const BookingPage = () => {
   };
 
   return (
-    <div className="p-8 flex flex-col justify-center items-center w-full min-h-screen bg-gradient-to-r from-pink-300 via-purple-300 to-blue-300">
+    <div className="p-8 flex flex-col justify-center items-center w-full min-h-screen bg-gradient-to-r from-pink-900 via-purple-800 to-blue-700">
       <h1 className="text-3xl mb-6 font-bold text-center text-white">¡Completa el formulario para registrar tu fiesta!</h1>
       
       <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-xl shadow-lg w-full sm:w-96">
