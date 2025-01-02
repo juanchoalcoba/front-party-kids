@@ -112,7 +112,7 @@ const Features = () => (
 
       <BentoTilt className="border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
         <BentoCard
-          src="img/about.jpg"
+          src="img/6.jpg"
           title={
             <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
               títu<b>l</b>o
