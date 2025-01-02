@@ -97,7 +97,7 @@ export const BentoCard = ({ src, title, description, isComingSoon }) => {
 };
 
 const Features = () => (
-  <section className="bg-gray-950 pb-52">
+  <section className="bg-gray-950 pb-12">
     <div className="container mx-auto px-3 md:px-10">
       <div className="px-5 py-32">
         <p className="font-circular-web text-lg text-blue-50">
@@ -114,25 +114,33 @@ const Features = () => (
         <BentoCard
           src="img/about.jpg"
           title={
-            <>
+            <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
               títu<b>l</b>o
-            </>
+            </div>
           }
-          description="A cross-platform metagame app, turning your activities across Web2 and Web3 games into a rewarding adventure."
+          description={
+            <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
+              A cross-world AI Agent - elevating your gameplay to be more fun and productive.
+            </div>
+          }
           isComingSoon
         />
       </BentoTilt>
 
-      <div className="grid h-[135vh] w-full grid-cols-2 grid-rows-3 gap-7">
+      <div className="flex flex-col md:grid h-[135vh] w-full md:grid-cols-2 md:grid-rows-3 gap-7">
         <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2">
           <BentoCard
             src="img/7.jpg"
             title={
-              <>
+              <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
                 títu<b>l</b>o
-              </>
+              </div>
             }
-            description="An anime and gaming-inspired NFT collection - the IP primed for expansion."
+            description={
+              <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
+                A cross-world AI Agent - elevating your gameplay to be more fun and productive.
+              </div>
+            }
             isComingSoon
           />
         </BentoTilt>
@@ -141,11 +149,15 @@ const Features = () => (
           <BentoCard
             src="img/8.jpg"
             title={
-              <>
+              <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
                 títu<b>l</b>o
-              </>
+              </div>
             }
-            description="A gamified social hub, adding a new dimension of play to social interaction for Web3 communities."
+            description={
+              <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
+                A cross-world AI Agent - elevating your gameplay to be more fun and productive.
+              </div>
+            }
             isComingSoon
           />
         </BentoTilt>
@@ -154,32 +166,22 @@ const Features = () => (
           <BentoCard
             src="img/9.jpg"
             title={
-              <>
+              <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
                 títu<b>l</b>o
-              </>
+              </div>
             }
-            description="A cross-world AI Agent - elevating your gameplay to be more fun and productive."
+            description={
+              <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
+                A cross-world AI Agent - elevating your gameplay to be more fun and productive.
+              </div>
+            }
             isComingSoon
           />
         </BentoTilt>
 
-        <BentoTilt className="bento-tilt_2">
-          <div className="flex size-full flex-col justify-between bg-violet-700 p-5">
-            <h1 className="bento-title special-font max-w-64 text-blue-50">
-              Pa<b>r</b>ty k<b>i</b>ds <b>te</b> espera.
-            </h1>
+        
 
-            <TiLocationArrow className="m-5 scale-[5] self-end" />
-          </div>
-        </BentoTilt>
-
-        <BentoTilt className="bento-tilt_2">
-          <img
-            src="img/about.jpg"
-            alt="More features"
-            className="size-full object-cover object-center"
-          />
-        </BentoTilt>
+        
       </div>
     </div>
   </section>
