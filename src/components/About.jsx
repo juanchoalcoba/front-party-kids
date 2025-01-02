@@ -40,9 +40,9 @@ const About = () => {
                 containerClass="mt-5 !text-black text-center text-[40px]"
                 />
                 <div className="about-subtext">
-                    <p>The game of games begins-your life, now an epic MMORHPF</p>
+                    <p>Transforma su día especial en un recuerdo inolvidable con nuestras fiestas mágicas.</p>
                     <p className="tetx-gray-500">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus odio commodi aut debitis veritatis aliquid, at illo soluta?
+                    Descubre la mejor experiencia en fiestas infantiles: diversión garantizada, decoración temática y recuerdos que duran toda la vida.
                     </p>
                 </div>
             </div>
@@ -51,7 +51,7 @@ const About = () => {
                 <div className="mask-clip-path about-image">
                     <img 
                     className="absolute left-0 top-0 size-full object-cover"
-                    src="img/about.webp" alt="" 
+                    src="img/about.jpg" alt="" 
                     />
                 </div>
             </div>
