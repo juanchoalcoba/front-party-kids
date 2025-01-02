@@ -40,9 +40,9 @@ const About = () => {
                 containerClass="mt-5 !text-black text-center text-[40px]"
                 />
                 <div className="about-subtext">
-                    <p>The game of games begins-your life, now an epic MMORHPF</p>
+                    <p>Festejos inolvidables para niños: magia, diversión y momentos únicos.</p>
                     <p className="tetx-gray-500">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus odio commodi aut debitis veritatis aliquid, at illo soluta?
+                    Fiestas infantiles perfectas: diversión, temática especial y recuerdos imborrables.
                     </p>
                 </div>
             </div>
