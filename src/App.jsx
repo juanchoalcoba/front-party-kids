@@ -1,8 +1,8 @@
 import './App.css';
 import About from './components/About';
+import Features from './components/Features';
 import Hero from './components/Hero';
 import Navbar from './components/Navbar';
-import BookingPage from './pages/BookingPage';
 
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
         <Navbar />
         <Hero />
         <About />
-        <BookingPage />        
+        <Features />
       </main>
 
   );

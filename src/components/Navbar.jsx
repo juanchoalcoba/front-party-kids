@@ -92,7 +92,7 @@ const Navbar = () => {
                             className="ml-10 flex items-center space-x-0.5"
                         >
                             <audio 
-                                src=""
+                                src="audio/loop.mp3"
                                 ref={audioElementRef}
                                 className="hidden"
                                 loop
