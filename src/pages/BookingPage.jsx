@@ -46,8 +46,8 @@ const BookingPage = () => {
   };
 
   return (
-    <div className="p-8 flex flex-col justify-center items-center w-full min-h-screen bg-gradient-to-r from-pink-900 via-purple-800 to-blue-700">
-      <h1 className="text-3xl mb-6 font-bold text-center text-white">¡Completa el formulario para registrar tu fiesta!</h1>
+    <div className="p-8 flex flex-col justify-center items-center w-full min-h-screen font-general">
+      <h1 className="text-3xl mb-6 font-bold text-center text-gray-600">¡Completa el formulario para registrar tu fiesta!</h1>
       
       <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-xl shadow-lg w-full sm:w-96">
         <input
@@ -78,7 +78,7 @@ const BookingPage = () => {
           required
         />
         <CalendarComponent onDateChange={handleDateChange} />
-        <button type="submit" className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
+        <button type="submit" className="bg-yellow-400 hover:bg-yellow-500 text-gray-600 font-bold p-3 rounded-lg transition-all duration-300 w-full">
           ¡Dalo por hecho!
         </button>
       </form>

@@ -1,24 +1,17 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Hero from './components/Hero';
+import Navbar from './components/Navbar';
 import BookingPage from './pages/BookingPage';
-import PrivatePage from './components/PrivatePage';
-import HomePage from './pages/HomePage';
+
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {/* Ruta para la página principal */}
+      <main className='relative min-h-screen w-screen overflow-x-hidden'>
+        <Navbar />
+        <Hero />
+        <BookingPage />        
+      </main>
 
-        <Route path="/" element={<HomePage />} />
-
-        {/* Ruta para la página de reservas */}
-        <Route path="/booking" element={<BookingPage />} />
-
-        {/* Ruta para la página privada que pide la contraseña */}
-        <Route path="/private" element={<PrivatePage />} />
-      </Routes>
-    </Router>
   );
 }
 
