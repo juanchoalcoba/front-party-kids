@@ -41,7 +41,7 @@ const About = () => {
                 />
                 <div className="about-subtext">
                     <p className="p-2">Festejos inolvidables: magia, diversión y momentos únicos.</p>
-                    <p className="tetx-gray-500">
+                    <p className="tetx-gray-500 p-2">
                     Fiestas infantiles perfectas: diversión, recuerdos imborrables.
                     </p>
                 </div>
