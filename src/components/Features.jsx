@@ -1,9 +1,18 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import { TiLocationArrow } from "react-icons/ti";
 
+
+  
 export const BentoTilt = ({ children, className = "" }) => {
   const [transformStyle, setTransformStyle] = useState("");
   const itemRef = useRef(null);
+
+  
+
+
+
 
   const handleMouseMove = (event) => {
     if (!itemRef.current) return;
@@ -96,11 +105,17 @@ export const BentoCard = ({ src, title, description, isComingSoon }) => {
   );
 };
 
-const Features = () => (
+const Features = () => {
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+    AOS.refresh(); // Esto asegura que las animaciones se recalculen cuando sea necesario
+  }, []);
+
+  return (
   <section className="bg-gray-950 pb-12">
     <div className="container mx-auto px-3 md:px-10">
-      <div className="px-5 py-32">
-        <p className="font-circular-web text-lg text-blue-50">
+      <div className="px-5 py-32" data-aos="fade-right">
+        <p className="font-circular-web text-lg text-blue-50" >
           Nos encargamos de tu fiesta!
         </p>
         <p className="max-w-md font-circular-web text-lg text-blue-50 opacity-50">
@@ -110,81 +125,89 @@ const Features = () => (
         </p>
       </div>
 
-      <BentoTilt className="border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
-        <BentoCard
-          src="img/6.jpg"
-          title={
-            <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
-              títu<b>l</b>o
-            </div>
-          }
-          description={
-            <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
-              A cross-world AI Agent - elevating your gameplay to be more fun and productive.
-            </div>
-          }
-          isComingSoon
-        />
-      </BentoTilt>
-
-      <div className="flex flex-col md:grid h-[135vh] w-full md:grid-cols-2 md:grid-rows-3 gap-7">
-        <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2">
-          <BentoCard
-            src="img/7.jpg"
-            title={
-              <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
-                títu<b>l</b>o
-              </div>
-            }
-            description={
-              <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
-                A cross-world AI Agent - elevating your gameplay to be more fun and productive.
-              </div>
-            }
-            isComingSoon
-          />
-        </BentoTilt>
-
-        <BentoTilt className="bento-tilt_1 row-span-1 ms-32 md:col-span-1 md:ms-0">
-          <BentoCard
-            src="img/8.jpg"
-            title={
-              <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
-                títu<b>l</b>o
-              </div>
-            }
-            description={
-              <div className="backdrop-blur-md bg-black/50  rounded-md inline-block">
-                A cross-world AI Agent - elevating your gameplay to be more fun and productive.
-              </div>
-            }
-            isComingSoon
-          />
-        </BentoTilt>
-
-        <BentoTilt className="bento-tilt_1 me-14 md:col-span-1 md:me-0">
-          <BentoCard
-            src="img/9.jpg"
-            title={
-              <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
-                títu<b>l</b>o
-              </div>
-            }
-            description={
-              <div className="backdrop-blur-md bg-black/50 rounded-md inline-block">
-                A cross-world AI Agent - elevating your gameplay to be more fun and productive.
-              </div>
-            }
-            isComingSoon
-          />
-        </BentoTilt>
-
-        
-
-        
+      <BentoTilt
+    
+  className="border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]"
+>
+  <BentoCard
+    
+    src="img/6.jpg"
+    title={
+      <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
+        títu<b>l</b>o
       </div>
+    }
+    description={
+      <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
+        A cross-world AI Agent - elevating your gameplay to be more fun and productive.
+      </div>
+    }
+    isComingSoon
+  />
+</BentoTilt>
+
+<div className="grid h-[135vh] w-full grid-cols-2 grid-rows-3 gap-7">
+  <BentoTilt
+    className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2"
+  >
+    <BentoCard
+      src="img/7.jpg"
+      title={
+        <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
+          títu<b>l</b>o
+        </div>
+      }
+      description={
+        <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
+          A cross-world AI Agent - elevating your gameplay to be more fun and productive.
+        </div>
+      }
+      isComingSoon
+    />
+  </BentoTilt>
+
+  <BentoTilt
+    className="bento-tilt_1 row-span-1 ms-32 md:col-span-1 md:ms-0"
+  >
+    <BentoCard
+      src="img/8.jpg"
+      title={
+        <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
+          títu<b>l</b>o
+        </div>
+      }
+      description={
+        <div className="backdrop-blur-md bg-black/50 rounded-md inline-block">
+          A cross-world AI Agent - elevating your gameplay to be more fun and productive.
+        </div>
+      }
+      isComingSoon
+    />
+  </BentoTilt>
+
+  <BentoTilt
+    className="bento-tilt_1 me-14 md:col-span-1 md:me-0"
+  >
+    <BentoCard
+      src="img/9.jpg"
+      title={
+        <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
+          títu<b>l</b>o
+        </div>
+      }
+      description={
+        <div className="backdrop-blur-md bg-black/50 rounded-md inline-block">
+          A cross-world AI Agent - elevating your gameplay to be more fun and productive.
+        </div>
+      }
+      isComingSoon
+    />
+  </BentoTilt>
+</div>
+
+      
     </div>
   </section>
-);
+)};
 
 export default Features;

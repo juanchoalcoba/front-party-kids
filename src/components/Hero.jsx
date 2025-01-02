@@ -1,7 +1,8 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/all';
 import { TiLocationArrow } from "react-icons/ti";
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import { useEffect, useState, useRef } from 'react';
 
 import Button from './Button';
@@ -9,6 +10,14 @@ import Button from './Button';
 gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
+
+
+      useEffect(() => {
+          AOS.init({ duration: 1500 });
+          AOS.refresh(); // Esto asegura que las animaciones se recalculen cuando sea necesario
+        }, []);
+
+
     const [loading, setLoading] = useState(true);
     const [loadedVideos, setLoadedVideos] = useState(0);  // Corrección en setLoadedVideos
 
@@ -54,11 +63,17 @@ const Hero = () => {
                 />
 
                 <div className='absolute left-0 top-0 z-40 size-full'>
-                    <div className="mt-8 min-h-screen px-5 sm:px-10 flex flex-col justify-center items-center">
-                <h1 className='special-font hero-heading z-40 text-blue-75'>
+                    <div 
+                    
+                    className="mt-8 min-h-screen px-5 sm:px-10 flex flex-col justify-center items-center">
+                <h1 
+                data-aos="fade-right"
+                className='special-font hero-heading z-40 text-blue-75'>
                     KI<b>D</b>S
                 </h1>
-                        <h1 className='special-font hero-heading text-blue-100'>
+                        <h1 
+                        data-aos="fade-left"
+                        className='special-font hero-heading text-blue-100'>
                             PAR<b>T</b>Y
                         </h1>
                         <p className='mb-5 text-center max-w-64 text-[20px] font-robert-regular text-blue-100'>
