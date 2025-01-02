@@ -81,7 +81,7 @@ export const BentoCard = ({ src, title, description, isComingSoon }) => {
           >
             {/* Radial gradient hover effect */}
             <div
-              className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 p-4"
+              className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
               style={{
                 opacity: hoverOpacity,
                 background: `radial-gradient(100px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #656fe288, #00000026)`,
@@ -154,7 +154,7 @@ const Features = () => (
               </div>
             }
             description={
-              <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
+              <div className="backdrop-blur-md bg-black/50  rounded-md inline-block">
                 A cross-world AI Agent - elevating your gameplay to be more fun and productive.
               </div>
             }
@@ -171,7 +171,7 @@ const Features = () => (
               </div>
             }
             description={
-              <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
+              <div className="backdrop-blur-md bg-black/50 rounded-md inline-block">
                 A cross-world AI Agent - elevating your gameplay to be more fun and productive.
               </div>
             }
