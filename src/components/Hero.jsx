@@ -25,26 +25,10 @@ const Hero = () => {
         }
     }, [loadedVideos]);
 
-    useEffect(() => {
-        gsap.set("#video-frame", {
-            clipPath: "polygon(14% 0, 72% 0, 88% 90%, 0 95%)",
-            borderRadius: "0% 0% 40% 10%",
-        });
-        gsap.from("#video-frame", {
-            clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-            borderRadius: "0% 0% 0% 0%",
-            ease: "power1.inOut",
-            scrollTrigger: {
-                trigger: "#video-frame",
-                start: "center center",
-                end: "bottom center",
-                scrub: true,
-            },
-        });
-    }, []);  // Aquí se utiliza useEffect para las animaciones GSAP
+    
 
     return (
-        <div className='relative h-dvh w-screen overflow-x-hidden'>
+        <div className='relative h-dvh w-screen overflow-x-hidden bg-violet-950'>
             {loading && (
                 <div className='flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50'>
                     <div className="three-body">
