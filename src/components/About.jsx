@@ -40,9 +40,9 @@ const About = () => {
                 containerClass="mt-5 !text-black text-center text-[40px]"
                 />
                 <div className="about-subtext">
-                    <p>Festejos inolvidables para niños: magia, diversión y momentos únicos.</p>
+                    <p>Festejos inolvidables: magia, diversión y momentos únicos.</p>
                     <p className="tetx-gray-500">
-                    Fiestas infantiles perfectas: diversión, temática especial y recuerdos imborrables.
+                    Fiestas infantiles perfectas: diversión, recuerdos imborrables.
                     </p>
                 </div>
             </div>
