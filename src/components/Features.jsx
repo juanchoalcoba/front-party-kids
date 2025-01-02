@@ -81,7 +81,7 @@ export const BentoCard = ({ src, title, description, isComingSoon }) => {
           >
             {/* Radial gradient hover effect */}
             <div
-              className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
+              className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 p-4"
               style={{
                 opacity: hoverOpacity,
                 background: `radial-gradient(100px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #656fe288, #00000026)`,
