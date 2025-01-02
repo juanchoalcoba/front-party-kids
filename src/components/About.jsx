@@ -40,7 +40,7 @@ const About = () => {
                 containerClass="mt-5 !text-black text-center text-[40px]"
                 />
                 <div className="about-subtext">
-                    <p className="p-2 uppercase">Festejos inolvidables: magia, diversión y momentos únicos.</p>
+                    <p className="p-2 uppercase w-full">Festejos inolvidables: magia, diversión y momentos únicos.</p>
                     <p className="tetx-gray-500 p-2">
                     Fiestas infantiles perfectas: diversión, recuerdos imborrables.
                     </p>
