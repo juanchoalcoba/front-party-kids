@@ -3,6 +3,7 @@ import heroImage from '../assets/hero.jpg'; // Asegúrate de que la ruta sea cor
 import Button from '../components/Button';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { Link } from 'react-router-dom';
 
 function HomePage() {
   useEffect(() => {
@@ -35,7 +36,7 @@ function HomePage() {
         <p className="text-center text-blue-950 font-bold font-circular-web mb-6 text-[24px]">CONSULTA TU DIA</p>
 
         {/* Botones */}
-        <a>
+        <Link to="booking">
         <Button 
                             id="watch-trailer"
                             title={<button className='text-[20px] text-violet-950 font-general text-center flex items-center justify-center'>
@@ -43,7 +44,7 @@ function HomePage() {
                             </button>}
                             containerClass="font-bold bg-yellow-300 block py-2 px-14 shadow-md shadow-black"
                         />
-        </a>
+        </Link>
         
       </div>
     </div>

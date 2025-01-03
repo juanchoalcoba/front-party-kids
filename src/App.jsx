@@ -1,19 +1,19 @@
-import './App.css';
-import Features from './components/Features';
-import Hero from './components/Hero';
-import Navbar from './components/Navbar';
-import HomePage from './pages/HomePage';
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
+import Home from './pages/Home';
+import PrivatePage from './pages/PrivatePage';
+import BookingPage from './pages/BookingPage';
 
 
 function App() {
   return (
-      <main className='relative min-h-screen w-screen overflow-x-hidden'>
-        <Navbar />
-        <Hero />
-        <HomePage />
-        <Features />
-      </main>
-
+    
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/private" element={<PrivatePage />} />
+        <Route path="/booking" element={<BookingPage />} />
+      </Routes>
+    </Router>
   );
 }
 
