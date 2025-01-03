@@ -2,7 +2,8 @@ import clsx from "clsx";
 import gsap from "gsap";
 import { useWindowScroll } from "react-use";
 import { useEffect, useState, useRef } from "react";
-import {TiLocationArrow} from "react-icons/ti"
+import { TiLocationArrow } from "react-icons/ti";
+import { FiMenu, FiX } from "react-icons/fi"; // Importamos el icono de hamburguesa y de cierre
 
 import Button from "./Button";
 
@@ -11,6 +12,7 @@ const navItems = ["Inicio", "Fiestas", "Servicios", "Sobre Nosotros", "Contacto"
 const Navbar = () => {
     const [isAudioPlaying, setIsAudioPlaying] = useState(false);
     const [isIndicatorActive, setIsIndicatorActive] = useState(false);
+    const [isNavOpen, setIsNavOpen] = useState(false); // Estado para controlar el menú en pantallas pequeñas
 
     const audioElementRef = useRef(null);
     const navContainerRef = useRef(null);
@@ -24,6 +26,10 @@ const Navbar = () => {
         setIsIndicatorActive((prev) => !prev);
     };
 
+    const toggleNavMenu = () => {
+        setIsNavOpen((prev) => !prev);
+    };
+
     useEffect(() => {
         if (isAudioPlaying) {
             audioElementRef.current.play();
@@ -33,25 +39,22 @@ const Navbar = () => {
     }, [isAudioPlaying]);
 
     useEffect(() => {
-        // Si el scroll es hacia arriba, mostramos el navbar; si es hacia abajo, lo ocultamos
         if (currentScrollY === 0) {
             setIsNavVisible(true);
             navContainerRef.current.classList.remove("floating-nav");
         } else if (currentScrollY > lastScrollY) {
-            setIsNavVisible(false); // Scroll hacia abajo, ocultamos
+            setIsNavVisible(false);
             navContainerRef.current.classList.add("floating-nav");
         } else if (currentScrollY < lastScrollY) {
-            setIsNavVisible(true); // Scroll hacia arriba, mostramos
+            setIsNavVisible(true);
         }
-
-        // Actualizamos el valor de lastScrollY
         setLastScrollY(currentScrollY);
     }, [currentScrollY]);
 
     useEffect(() => {
         gsap.to(navContainerRef.current, {
-            y: isNavVisible ? 0 : -100, // Desliza el navbar hacia arriba y abajo
-            opacity: isNavVisible ? 1 : 0, // Cambia la opacidad también
+            y: isNavVisible ? 0 : -100,
+            opacity: isNavVisible ? 1 : 0,
             duration: 0.2,
         });
     }, [isNavVisible]);
@@ -75,9 +78,10 @@ const Navbar = () => {
                     </div>
 
                     <div className="flex h-full items-center">
+                        {/* Menú en pantallas grandes */}
                         <div className="hidden lg:block">
                             {navItems.map((item, index) => (
-                                <a 
+                                <a
                                     key={index}
                                     href={`#${item.toLowerCase()}`}
                                     className="nav-hover-btn"
@@ -87,11 +91,47 @@ const Navbar = () => {
                             ))}
                         </div>
 
+                        {/* Ícono de hamburguesa para pantallas pequeñas */}
+                       <button
+    className="block lg:hidden text-blue-50 z-50 relative"
+    onClick={toggleNavMenu}
+>
+    {isNavOpen ? (
+        <FiX className="text-2xl text-black" />
+    ) : (
+        <FiMenu className="text-2xlt text-blue-50" />
+    )}
+</button>
+
+                        {/* Menú desplegable en pantallas pequeñas */}
+                        <div
+                            className={clsx(
+                                "fixed inset-0 z-40 flex flex-col items-center justify-center h-screen bg-white bg-opacity-90 backdrop-blur-lg transition-transform transform",
+                                {
+                                    "translate-y-full opacity-0": !isNavOpen, // Oculta el menú cuando no está abierto
+                                    "translate-y-0 opacity-100": isNavOpen, // Muestra el menú cuando está abierto
+                                }
+                            )}
+                            style={{ transition: "all 0.5s ease-in-out" }}
+                        >
+                            {navItems.map((item, index) => (
+                                <a
+                                    key={index}
+                                    href={`#${item.toLowerCase()}`}
+                                    className="text-2xl mb-4 font-bold text-center"
+                                    onClick={toggleNavMenu}
+                                >
+                                    {item}
+                                </a>
+                            ))}
+                        </div>
+
+                        {/* Indicador de audio */}
                         <button
                             onClick={toggleAudioIndicator}
                             className="ml-10 flex items-center space-x-0.5"
                         >
-                            <audio 
+                            <audio
                                 src="audio/loop.mp3"
                                 ref={audioElementRef}
                                 className="hidden"
@@ -106,7 +146,7 @@ const Navbar = () => {
                                     style={{
                                         animationDelay: `${bar * 0.1}s`,
                                     }}
-                                /> 
+                                />
                             ))}
                         </button>
                     </div>
