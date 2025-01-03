@@ -4,6 +4,7 @@ import { useWindowScroll } from "react-use";
 import { useEffect, useState, useRef } from "react";
 import { TiLocationArrow } from "react-icons/ti";
 import { FiMenu, FiX } from "react-icons/fi"; // Importamos el icono de hamburguesa y de cierre
+import { FaMusic } from "react-icons/fa"; // Ícono musical
 
 import Button from "./Button";
 
@@ -137,17 +138,21 @@ const Navbar = () => {
                                 className="hidden"
                                 loop
                             />
-                            {[1, 2, 3, 4].map((bar) => (
-                                <div
-                                    key={bar}
-                                    className={clsx("indicator-line", {
-                                        active: isIndicatorActive,
-                                    })}
-                                    style={{
-                                        animationDelay: `${bar * 0.1}s`,
-                                    }}
-                                />
-                            ))}
+                            {!isAudioPlaying ? (
+    <FaMusic className="text-[14px] text-blue-50 " /> // Ícono cuando no está reproduciendo
+) : (
+    [1, 2, 3, 4].map((bar) => (
+        <div
+            key={bar}
+            className={clsx("indicator-line", {
+                active: isIndicatorActive,
+            })}
+            style={{
+                animationDelay: `${bar * 0.1}s`,
+            }}
+        />
+    ))
+)}
                         </button>
                     </div>
                 </nav>
