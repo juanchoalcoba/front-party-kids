@@ -1,6 +1,4 @@
-import { useState, useRef, useEffect } from "react";
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import { useState, useRef } from "react";
 import { TiLocationArrow } from "react-icons/ti";
 
 
@@ -106,10 +104,7 @@ export const BentoCard = ({ src, title, description, isComingSoon }) => {
 };
 
 const Features = () => {
-  useEffect(() => {
-    AOS.init({ duration: 1000 });
-    AOS.refresh(); // Esto asegura que las animaciones se recalculen cuando sea necesario
-  }, []);
+
 
   return (
   <section className="bg-gray-950 pb-12">
