@@ -5,8 +5,6 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Link } from 'react-router-dom';
 
-// Importar íconos de react-icons (cambié Twitter por WhatsApp)
-import { FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 
 function HomePage() {
   useEffect(() => {
