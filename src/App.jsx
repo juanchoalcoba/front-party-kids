@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import PrivatePage from './pages/PrivatePage';
 import BookingPage from './pages/BookingPage';
@@ -10,8 +10,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/private" element={<PrivatePage />} />
         <Route path="/booking" element={<BookingPage />} />
+        <Route path="/private" element={<PrivatePage />} />
       </Routes>
     </Router>
   );

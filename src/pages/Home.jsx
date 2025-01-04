@@ -1,4 +1,5 @@
 import Features from "../components/Features";
+import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import HomePage from "../components/HomePage";
 import Navbar from "../components/Navbar";
@@ -11,6 +12,7 @@ function Home() {
         <Hero />
         <HomePage />
         <Features />
+        <Footer />
       </main>
 
   );
