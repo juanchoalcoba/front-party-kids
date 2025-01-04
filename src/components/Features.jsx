@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import { TiLocationArrow } from "react-icons/ti";
-import Footer from "./Footer";
 
   
 export const BentoTilt = ({ children, className = "" }) => {
@@ -206,8 +205,6 @@ const Features = () => {
 
     
   </section>
-
-  <Footer />
   </>
 )};
 
