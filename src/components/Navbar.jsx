@@ -7,6 +7,7 @@ import { FiMenu, FiX } from "react-icons/fi"; // Importamos el icono de hamburgu
 import { FaMusic } from "react-icons/fa"; // Ícono musical
 
 import Button from "./Button";
+import ButtonAdmin from "./ButtonAdmin";
 
 const navItems = ["Inicio", "Fiestas", "Servicios", "Sobre Nosotros", "Contacto"];
 
@@ -76,6 +77,7 @@ const Navbar = () => {
                             rightIcon={<TiLocationArrow />}
                             containerClass="bg-blue-50 font-bold md:flex hidden items-center justify-center gap-1"
                         />
+                        <ButtonAdmin />
                     </div>
 
                     <div className="flex h-full items-center">
