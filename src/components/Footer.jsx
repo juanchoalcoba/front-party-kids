@@ -13,10 +13,10 @@ const Footer = () => {
         </div>
 
         {/* Links adicionales */}
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 text-center md:text-left text-sm mb-4 md:mb-0">
-          <Link to="/about" className="hover:text-yellow-300 transition duration-300">Sobre Nosotros</Link>
-          <Link to="/services" className="hover:text-yellow-300 transition duration-300">Términos</Link>
-          <Link to="/contact" className="hover:text-yellow-300 transition duration-300">Contacto</Link>
+        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4  text-center md:text-left text-sm mb-4 md:mb-0">
+          <Link to="/about" className="hover:text-blue-50 transition duration-300 text-[13px]">Sobre Nosotros</Link>
+          <Link to="/services" className="hover:text-blue-50 transition duration-300 text-[13px]">Términos</Link>
+          <Link to="/contact" className="hover:text-blue-50 transition duration-300 text-[11px]">Contacto</Link>
         </div>
       </div>
 

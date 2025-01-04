@@ -6,15 +6,11 @@ const ButtonAdmin = () => {
   return (
     <div>
         <Link to="private">
-          <Button 
-            id="watch-trailer"
-            title={
-              <button className='text-[13px] text-white font-general text-center flex items-center justify-center'>
-                <FaLock />  {/* Ícono de candado blanco */}
-              </button>
-            }
-            containerClass="font-bold bg-transparent block"
-          />
+        
+        <FaLock
+        className="text-[12px] text-white bg-transparent"
+        />  
+          
         </Link>
     </div>
   )
