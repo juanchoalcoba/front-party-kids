@@ -53,14 +53,25 @@ const PrivatePage = () => {
     <div className="bg-gray-200 min-h-screen p-6">
       <div className="max-w-6xl mx-auto bg-white shadow-xl rounded-lg p-8">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Reservas</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {bookings.map((booking, index) => (
-            <div key={index} className="bg-white shadow-md rounded-lg p-6 hover:shadow-xl transition duration-300 ease-in-out">
-              <h3 className="text-xl font-semibold text-gray-800 mb-3">{booking.name}</h3>
-              <p className="text-gray-600 mb-2"><strong>Fecha:</strong> {new Date(booking.date).toLocaleDateString('en-CA')}</p>
-              <p className="text-gray-600"><strong>Teléfono:</strong> {booking.phone}</p>
-            </div>
-          ))}
+        <div className="overflow-x-auto">
+          <table className="min-w-full table-auto bg-white shadow-md rounded-lg">
+            <thead>
+              <tr className="bg-gray-100 text-gray-600 text-left">
+                <th className="px-6 py-4 font-semibold">Nombre</th>
+                <th className="px-6 py-4 font-semibold">Fecha</th>
+                <th className="px-6 py-4 font-semibold">Teléfono</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bookings.map((booking, index) => (
+                <tr key={index} className="border-b border-gray-200 hover:bg-gray-100 transition duration-300 ease-in-out">
+                  <td className="px-6 py-4 text-gray-800">{booking.name}</td>
+                  <td className="px-6 py-4 text-gray-600">{new Date(booking.date).toLocaleDateString('en-CA')}</td>
+                  <td className="px-6 py-4 text-gray-600">{booking.phone}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
