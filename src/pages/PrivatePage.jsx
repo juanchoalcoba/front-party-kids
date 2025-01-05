@@ -4,6 +4,8 @@ const PrivatePage = () => {
   const [password, setPassword] = useState('');
   const [authenticated, setAuthenticated] = useState(false);
   const [bookings, setBookings] = useState([]);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [selectedBookingId, setSelectedBookingId] = useState(null);
 
   const handleLogin = () => {
     const presetPassword = '12345'; // Aquí colocas la contraseña preestablecida
@@ -17,25 +19,31 @@ const PrivatePage = () => {
 
   const fetchBookings = async () => {
     try {
-      const response = await fetch('https://api-party-kids.vercel.app/api/bookings');
+      const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
+        method: 'GET', // Cambiado de 'DELETE' a 'GET' para obtener reservas
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
       const data = await response.json();
-      setBookings(data);
+      setBookings(data); // Almacenar las reservas en el estado
     } catch (error) {
       console.error('Error fetching bookings:', error);
     }
   };
 
-  const handleDelete = async (id) => {
-    const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta reserva?');
-    if (!confirmDelete) return;
+  const handleDelete = async () => {
+    if (!selectedBookingId) return;
 
     try {
-      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/${id}`, {
+      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/${selectedBookingId}`, {
         method: 'DELETE',
       });
 
       if (response.ok) {
-        setBookings((prevBookings) => prevBookings.filter((booking) => booking._id !== id));
+        setBookings((prevBookings) => prevBookings.filter((booking) => booking._id !== selectedBookingId));
+        setShowConfirmModal(false); // Cerrar modal después de la eliminación
         alert('Reserva eliminada con éxito');
       } else {
         console.error('Error eliminando la reserva');
@@ -43,6 +51,16 @@ const PrivatePage = () => {
     } catch (error) {
       console.error('Error eliminando la reserva:', error);
     }
+  };
+
+  const openConfirmModal = (id) => {
+    setSelectedBookingId(id);
+    setShowConfirmModal(true);
+  };
+
+  const closeConfirmModal = () => {
+    setShowConfirmModal(false);
+    setSelectedBookingId(null);
   };
 
   if (!authenticated) {
@@ -80,7 +98,7 @@ const PrivatePage = () => {
                 <th className="px-6 py-4 font-semibold">Nombre</th>
                 <th className="px-6 py-4 font-semibold">Fecha</th>
                 <th className="px-6 py-4 font-semibold">Teléfono</th>
-                <th className="px-6 py-4 font-semibold">Acciones</th> {/* Nueva columna de Acciones */}
+                <th className="px-6 py-4 font-semibold">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -91,7 +109,7 @@ const PrivatePage = () => {
                   <td className="px-6 py-4 text-gray-600">{booking.phone}</td>
                   <td className="px-6 py-4">
                     <button
-                      onClick={() => handleDelete(booking._id)} // Botón para eliminar
+                      onClick={() => openConfirmModal(booking._id)} // Botón para abrir el modal
                       className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300"
                     >
                       Eliminar
@@ -103,6 +121,30 @@ const PrivatePage = () => {
           </table>
         </div>
       </div>
+
+      {/* Modal de confirmación */}
+      {showConfirmModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+            <h3 className="text-xl font-semibold text-center text-gray-800 mb-4">Confirmar Eliminación</h3>
+            <p className="text-center text-gray-600 mb-4">¿Estás seguro de que deseas eliminar esta reserva?</p>
+            <div className="flex justify-around">
+              <button
+                onClick={handleDelete}
+                className="px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300"
+              >
+                Sí, eliminar
+              </button>
+              <button
+                onClick={closeConfirmModal}
+                className="px-6 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition duration-300"
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
