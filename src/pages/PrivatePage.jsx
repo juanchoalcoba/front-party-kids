@@ -25,6 +25,26 @@ const PrivatePage = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta reserva?');
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setBookings((prevBookings) => prevBookings.filter((booking) => booking._id !== id));
+        alert('Reserva eliminada con éxito');
+      } else {
+        console.error('Error eliminando la reserva');
+      }
+    } catch (error) {
+      console.error('Error eliminando la reserva:', error);
+    }
+  };
+
   if (!authenticated) {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-200 p-6">
@@ -60,6 +80,7 @@ const PrivatePage = () => {
                 <th className="px-6 py-4 font-semibold">Nombre</th>
                 <th className="px-6 py-4 font-semibold">Fecha</th>
                 <th className="px-6 py-4 font-semibold">Teléfono</th>
+                <th className="px-6 py-4 font-semibold">Acciones</th> {/* Nueva columna de Acciones */}
               </tr>
             </thead>
             <tbody>
@@ -68,6 +89,14 @@ const PrivatePage = () => {
                   <td className="px-6 py-4 text-gray-800">{booking.name}</td>
                   <td className="px-6 py-4 text-gray-600">{new Date(booking.date).toLocaleDateString('en-CA')}</td>
                   <td className="px-6 py-4 text-gray-600">{booking.phone}</td>
+                  <td className="px-6 py-4">
+                    <button
+                      onClick={() => handleDelete(booking._id)} // Botón para eliminar
+                      className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300"
+                    >
+                      Eliminar
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
