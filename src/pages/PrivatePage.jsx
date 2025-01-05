@@ -103,7 +103,7 @@ const PrivatePage = () => {
                   <td className="px-6 py-4">
                     <button
                       onClick={() => handleDelete(booking._id)} // Botón para eliminar
-                      className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300"
+                      className="py-2 px-4 bg-violet-700 text-gray-300 rounded hover:bg-red-600 transition duration-300"
                     >
                       Eliminar
                     </button>
