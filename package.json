@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@babel/preset-env": "^7.26.0",
     "@gsap/react": "^2.1.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "aos": "^2.3.4",
