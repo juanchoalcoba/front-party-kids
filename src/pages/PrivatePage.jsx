@@ -37,28 +37,25 @@ const PrivatePage = () => {
     if (!confirmDelete) return;
   
     try {
-      // Eliminar 'mode: no-cors'
       const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/${id}`, {
-        method: 'DELETE', // DELETE method
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
       });
   
       if (response.ok) {
-        // Actualizar el estado después de eliminar
         setBookings((prevBookings) => prevBookings.filter((booking) => booking._id !== id));
         alert('Reserva eliminada con éxito');
       } else {
-        // Manejar errores si la respuesta no es OK
         const data = await response.json();
         alert(data.message || 'Error eliminando la reserva');
       }
     } catch (error) {
       console.error('Error eliminando la reserva:', error);
-      alert('Ocurrió un error eliminando la reserva');
     }
   };
+  
 
   if (!authenticated) {
     return (
