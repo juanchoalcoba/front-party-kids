@@ -33,29 +33,29 @@ const PrivatePage = () => {
   };
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta reserva?');
-    if (!confirmDelete) return;
-  
-    try {
-      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-  
-      if (response.ok) {
-        setBookings((prevBookings) => prevBookings.filter((booking) => booking._id !== id));
-        alert('Reserva eliminada con éxito');
-      } else {
-        const data = await response.json();
-        alert(data.message || 'Error eliminando la reserva');
-      }
-    } catch (error) {
-      console.error('Error eliminando la reserva:', error);
+  const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta reserva?');
+  if (!confirmDelete) return;
+
+  try {
+    const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      setBookings((prevBookings) => prevBookings.filter((booking) => booking._id !== id));
+      alert('Reserva eliminada con éxito');
+    } else {
+      const data = await response.json();
+      alert(data.message || 'Error eliminando la reserva');
     }
-  };
-  
+  } catch (error) {
+    console.error('Error eliminando la reserva:', error);
+  }
+};
+
 
   if (!authenticated) {
     return (
