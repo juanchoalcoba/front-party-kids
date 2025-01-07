@@ -44,8 +44,6 @@ const PrivatePage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', // Si usas autenticación basada en cookies
-        mode: 'cors', // Asegura que el navegador permita solicitudes CORS
       });
   
       // Si la respuesta es exitosa, actualizar el estado
