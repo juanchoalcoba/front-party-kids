@@ -22,8 +22,6 @@ const PrivatePage = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Access-Control-Allow-Origin': '*',
         },  
       });
       
@@ -45,8 +43,6 @@ const PrivatePage = () => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Access-Control-Allow-Origin': '*',
         },
         
         
