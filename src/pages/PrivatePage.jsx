@@ -22,9 +22,7 @@ const PrivatePage = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-        },
-        mode: 'no-cors'
-  
+        },  
       });
       
       const data = await response.json();
