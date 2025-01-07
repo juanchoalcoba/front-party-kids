@@ -46,7 +46,7 @@ const PrivatePage = () => {
           'Accept': 'application/json',
           'Access-Control-Allow-Origin': '*',
         },
-        mode: 'no-cors'
+        mode: 'cors'
         
       });
   
