@@ -22,6 +22,8 @@ const PrivatePage = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*',
         },  
       });
       
@@ -46,7 +48,7 @@ const PrivatePage = () => {
           'Accept': 'application/json',
           'Access-Control-Allow-Origin': '*',
         },
-        mode: 'cors'
+        
         
       });
   
