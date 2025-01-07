@@ -33,28 +33,36 @@ const PrivatePage = () => {
   };
 
   const handleDelete = async (id) => {
-  const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta reserva?');
-  if (!confirmDelete) return;
-
-  try {
-    const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (response.ok) {
-      setBookings((prevBookings) => prevBookings.filter((booking) => booking._id !== id));
-      alert('Reserva eliminada con éxito');
-    } else {
-      const data = await response.json();
-      alert(data.message || 'Error eliminando la reserva');
+    // Confirmar la eliminación
+    const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta reserva?');
+    if (!confirmDelete) return;
+  
+    try {
+      // Hacer la solicitud DELETE
+      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // Si usas autenticación basada en cookies
+        mode: 'cors', // Asegura que el navegador permita solicitudes CORS
+      });
+  
+      // Si la respuesta es exitosa, actualizar el estado
+      if (response.ok) {
+        // Actualizar la lista de reservas eliminando la reserva con el ID dado
+        setBookings((prevBookings) => prevBookings.filter((booking) => booking._id !== id));
+        alert('Reserva eliminada con éxito');
+      } else {
+        // Si la eliminación falla, mostrar mensaje de error
+        const data = await response.json();
+        alert(data.message || 'Error eliminando la reserva');
+      }
+    } catch (error) {
+      console.error('Error eliminando la reserva:', error);
+      alert('Hubo un error al intentar eliminar la reserva');
     }
-  } catch (error) {
-    console.error('Error eliminando la reserva:', error);
-  }
-};
+  };
 
 
   if (!authenticated) {
