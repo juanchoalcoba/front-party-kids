@@ -23,8 +23,7 @@ const PrivatePage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-         mode: "cors",
-        referrerPolicy: "strict-origin-when-cross-origin"
+  
       });
       
       const data = await response.json();
@@ -45,9 +44,10 @@ const PrivatePage = () => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
         },
-        mode: "cors",
-        referrerPolicy: "strict-origin-when-cross-origin"
+        
         
       });
   
