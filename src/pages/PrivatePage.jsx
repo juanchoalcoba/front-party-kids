@@ -23,6 +23,8 @@ const PrivatePage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
+         mode: "cors",
+        referrerPolicy: "strict-origin-when-cross-origin"
       });
       
       const data = await response.json();
