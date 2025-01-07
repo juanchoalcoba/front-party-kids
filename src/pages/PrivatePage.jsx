@@ -44,6 +44,7 @@ const PrivatePage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
+        mode: 'no-cors'
       });
   
       // Si la respuesta es exitosa, actualizar el estado
