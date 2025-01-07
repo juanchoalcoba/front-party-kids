@@ -40,9 +40,10 @@ const PrivatePage = () => {
     try {
       // Hacer la solicitud DELETE
       const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/${id}`, {
-        method: 'DELETE',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'access-control-allow-origin': '*'
         },
         
         
