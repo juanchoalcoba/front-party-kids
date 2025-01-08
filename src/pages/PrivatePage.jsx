@@ -36,16 +36,12 @@ const PrivatePage = () => {
 
   // Eliminar reserva
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta reserva?');
-    if (!confirmDelete) return;
-  
     try {
       const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
-      
       });
   
       if (!response.ok) {
