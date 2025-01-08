@@ -4,6 +4,7 @@ const PrivatePage = () => {
   const [password, setPassword] = useState('');
   const [authenticated, setAuthenticated] = useState(false);
   const [bookings, setBookings] = useState([]);
+  const [confirming, setConfirming] = useState(null); // Estado para la confirmación
 
   const handleLogin = () => {
     const presetPassword = '12345'; // Contraseña preestablecida
@@ -36,16 +37,17 @@ const PrivatePage = () => {
 
   // Eliminar reserva
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta reserva?');
-    if (!confirmDelete) return;
-  
+    // Actualizamos el estado para empezar la confirmación
+    setConfirming(id);
+  };
+
+  const handleConfirmDelete = async (id) => {
     try {
       const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
-      
       });
   
       if (!response.ok) {
@@ -60,6 +62,8 @@ const PrivatePage = () => {
       console.error('Error eliminando la reserva:', error);
       alert('Hubo un error al intentar eliminar la reserva');
     }
+    // Resetear el estado de confirmación después de eliminar
+    setConfirming(null);
   };
 
   // Autenticación
@@ -109,12 +113,22 @@ const PrivatePage = () => {
                   <td className="px-6 py-4 text-gray-600">{new Date(booking.date).toLocaleDateString('en-CA')}</td>
                   <td className="px-6 py-4 text-gray-600">{booking.phone}</td>
                   <td className="px-6 py-4">
-                    <button
-                      onClick={() => handleDelete(booking._id)}
-                      className="py-2 px-4 bg-violet-700 text-gray-300 rounded hover:bg-red-600 transition duration-300"
-                    >
-                      Eliminar
-                    </button>
+                    {/* Mostrar el botón de eliminar solo si no está en proceso de confirmación */}
+                    {confirming === booking._id ? (
+                      <button
+                        onClick={() => handleConfirmDelete(booking._id)}
+                        className="py-2 px-4 bg-green-600 text-white rounded hover:bg-green-700 transition duration-300"
+                      >
+                        Confirmada
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleDelete(booking._id)}
+                        className="py-2 px-4 bg-violet-700 text-gray-300 rounded hover:bg-red-600 transition duration-300"
+                      >
+                        Eliminar
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}
