@@ -4,7 +4,7 @@ const PrivatePage = () => {
   const [password, setPassword] = useState('');
   const [authenticated, setAuthenticated] = useState(false);
   const [bookings, setBookings] = useState([]);
-  const [confirming, setConfirming] = useState(null); // Estado para la confirmación
+  const [confirming, setConfirming] = useState(null); // Estado para el botón de confirmar
 
   const handleLogin = () => {
     const presetPassword = '12345'; // Contraseña preestablecida
@@ -37,7 +37,7 @@ const PrivatePage = () => {
 
   // Eliminar reserva
   const handleDelete = async (id) => {
-    // Actualizamos el estado para empezar la confirmación
+    // Inicia el proceso de confirmación
     setConfirming(id);
   };
 
@@ -113,13 +113,13 @@ const PrivatePage = () => {
                   <td className="px-6 py-4 text-gray-600">{new Date(booking.date).toLocaleDateString('en-CA')}</td>
                   <td className="px-6 py-4 text-gray-600">{booking.phone}</td>
                   <td className="px-6 py-4">
-                    {/* Mostrar el botón de eliminar solo si no está en proceso de confirmación */}
+                    {/* Si está en proceso de confirmación, mostrar el botón "Confirmar" */}
                     {confirming === booking._id ? (
                       <button
                         onClick={() => handleConfirmDelete(booking._id)}
                         className="py-2 px-4 bg-green-600 text-white rounded hover:bg-green-700 transition duration-300"
                       >
-                        Confirmada
+                        Confirmar
                       </button>
                     ) : (
                       <button
