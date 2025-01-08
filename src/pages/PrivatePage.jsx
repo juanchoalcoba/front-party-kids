@@ -27,8 +27,8 @@ const PrivatePage = () => {
       
       if (!response.ok) throw new Error('Error al obtener las reservas');
 
-      const data = await response.json();
-      setBookings(data); // Actualizar estado con las reservas
+      const bookingsData = await response.json();
+      setBookings(bookingsData); // Actualizar estado con las reservas
     } catch (error) {
       console.error('Error fetching bookings:', error);
     }
@@ -45,13 +45,9 @@ const PrivatePage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-      
       });
-  
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || 'Error eliminando la reserva');
-      }
+
+      if (!response.ok) throw new Error('Error eliminando la reserva');
 
       // Si la eliminación es exitosa, actualizar el estado eliminando la reserva
       setBookings(prevBookings => prevBookings.filter(booking => booking._id !== id));
@@ -59,6 +55,31 @@ const PrivatePage = () => {
     } catch (error) {
       console.error('Error eliminando la reserva:', error);
       alert('Hubo un error al intentar eliminar la reserva');
+    }
+  };
+
+  // Confirmar reserva
+  const handleConfirm = async (id) => {
+    try {
+      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/confirm/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) throw new Error('Error al confirmar la reserva');
+
+      // Actualizar la reserva como confirmada
+      setBookings(prevBookings =>
+        prevBookings.map(booking =>
+          booking._id === id ? { ...booking, confirmed: true } : booking
+        )
+      );
+      alert('Reserva confirmada con éxito');
+    } catch (error) {
+      console.error('Error confirmando reserva:', error);
+      alert('Hubo un error al intentar confirmar la reserva');
     }
   };
 
@@ -114,6 +135,14 @@ const PrivatePage = () => {
                       className="py-2 px-4 bg-violet-700 text-gray-300 rounded hover:bg-red-600 transition duration-300"
                     >
                       Eliminar
+                    </button>
+                    <button
+                      onClick={() => handleConfirm(booking._id)}
+                      className={`ml-2 py-2 px-4 rounded transition duration-300 ${
+                        booking.confirmed ? 'bg-green-600 text-white' : 'bg-gray-600 text-gray-300'
+                      } hover:bg-green-700`}
+                    >
+                      {booking.confirmed ? 'Confirmada' : 'Confirmar'}
                     </button>
                   </td>
                 </tr>
