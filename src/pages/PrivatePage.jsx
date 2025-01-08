@@ -44,7 +44,6 @@ const PrivatePage = () => {
         method: 'DELETE',
         mode: 'no-cors',
         headers: {
-          'Content-Type': 'text/plain',
         }
       });
   
