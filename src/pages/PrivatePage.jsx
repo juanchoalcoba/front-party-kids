@@ -23,7 +23,6 @@ const PrivatePage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        mode: 'no-cors',
       });
       
       if (!response.ok) throw new Error('Error al obtener las reservas');
