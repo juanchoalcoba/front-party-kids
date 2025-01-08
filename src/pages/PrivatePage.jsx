@@ -34,33 +34,6 @@ const PrivatePage = () => {
     }
   };
 
-  // Eliminar reserva
-  const handleDelete = async (id) => {
-    const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta reserva?');
-    if (!confirmDelete) return;
-  
-    try {
-      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-  
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || 'Error eliminando la reserva');
-      }
-
-      // Si la eliminación es exitosa, actualizar el estado eliminando la reserva
-      setBookings(prevBookings => prevBookings.filter(booking => booking._id !== id));
-      alert('Reserva eliminada con éxito');
-    } catch (error) {
-      console.error('Error eliminando la reserva:', error);
-      alert('Hubo un error al intentar eliminar la reserva');
-    }
-  };
-
   // Confirmar reserva
   const handleConfirm = (id) => {
     const confirmAction = window.confirm('¿Deseas confirmar esta reserva?');
@@ -70,6 +43,19 @@ const PrivatePage = () => {
     setBookings(prevBookings =>
       prevBookings.map(booking =>
         booking._id === id ? { ...booking, confirmed: true } : booking
+      )
+    );
+  };
+
+  // Cancelar reserva
+  const handleCancel = async (id) => {
+    const confirmCancel = window.confirm('¿Estás seguro de que quieres cancelar esta reserva?');
+    if (!confirmCancel) return;
+
+    // Cambiar el estado de la reserva a cancelada
+    setBookings(prevBookings =>
+      prevBookings.map(booking =>
+        booking._id === id ? { ...booking, canceled: true } : booking
       )
     );
   };
@@ -122,10 +108,12 @@ const PrivatePage = () => {
                   <td className="px-6 py-4 text-gray-600">{booking.phone}</td>
                   <td className="px-6 py-4">
                     <button
-                      onClick={() => handleDelete(booking._id)}
-                      className="py-2 px-4 bg-violet-700 text-gray-300 rounded hover:bg-red-600 transition duration-300"
+                      onClick={() => handleCancel(booking._id)}
+                      className={`py-2 px-4 ml-2 rounded transition duration-300 ${
+                        booking.canceled ? 'bg-red-600 text-white' : 'bg-violet-700 text-gray-300 hover:bg-violet-800'
+                      }`}
                     >
-                      Eliminar
+                      {booking.canceled ? 'Cancelada' : 'Cancelar'}
                     </button>
                     <button
                       onClick={() => handleConfirm(booking._id)}
