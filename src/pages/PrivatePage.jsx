@@ -42,6 +42,7 @@ const PrivatePage = () => {
     try {
       const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/${id}`, {
         method: 'DELETE',
+        mode: 'no-cors'
       });
   
       if (!response.ok) {
