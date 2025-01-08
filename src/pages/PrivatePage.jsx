@@ -18,7 +18,7 @@ const PrivatePage = () => {
   // Obtener reservas
   const fetchBookings = async () => {
     try {
-      const response = await fetch('http://api-party-kids.vercel.app/api/bookings', {
+      const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ const PrivatePage = () => {
     if (!confirmDelete) return;
   
     try {
-      const response = await fetch(`http://api-party-kids.vercel.app/api/bookings/${id}`, {
+      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/${id}`, {
         method: 'DELETE',
       });
   
