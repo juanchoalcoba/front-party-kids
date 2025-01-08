@@ -6,69 +6,59 @@ const PrivatePage = () => {
   const [bookings, setBookings] = useState([]);
 
   const handleLogin = () => {
-    const presetPassword = '12345'; // Aquí colocas la contraseña preestablecida
+    const presetPassword = '12345'; // Contraseña preestablecida
     if (password === presetPassword) {
       setAuthenticated(true);
-      fetchBookings();
+      fetchBookings(); // Cargar las reservas una vez autenticado
     } else {
       alert('Contraseña incorrecta');
     }
   };
 
+  // Obtener reservas
   const fetchBookings = async () => {
     try {
-      // Fetch para obtener las reservas
-      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings`, {
+      const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-
         },
-        credentials: 'include',
-        mode: 'cors'  
       });
       
+      if (!response.ok) throw new Error('Error al obtener las reservas');
+
       const data = await response.json();
-      setBookings(data);
+      setBookings(data); // Actualizar estado con las reservas
     } catch (error) {
       console.error('Error fetching bookings:', error);
     }
   };
 
+  // Eliminar reserva
   const handleDelete = async (id) => {
-    // Confirmar la eliminación
     const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta reserva?');
     if (!confirmDelete) return;
   
     try {
-      // Hacer la solicitud DELETE
       const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/${id}`, {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          
-        },
-        credentials: 'include'
-        
       });
   
-      // Si la respuesta es exitosa, actualizar el estado
-      if (response.ok) {
-        // Actualizar la lista de reservas eliminando la reserva con el ID dado
-        setBookings((prevBookings) => prevBookings.filter((booking) => booking._id !== id));
-        alert('Reserva eliminada con éxito');
-      } else {
-        // Si la eliminación falla, mostrar mensaje de error
+      if (!response.ok) {
         const data = await response.json();
-        alert(data.message || 'Error eliminando la reserva');
+        throw new Error(data.message || 'Error eliminando la reserva');
       }
+
+      // Si la eliminación es exitosa, actualizar el estado eliminando la reserva
+      setBookings(prevBookings => prevBookings.filter(booking => booking._id !== id));
+      alert('Reserva eliminada con éxito');
     } catch (error) {
       console.error('Error eliminando la reserva:', error);
       alert('Hubo un error al intentar eliminar la reserva');
     }
   };
 
-
+  // Autenticación
   if (!authenticated) {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-200 p-6">
@@ -93,6 +83,7 @@ const PrivatePage = () => {
     );
   }
 
+  // Mostrar reservas
   return (
     <div className="bg-gray-200 min-h-screen p-6">
       <div className="max-w-6xl mx-auto bg-white shadow-xl rounded-lg p-8">
@@ -104,18 +95,18 @@ const PrivatePage = () => {
                 <th className="px-6 py-4 font-semibold">Nombre</th>
                 <th className="px-6 py-4 font-semibold">Fecha</th>
                 <th className="px-6 py-4 font-semibold">Teléfono</th>
-                <th className="px-6 py-4 font-semibold">Acciones</th> {/* Nueva columna de Acciones */}
+                <th className="px-6 py-4 font-semibold">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              {bookings.map((booking, index) => (
-                <tr key={index} className="border-b border-gray-200 hover:bg-gray-100 transition duration-300 ease-in-out">
+              {bookings.map((booking) => (
+                <tr key={booking._id} className="border-b border-gray-200 hover:bg-gray-100 transition duration-300 ease-in-out">
                   <td className="px-6 py-4 text-gray-800">{booking.name}</td>
                   <td className="px-6 py-4 text-gray-600">{new Date(booking.date).toLocaleDateString('en-CA')}</td>
                   <td className="px-6 py-4 text-gray-600">{booking.phone}</td>
                   <td className="px-6 py-4">
                     <button
-                      onClick={() => handleDelete(booking._id)} // Botón para eliminar
+                      onClick={() => handleDelete(booking._id)}
                       className="py-2 px-4 bg-violet-700 text-gray-300 rounded hover:bg-red-600 transition duration-300"
                     >
                       Eliminar
