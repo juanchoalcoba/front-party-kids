@@ -34,33 +34,34 @@ const PrivatePage = () => {
     }
   };
 
-  // Eliminar reserva
-  const handleDelete = async (id) => {
-    const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta reserva?');
-    if (!confirmDelete) return;
-  
-    try {
-      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      
-      });
+ // Eliminar reserva usando método GET
+const handleDelete = async (id) => {
+  const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta reserva?');
+  if (!confirmDelete) return;
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || 'Error eliminando la reserva');
-      }
+  try {
+    // Hacemos la petición con GET en lugar de DELETE
+    const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/delete/${id}`, {
+      method: 'GET',  // Cambiamos a GET
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-      // Si la eliminación es exitosa, actualizar el estado eliminando la reserva
-      setBookings(prevBookings => prevBookings.filter(booking => booking._id !== id));
-      alert('Reserva eliminada con éxito');
-    } catch (error) {
-      console.error('Error eliminando la reserva:', error);
-      alert('Hubo un error al intentar eliminar la reserva');
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || 'Error eliminando la reserva');
     }
-  };
+
+    // Si la eliminación es exitosa, actualizar el estado eliminando la reserva
+    setBookings(prevBookings => prevBookings.filter(booking => booking._id !== id));
+    alert('Reserva eliminada con éxito');
+  } catch (error) {
+    console.error('Error eliminando la reserva:', error);
+    alert('Hubo un error al intentar eliminar la reserva');
+  }
+};
+
 
   // Autenticación
   if (!authenticated) {
