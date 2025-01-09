@@ -34,6 +34,7 @@ const PrivatePage = () => {
     }
   };
 
+  // Eliminar reserva
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta reserva?');
     if (!confirmDelete) return;
@@ -44,14 +45,15 @@ const PrivatePage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
+      
       });
-  
+
       if (!response.ok) {
         const data = await response.json();
         throw new Error(data.message || 'Error eliminando la reserva');
       }
-  
-      // Si la eliminación es exitosa, actualiza el estado eliminando la reserva
+
+      // Si la eliminación es exitosa, actualizar el estado eliminando la reserva
       setBookings(prevBookings => prevBookings.filter(booking => booking._id !== id));
       alert('Reserva eliminada con éxito');
     } catch (error) {
