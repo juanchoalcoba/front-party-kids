@@ -40,14 +40,14 @@ const PrivatePage = () => {
     if (!confirmDelete) return;
   
     try {
-      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?_id=${id}`, {
+      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
       
       });
-  
+
       if (!response.ok) {
         const data = await response.json();
         throw new Error(data.message || 'Error eliminando la reserva');
