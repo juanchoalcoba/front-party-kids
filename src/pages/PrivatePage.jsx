@@ -41,7 +41,7 @@ const handleDelete = async (id) => {
 
   try {
     // Hacemos la petición con GET en lugar de DELETE
-    const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/delete/${id}`, {
+    const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/${id}`, {
       method: 'GET',  // Cambiamos a GET
       headers: {
         'Content-Type': 'application/json',
