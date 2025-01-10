@@ -40,12 +40,11 @@ const PrivatePage = () => {
     if (!confirmDelete) return;
   
     try {
-      const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
-        method: 'GET',
+      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?name=${name}`, {
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name })  // Enviamos el campo 'name' en el cuerpo de la solicitud
+        }
       });
   
       if (!response.ok) {
