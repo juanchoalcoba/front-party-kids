@@ -66,12 +66,12 @@ const BookingPage = () => {
   </div>
 
   <div className="flex flex-col">
-    <label htmlFor="namekid" className="text-gray-700 font-semibold mb-2">Nombre del Niño/Niña</label>
+    <label htmlFor="namekid" className="text-gray-700 font-semibold mb-2">Nombre del Niño/a</label>
     <input
       type="text"
       id="namekid"
       name="namekid"
-      placeholder="Escribe el nombre del niño/niña"
+      placeholder="Escribe el nombre del niño/a"
       value={bookingData.namekid}
       onChange={handleChange}
       className="border-2 border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
