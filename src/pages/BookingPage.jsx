@@ -112,7 +112,7 @@ const BookingPage = () => {
     <CalendarComponent onDateChange={handleDateChange} />
   </div>
 
-  <button type="submit" className="bg-pink-500 hover:bg-pink-600 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
+  <button type="submit" className="bg-pink-500 hover:bg-cyan-700 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
     Confirmar
   </button>
 </form>
