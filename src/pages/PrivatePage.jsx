@@ -40,7 +40,7 @@ const PrivatePage = () => {
     if (!confirmDelete) return;
   
     try {
-      const response = await fetch('https://api-party-kids.vercel.app/api/bookings/deleteByName', {
+      const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
