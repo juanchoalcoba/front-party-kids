@@ -50,53 +50,73 @@ const BookingPage = () => {
     <div className="p-8 flex flex-col justify-center items-center bg-violet-950 w-full min-h-screen font-general">
       <h1 className="text-3xl mb-6 font-bold text-center text-blue-50">¡Completa el formulario para registrar tu fiesta!</h1>
       
-      <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-xl shadow-lg w-full sm:w-96">
-        <input
-          type="text"
-          name="name"
-          placeholder="Tu Nombre"
-          value={bookingData.name}
-          onChange={handleChange}
-          className="border-2 border-pink-500 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-          required
-        />
-        
-        <input
-          type="text"
-          name="namekid"
-          placeholder="Nombre del Niño/Niña"
-          value={bookingData.namekid}
-          onChange={handleChange}
-          className="border-2 border-pink-500 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-          required
-        />
+      <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-xl shadow-xl w-full sm:w-96">
+  <div className="flex flex-col">
+    <label htmlFor="name" className="text-gray-700 font-semibold mb-2">Tu Nombre</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      placeholder="Escribe tu nombre"
+      value={bookingData.name}
+      onChange={handleChange}
+      className="border-2 border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+      required
+    />
+  </div>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={bookingData.email}
-          onChange={handleChange}
-          className="border-2 border-pink-500 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-          required
-        />
+  <div className="flex flex-col">
+    <label htmlFor="namekid" className="text-gray-700 font-semibold mb-2">Nombre del Niño/Niña</label>
+    <input
+      type="text"
+      id="namekid"
+      name="namekid"
+      placeholder="Escribe el nombre del niño/niña"
+      value={bookingData.namekid}
+      onChange={handleChange}
+      className="border-2 border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+      required
+    />
+  </div>
 
-        <input
-          type="tel"
-          name="phone"
-          placeholder="Teléfono"
-          value={bookingData.phone}
-          onChange={handleChange}
-          className="border-2 border-pink-500 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-          required
-        />
+  <div className="flex flex-col">
+    <label htmlFor="email" className="text-gray-700 font-semibold mb-2">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      placeholder="Escribe tu email"
+      value={bookingData.email}
+      onChange={handleChange}
+      className="border-2 border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+      required
+    />
+  </div>
 
-        <CalendarComponent onDateChange={handleDateChange} />
+  <div className="flex flex-col">
+    <label htmlFor="phone" className="text-gray-700 font-semibold mb-2">Teléfono</label>
+    <input
+      type="tel"
+      id="phone"
+      name="phone"
+      placeholder="Escribe tu número de teléfono"
+      value={bookingData.phone}
+      onChange={handleChange}
+      className="border-2 border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+      required
+    />
+  </div>
 
-        <button type="submit" className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold p-3 rounded-lg transition-all duration-300 w-full">
-          Confirmar
-        </button>
-      </form>
+  <div className="flex flex-col">
+    <label className="text-gray-700 font-semibold mb-2">Selecciona la Fecha</label>
+    <CalendarComponent onDateChange={handleDateChange} />
+  </div>
+
+  <button type="submit" className="bg-pink-500 hover:bg-pink-600 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
+    Confirmar
+  </button>
+</form>
+
 
       {/* Mostrar modal */}
       <Modal show={showModal} onClose={closeModal} message={modalMessage} />
