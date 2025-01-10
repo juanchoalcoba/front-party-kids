@@ -1,4 +1,3 @@
-// client/src/pages/BookingPage.jsx
 import { useState } from 'react';
 import CalendarComponent from '../components/CalendarComponent';
 import Modal from '../components/Modal'; // Importamos el modal
@@ -6,10 +5,12 @@ import Modal from '../components/Modal'; // Importamos el modal
 const BookingPage = () => {
   const [bookingData, setBookingData] = useState({
     name: '',
+    namekid: '', // Nuevo campo para el nombre del niño/niña
     email: '',
     phone: '',
     date: new Date(),
   });
+  
   const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal
   const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
 
@@ -53,12 +54,23 @@ const BookingPage = () => {
         <input
           type="text"
           name="name"
-          placeholder="Nombre"
+          placeholder="Tu Nombre"
           value={bookingData.name}
           onChange={handleChange}
           className="border-2 border-pink-500 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
           required
         />
+        
+        <input
+          type="text"
+          name="namekid"
+          placeholder="Nombre del Niño/Niña"
+          value={bookingData.namekid}
+          onChange={handleChange}
+          className="border-2 border-pink-500 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+          required
+        />
+
         <input
           type="email"
           name="email"
@@ -68,6 +80,7 @@ const BookingPage = () => {
           className="border-2 border-pink-500 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
           required
         />
+
         <input
           type="tel"
           name="phone"
@@ -77,7 +90,9 @@ const BookingPage = () => {
           className="border-2 border-pink-500 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
           required
         />
+
         <CalendarComponent onDateChange={handleDateChange} />
+
         <button type="submit" className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold p-3 rounded-lg transition-all duration-300 w-full">
           Confirmar
         </button>
