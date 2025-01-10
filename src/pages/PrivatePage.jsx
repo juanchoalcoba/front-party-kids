@@ -61,36 +61,7 @@ const PrivatePage = () => {
     }
   };
 
-  const handleConfirm = async (name) => {
-    const confirmAction = window.confirm('¿Estás seguro de que quieres confirmar esta reserva?');
-    if (!confirmAction) return;
   
-    try {
-      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/?name=${name}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-  
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.message || 'Error confirmando la reserva');
-      }
-  
-      // Actualizamos la reserva a confirmada
-      setBookings(prevBookings =>
-        prevBookings.map(booking =>
-          booking.name === name ? { ...booking, confirmed: true } : booking
-        )
-      );
-  
-      alert('Reserva confirmada con éxito');
-    } catch (error) {
-      console.error('Error confirmando la reserva:', error);
-      alert('Hubo un error al intentar confirmar la reserva');
-    }
-  };
 
 
 
@@ -150,12 +121,6 @@ const PrivatePage = () => {
                     >
                       Eliminar
                     </button>
-                    <button
-                    onClick={() => handleConfirm(booking.name)}
-                    className={`py-2 px-4 ml-2 rounded ${booking.confirmed ? 'bg-green-600 text-white' : 'bg-violet-700 text-gray-300'} hover:bg-green-500 transition duration-300`}
-                  >
-                    {booking.confirmed ? 'Confirmada' : 'Confirmar'}
-                  </button>
                   </td>
                 </tr>
               ))}
