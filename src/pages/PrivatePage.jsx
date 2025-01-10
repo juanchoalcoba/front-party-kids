@@ -45,7 +45,7 @@ const PrivatePage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: name })  // Enviamos el campo 'name' en el cuerpo de la solicitud
+        body: JSON.stringify({ name })  // Enviamos el campo 'name' en el cuerpo de la solicitud
       });
   
       if (!response.ok) {
