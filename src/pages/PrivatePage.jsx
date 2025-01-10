@@ -65,6 +65,9 @@ const PrivatePage = () => {
 
 // Confirmar reserva
 const handleConfirm = async (name) => {
+  const confirm = window.confirm('¿Estás seguro de que quieres CONFIRMAR esta reserva?');
+    if (!confirm) return;
+
   try {
     const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?name=${name}`, {
       method: 'PUT',
