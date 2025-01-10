@@ -125,46 +125,48 @@ const handleConfirm = async (name) => {
   // Mostrar reservas
   return (
     <div className="bg-gray-200 min-h-screen p-6">
-      <div className="max-w-6xl mx-auto bg-white shadow-xl rounded-lg p-8">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Reservas</h2>
-        <div className="overflow-x-auto">
-          <table className="min-w-full table-auto bg-white shadow-md rounded-lg">
-            <thead>
-              <tr className="bg-gray-100 text-gray-600 text-left">
-                <th className="px-6 py-4 font-semibold">Nombre</th>
-                <th className="px-6 py-4 font-semibold">Fecha</th>
-                <th className="px-6 py-4 font-semibold">Teléfono</th>
-                <th className="px-6 py-4 font-semibold">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {bookings.map((booking) => (
-                <tr key={booking._id} className="border-b border-gray-200 hover:bg-gray-100 transition duration-300 ease-in-out">
-                  <td className="px-6 py-4 text-gray-800">{booking.name}</td>
-                  <td className="px-6 py-4 text-gray-600">{new Date(booking.date).toLocaleDateString('en-CA')}</td>
-                  <td className="px-6 py-4 text-gray-600">{booking.phone}</td>
-                  <td className="px-6 py-4">
-                    <button
-                      onClick={() => handleDelete(booking.name)}
-                      className="py-2 px-4 bg-violet-700 text-gray-300 rounded hover:bg-red-600 transition duration-300"
-                    >
-                      Eliminar
-                    </button>
+  <div className="max-w-6xl mx-auto bg-white shadow-xl rounded-lg p-8">
+    <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Reservas</h2>
+    <div className="overflow-x-auto">
+      <table className="min-w-full table-auto bg-white shadow-md rounded-lg">
+        <thead>
+          <tr className="bg-gray-100 text-gray-600 text-left">
+            <th className="px-6 py-4 font-semibold">Nombre</th>
+            <th className="px-6 py-4 font-semibold">Nombre del Niño/Niña</th> {/* Nueva columna */}
+            <th className="px-6 py-4 font-semibold">Fecha</th>
+            <th className="px-6 py-4 font-semibold">Teléfono</th>
+            <th className="px-6 py-4 font-semibold">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {bookings.map((booking) => (
+            <tr key={booking._id} className="border-b border-gray-200 hover:bg-gray-100 transition duration-300 ease-in-out">
+              <td className="px-6 py-4 text-gray-800">{booking.name}</td>
+              <td className="px-6 py-4 text-gray-800">{booking.namekid}</td> {/* Mostrar el namekid */}
+              <td className="px-6 py-4 text-gray-600">{new Date(booking.date).toLocaleDateString('en-CA')}</td>
+              <td className="px-6 py-4 text-gray-600">{booking.phone}</td>
+              <td className="px-6 py-4">
+                <button
+                  onClick={() => handleDelete(booking.name)}
+                  className="py-2 px-4 bg-violet-700 text-gray-300 rounded hover:bg-red-600 transition duration-300"
+                >
+                  Eliminar
+                </button>
 
-                    <button
-                      onClick={() => handleConfirm(booking.name)}
-                      className={`ml-4 py-2 px-4 ${booking.confirmed ? 'bg-green-500' : 'bg-blue-600'} text-white rounded hover:bg-green-600 transition duration-300`}
-                    >
-                      {booking.confirmed ? 'Confirmada' : 'Confirmar'}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+                <button
+                  onClick={() => handleConfirm(booking.name)}
+                  className={`ml-4 py-2 px-4 ${booking.confirmed ? 'bg-green-500' : 'bg-blue-600'} text-white rounded hover:bg-green-600 transition duration-300`}
+                >
+                  {booking.confirmed ? 'Confirmada' : 'Confirmar'}
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
+  </div>
+</div>
   );
 };
 
