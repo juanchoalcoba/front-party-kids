@@ -57,7 +57,7 @@ const BookingPage = () => {
       type="text"
       id="name"
       name="name"
-      placeholder="Escribe tu nombre"
+      placeholder="Escribe tu nombre y apellido"
       value={bookingData.name}
       onChange={handleChange}
       className="border-2 border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
