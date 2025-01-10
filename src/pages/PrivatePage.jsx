@@ -41,7 +41,7 @@ const PrivatePage = () => {
   
     try {
       const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
-        method: 'DELETE',
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
