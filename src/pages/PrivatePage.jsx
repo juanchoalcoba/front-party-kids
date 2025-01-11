@@ -124,7 +124,7 @@ const handleConfirm = async (name) => {
 
   // Mostrar reservas
   return (
-    <div className="bg-gray-200 min-h-screen p-6">
+    <div className="bg-gray-900 min-h-screen p-6">
   <div className="max-w-6xl mx-auto bg-white shadow-xl rounded-lg p-8">
     <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Reservas</h2>
     <div className="overflow-x-auto">
