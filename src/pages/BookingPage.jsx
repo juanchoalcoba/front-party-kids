@@ -47,7 +47,12 @@ const BookingPage = () => {
   };
 
   return (
-    <div className="p-8 flex flex-col justify-center items-center bg-violet-950 w-full min-h-screen font-general">
+    <div className="p-8 flex flex-col justify-center items-center bg-gradient-to-r from-violet-950 via-purple-600 to-blue-500 w-full min-h-screen font-robert-medium">
+
+
+
+
+      
       <h1 className="text-3xl mb-6 font-bold text-center text-blue-50">¡Completa el formulario para registrar tu fiesta!</h1>
       
       <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-xl shadow-xl w-full sm:w-96">
@@ -60,7 +65,7 @@ const BookingPage = () => {
       placeholder="Escribe tu nombre y apellido"
       value={bookingData.name}
       onChange={handleChange}
-      className="border-2 border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+      className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
       required
     />
   </div>
@@ -74,7 +79,7 @@ const BookingPage = () => {
       placeholder="Escribe el nombre del niño/a"
       value={bookingData.namekid}
       onChange={handleChange}
-      className="border-2 border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+      className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
       required
     />
   </div>
@@ -88,7 +93,7 @@ const BookingPage = () => {
       placeholder="Escribe tu email"
       value={bookingData.email}
       onChange={handleChange}
-      className="border-2 border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+      className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
       required
     />
   </div>
@@ -102,7 +107,7 @@ const BookingPage = () => {
       placeholder="Escribe tu número de teléfono"
       value={bookingData.phone}
       onChange={handleChange}
-      className="border-2 border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+      className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
       required
     />
   </div>
@@ -112,7 +117,7 @@ const BookingPage = () => {
     <CalendarComponent onDateChange={handleDateChange} />
   </div>
 
-  <button type="submit" className="bg-pink-500 hover:bg-cyan-700 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
+  <button type="submit" className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
     Confirmar
   </button>
 </form>
