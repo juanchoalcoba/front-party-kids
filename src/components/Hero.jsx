@@ -96,7 +96,7 @@ const Hero = () => {
 </h1>
 
 
-                        <p className='mb-5 text-center max-w-64 text-[20px] font-robert-regular text-blue-100'>
+                        <p className='mb-5 text-center max-w-96 text-[24px] font-robert-regular text-blue-100'>
                             Una fiesta inolvidable<br />para los mas chiquitos!!
                         </p>
                         <Link to="booking">
