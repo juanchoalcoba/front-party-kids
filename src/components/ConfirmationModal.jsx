@@ -1,38 +1,40 @@
 const ConfirmationModal = ({ show, onClose, onConfirm, bookingData }) => {
-    if (!show) return null;
-  
-    return (
-      <div className="fixed inset-0 flex items-center justify-center z-50">
-        <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-          <h2 className="text-2xl font-semibold mb-4">Confirmar Reserva</h2>
-          <p className="mb-4">Por favor, revisa los detalles antes de confirmar:</p>
-          
-          <div className="mb-4">
+  if (!show) return null;
+
+  return (
+    <div>
+      {/* Overlay oscuro */}
+      <div className="fixed inset-0 bg-black opacity-80 z-40"></div>
+
+      {/* Modal */}
+      <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full relative z-50">
+          <h2 className="text-xl font-bold mb-4">¿Estás seguro de confirmar la reserva?</h2>
+          <div className="mb-4 space-y-2">
             <p><strong>Tu Nombre:</strong> {bookingData.name}</p>
             <p><strong>Nombre del Niño/a:</strong> {bookingData.namekid}</p>
             <p><strong>Email:</strong> {bookingData.email}</p>
             <p><strong>Teléfono:</strong> {bookingData.phone}</p>
-            <p><strong>Fecha:</strong> {bookingData.date.toLocaleDateString()}</p>
+            <p><strong>Fecha de la Fiesta:</strong> {bookingData.date.toLocaleDateString()}</p>
           </div>
-  
-          <div className="flex justify-end space-x-4">
-            <button 
-              className="bg-gray-300 hover:bg-gray-400 text-black p-2 rounded-md"
+          <div className="flex justify-between">
+            <button
+              className="bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700 transition-all duration-300"
+              onClick={onConfirm}
+            >
+              Confirmar
+            </button>
+            <button
+              className="bg-gray-600 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 transition-all duration-300"
               onClick={onClose}
             >
               Cancelar
             </button>
-            <button 
-              className="bg-cyan-600 hover:bg-pink-700 text-white p-2 rounded-md"
-              onClick={onConfirm}
-            >
-              Confirmar Reserva
-            </button>
           </div>
         </div>
       </div>
-    );
-  };
-  
-  export default ConfirmationModal;
-  
+    </div>
+  );
+};
+
+export default ConfirmationModal;
