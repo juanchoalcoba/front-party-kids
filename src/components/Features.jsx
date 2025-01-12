@@ -129,12 +129,12 @@ const Features = () => {
     src="img/6.jpg"
     title={
       <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
-        títu<b>l</b>o
+        divers<b>i</b>ón
       </div>
     }
     description={
       <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
-        A cross-world AI Agent - elevating your gameplay to be more fun and productive.
+        Un asistente virtual para fiestas infantiles, optimizando la organización y diversión de cada evento para hacerlo más memorable y fácil de gestionar
       </div>
     }
     isComingSoon
@@ -149,12 +149,12 @@ const Features = () => {
       src="img/7.jpg"
       title={
         <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
-          títu<b>l</b>o
+          fies<b>t</b>a
         </div>
       }
       description={
         <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
-          A cross-world AI Agent - elevating your gameplay to be more fun and productive.
+          Haz de tu evento algo especial, con un salón equipado para todo tipo de celebraciones y una atención dedicada a cada detalle.
         </div>
       }
       isComingSoon
