@@ -4,7 +4,7 @@ const ConfirmationModal = ({ show, onClose, onConfirm, bookingData }) => {
   return (
     <div>
       {/* Overlay oscuro */}
-      <div className="fixed inset-0 bg-black opacity-30 z-40"></div>
+      <div className="fixed inset-0 bg-black opacity-70 z-40"></div>
 
       {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center">
