@@ -71,7 +71,7 @@ const Hero = () => {
     data-aos="fade-right"
     className='special-font hero-heading z-40'
     style={{
-        backgroundImage: 'linear-gradient(to right, #FFB6C1, #FF7FFF, #87CEFA, #FFD700)',
+        backgroundImage: 'linear-gradient(to right, #FFCCE5, #FF8CFF, #A7D8FF, #FFEC6D)', // Colores más claros
         WebkitBackgroundClip: 'text',
         color: 'transparent',
         WebkitTextStroke: '2px #000000', // Borde negro
@@ -85,7 +85,7 @@ const Hero = () => {
     data-aos="fade-left"
     className='special-font hero-heading'
     style={{
-        backgroundImage: 'linear-gradient(to right, #F0E68C, #FF1493, #FF6347, #32CD32)',
+        backgroundImage: 'linear-gradient(to right, #FAE78C, #FF66A6, #FF8F5A, #60E36D)', // Colores más claros
         WebkitBackgroundClip: 'text',
         color: 'transparent',
         WebkitTextStroke: '2px #000000', // Borde negro
@@ -94,6 +94,7 @@ const Hero = () => {
 >
     PAR<b>T</b>Y
 </h1>
+
 
 
 
