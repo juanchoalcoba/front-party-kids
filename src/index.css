@@ -40,6 +40,9 @@ body {
 }
 
 
+
+
+
 @layer utilities {
     .border-hsla {
         @apply border border-white/20
@@ -72,6 +75,7 @@ body {
 
     .hero-heading {
         @apply uppercase font-zentry font-black text-8xl sm:right-10 sm:text-8xl md:text-9xl lg:text-[14rem];
+        
     }
 
     .about-subtext {
