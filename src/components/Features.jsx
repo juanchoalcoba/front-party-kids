@@ -110,13 +110,11 @@ const Features = () => {
   <section className="bg-gray-950 pb-12">
     <div className="container mx-auto px-3 md:px-10">
       <div className="px-5 py-32" data-aos="fade-right">
-        <p className="font-circular-web text-lg text-blue-50" >
-          Nos encargamos de tu fiesta!
+        <p className="font-circular-web text-3xl text-blue-50" >
+        ¡Nos encargamos de tu fiesta!
         </p>
-        <p className="max-w-md font-circular-web text-lg text-blue-50 opacity-50">
-          Immerse yourself in a rich and ever-expanding universe where a vibrant
-          array of products converge into an interconnected overlay experience
-          on your world.
+        <p className="max-w-md font-circular-web text-xl text-justify text-blue-50 opacity-50 mt-4">
+        Sumérgete en un universo lleno de posibilidades donde una amplia gama de servicios se fusiona para crear una experiencia única y divertida en tu celebración.
         </p>
       </div>
 
@@ -128,7 +126,7 @@ const Features = () => {
     
     src="img/6.jpg"
     title={
-      <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
+      <div className="backdrop-blur-md tracking-widest bg-black/50 p-2 rounded-md inline-block">
         divers<b>i</b>ón
       </div>
     }
@@ -148,7 +146,7 @@ const Features = () => {
     <BentoCard
       src="img/7.jpg"
       title={
-        <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
+        <div className="backdrop-blur-md tracking-widest bg-black/50 p-2 rounded-md inline-block">
           fies<b>t</b>a
         </div>
       }
@@ -167,13 +165,13 @@ const Features = () => {
     <BentoCard
       src="img/8.jpg"
       title={
-        <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
-          títu<b>l</b>o
+        <div className="backdrop-blur-md tracking-widest bg-black/50 p-2 rounded-md inline-block">
+          celebraci<b>ó</b>n
         </div>
       }
       description={
-        <div className="backdrop-blur-md bg-black/50 rounded-md inline-block">
-          A cross-world AI Agent - elevating your gameplay to be more fun and productive.
+        <div className="backdrop-blur-md bg-black/50 rounded-md inline-A cross-world AI Agent - elevating your gameplay to be more fun and productive.block">
+          Cada celebración es única, por eso creamos ambientes personalizados que harán de tu fiesta un evento memorable.
         </div>
       }
       isComingSoon
@@ -186,13 +184,13 @@ const Features = () => {
     <BentoCard
       src="img/9.jpg"
       title={
-        <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
-          títu<b>l</b>o
+        <div className="backdrop-blur-md tracking-widest bg-black/50 p-2 rounded-md inline-block">
+          sonris<b>a</b>s
         </div>
       }
       description={
         <div className="backdrop-blur-md bg-black/50 rounded-md inline-block">
-          A cross-world AI Agent - elevating your gameplay to be more fun and productive.
+          La diversión nunca termina, y nos encargamos de que todos los invitados, sin importar la edad, disfruten juntos.
         </div>
       }
       isComingSoon
