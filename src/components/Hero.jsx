@@ -67,16 +67,30 @@ const Hero = () => {
                     <div 
                     
                     className="mt-8 min-h-screen px-5 sm:px-10 flex flex-col justify-center items-center">
-                <h1 
-                data-aos="fade-right"
-                className='special-font hero-heading z-40 text-blue-75'>
-                    KI<b>D</b>S
-                </h1>
-                        <h1 
-                        data-aos="fade-left"
-                        className='special-font hero-heading text-blue-100'>
-                            PAR<b>T</b>Y
-                        </h1>
+               <h1 
+    data-aos="fade-right"
+    className='special-font hero-heading z-40'
+    style={{
+        backgroundImage: 'linear-gradient(to right, #FFB6C1, #FF7FFF, #87CEFA, #FFD700)', // Gradiente suave y colorido
+        WebkitBackgroundClip: 'text', // Aplica el gradiente solo a las letras
+        color: 'transparent', // Hace el texto transparente para mostrar el gradiente
+    }}
+>
+    KI<b>D</b>S
+</h1>
+
+<h1 
+    data-aos="fade-left"
+    className='special-font hero-heading'
+    style={{
+        backgroundImage: 'linear-gradient(to right, #F0E68C, #FF1493, #FF6347, #32CD32)', // Gradiente alegre y lleno de vida
+        WebkitBackgroundClip: 'text',
+        color: 'transparent',
+    }}
+>
+    PAR<b>T</b>Y
+</h1>
+
                         <p className='mb-5 text-center max-w-64 text-[20px] font-robert-regular text-blue-100'>
                             Una fiesta inolvidable<br />para los mas chiquitos!!
                         </p>
