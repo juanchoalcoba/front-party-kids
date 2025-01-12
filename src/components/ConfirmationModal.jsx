@@ -4,12 +4,12 @@ const ConfirmationModal = ({ show, onClose, onConfirm, bookingData }) => {
   return (
     <div>
       {/* Overlay oscuro */}
-      <div className="fixed inset-0 bg-black opacity-80 z-40"></div>
+      <div className="fixed inset-0 bg-black opacity-30 z-40"></div>
 
       {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center">
-        <div className="bg-white p-6 rounded-lg shadow-lg max-w-[23rem] w-full relative z-50">
-          <h2 className="text-lg font-bold mb-4">¿Estás seguro de confirmar la reserva?</h2>
+        <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full relative z-50">
+          <h2 className="text-xl font-bold mb-4">¿Estás seguro de confirmar la reserva?</h2>
           <div className="mb-4 space-y-2">
             <p><strong>Tu Nombre:</strong> {bookingData.name}</p>
             <p><strong>Nombre del Niño/a:</strong> {bookingData.namekid}</p>
