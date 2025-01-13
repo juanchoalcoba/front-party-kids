@@ -5,6 +5,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect, useState, useRef } from 'react';
 
+
 import Button from './Button';
 import { Link } from 'react-router-dom';
 
@@ -38,7 +39,7 @@ const Hero = () => {
     
 
     return (
-        <div className='relative h-dvh w-screen overflow-x-hidden bg-violet-950'>
+        <div id="inicio" className='relative h-dvh w-screen overflow-x-hidden bg-violet-950'>
             {loading && (
                 <div className='flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50'>
                     <div className="three-body">

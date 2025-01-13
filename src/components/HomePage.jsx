@@ -13,7 +13,7 @@ function HomePage() {
   }, []);
 
   return (
-    <div className="relative mt-2 flex flex-col justify-center items-center w-full min-h-screen">
+    <div id="fiestas" className="relative mt-2 flex flex-col justify-center items-center w-full min-h-screen">
       {/* Imagen de fondo */}
       <div
         className="absolute top-0 left-0 w-full h-full bg-no-repeat bg-center opacity-80 bg-cover z-[-1]"
@@ -26,7 +26,7 @@ function HomePage() {
       {/* Contenedor con fondo blur */}
       <div 
         data-aos="fade-up"
-        className="relative flex flex-col justify-center items-center z-10 bg-white/40 backdrop-blur-sm font-robert-medium p-8 rounded-3xl shadow-lg max-w-xl text-center"
+        className="relative flex flex-col justify-center items-center z-10 bg-white/40 backdrop-blur-lg font-robert-medium p-8 rounded-3xl shadow-lg max-w-xl text-center"
       >
         <h1 className="text-4xl flex text-center flex-col font-extrabold sm:text-4xl p-4 text-red-950">
           Bienvenidos 
@@ -54,9 +54,9 @@ function HomePage() {
 
         {/* Sección de iconos centrados debajo del botón */}
         <div className="flex justify-center gap-8 mt-8">
-      <i className="fab fa-facebook text-blue-600 text-3xl hover:text-blue-800 transition-all duration-300"></i>
-      <i className="fab fa-instagram text-pink-600 text-3xl hover:text-pink-800 transition-all duration-300"></i>
-      <i className="fab fa-whatsapp text-green-600 text-3xl hover:text-green-800 transition-all duration-300"></i>
+      <i className="fab fa-facebook text-blue-700 text-4xl hover:text-blue-900 transition-all duration-300"></i>
+      <i className="fab fa-instagram text-pink-700 text-4xl hover:text-pink-900 transition-all duration-300"></i>
+      <i className="fab fa-whatsapp text-green-700 text-4xl hover:text-green-900 transition-all duration-300"></i>
     </div>
       </div>
     </div>

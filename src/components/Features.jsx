@@ -63,7 +63,7 @@ export const BentoCard = ({ src, title, description, isComingSoon }) => {
   const handleMouseLeave = () => setHoverOpacity(0);
 
   return (
-    <div className="relative size-full">
+    <div id="servicios" className="relative size-full">
       <img
         src={src}
         alt={title}

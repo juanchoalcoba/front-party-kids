@@ -8,6 +8,7 @@ import { FaMusic } from "react-icons/fa"; // Ícono musical
 
 import Button from "./Button";
 import ButtonAdmin from "./ButtonAdmin";
+import { Link } from "react-router-dom";
 
 const navItems = ["Inicio", "Fiestas", "Servicios", "Sobre Nosotros", "Contacto"];
 
@@ -70,13 +71,14 @@ const Navbar = () => {
                 <nav className="flex size-full items-center justify-between p-4">
                     <div className="flex items-center gap-7">
                         <img src="/logo.png" alt="" className="w-[70px] rounded-full" />
-
+                        <Link to="booking">
                         <Button
                             id="product-button"
                             title="RESERVAR"
                             rightIcon={<TiLocationArrow />}
                             containerClass="bg-blue-50 font-bold md:flex hidden items-center justify-center gap-1"
                         />
+                        </Link>
                         <ButtonAdmin />
                     </div>
 
