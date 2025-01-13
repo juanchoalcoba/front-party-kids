@@ -117,6 +117,10 @@ const BookingPage = () => {
             onChange={handleChange}
             className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
             required
+            minLength="8" // Mínimo de 8 caracteres
+            maxLength="9" // Máximo de 9 caracteres
+            pattern="^\d{8,9}$" // Acepta solo números con 8 o 9 dígitos
+            title="El número debe tener entre 8 y 9 dígitos"
           />
         </div>
 

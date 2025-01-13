@@ -19,16 +19,16 @@ const ConfirmationModal = ({ show, onClose, onConfirm, bookingData }) => {
           </div>
           <div className="flex justify-between">
             <button
-              className="bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700 transition-all duration-300"
-              onClick={onConfirm}
-            >
-              Confirmar
-            </button>
-            <button
               className="bg-gray-600 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 transition-all duration-300"
               onClick={onClose}
             >
               Cancelar
+            </button>
+            <button
+              className="bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700 transition-all duration-300"
+              onClick={onConfirm}
+            >
+              Confirmar
             </button>
           </div>
         </div>
