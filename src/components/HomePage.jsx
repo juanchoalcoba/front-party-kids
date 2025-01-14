@@ -54,13 +54,27 @@ function HomePage() {
 
         {/* Sección de iconos centrados debajo del botón */}
         <div className="flex justify-center gap-8 mt-8">
-      <i className="fab fa-facebook text-blue-700 text-4xl hover:text-blue-900 transition-all duration-300"></i>
-      <i className="fab fa-instagram text-pink-700 text-4xl hover:text-pink-900 transition-all duration-300"></i>
-      <i className="fab fa-whatsapp text-green-700 text-4xl hover:text-green-900 transition-all duration-300"></i>
+        <Link 
+        target='_blank'
+        to="https://facebook.com">
+    <i className="fab fa-facebook text-blue-700 text-4xl hover:text-blue-900 transition-all duration-300"></i>
+  </Link>
+  
+  <Link to="https://www.instagram.com"
+  target='_blank'
+  >
+    <i className="fab fa-instagram text-pink-700 text-4xl hover:text-pink-900 transition-all duration-300"></i>
+  </Link>
+  
+  <Link 
+  target='_blank'
+  to="https://web.whatsapp.com">
+    <i className="fab fa-whatsapp text-green-700 text-4xl hover:text-green-900 transition-all duration-300"></i>
+  </Link>
     </div>
       </div>
     </div>
-  );
+  );      
 }
 
 export default HomePage;
