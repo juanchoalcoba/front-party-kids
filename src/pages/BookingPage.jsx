@@ -65,14 +65,23 @@ const BookingPage = () => {
   const generateTimeSlots = () => {
     const slots = [];
     let startHour = 9;
-    let endHour = bookingData.hours === '4' ? 13 : 17;
-    const increment = bookingData.hours === '4' ? 1 : 2; // Para 4 horas, incrementamos de una hora, para 8 horas, de dos.
-
-    while (startHour <= endHour) {
-      slots.push(`${startHour}:00 - ${startHour + increment}:00`);
-      startHour += increment;
+    if (bookingData.hours === '4') {
+      // Para 4 horas
+      while (startHour < 19) { // 19:00pm es el último rango para 4 horas
+        const start = `${startHour}:00`;
+        const end = `${startHour + 4}:00`;
+        slots.push(`${start} - ${end}`);
+        startHour++;
+      }
+    } else if (bookingData.hours === '8') {
+      // Para 8 horas
+      while (startHour < 17) { // 17:00pm es el último rango para 8 horas
+        const start = `${startHour}:00`;
+        const end = `${startHour + 8}:00`;
+        slots.push(`${start} - ${end}`);
+        startHour++;
+      }
     }
-
     return slots;
   };
 
