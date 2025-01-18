@@ -140,6 +140,8 @@ const PrivatePage = () => {
                   <td className="px-6 py-4 text-gray-200">{booking.namekid}</td>
                   <td className="px-6 py-4 text-gray-300">{new Date(booking.date).toLocaleDateString('en-CA')}</td>
                   <td className="px-6 py-4 text-gray-300">{booking.phone}</td>
+                  <td className="px-6 py-4 text-gray-300">{booking.hours}</td>
+                  <td className="px-6 py-4 text-gray-300">{booking.timeSlot}</td>
                   <td className="px-6 py-4">
                     <button
                       onClick={() => handleDelete(booking.name)}
