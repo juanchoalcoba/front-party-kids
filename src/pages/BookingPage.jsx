@@ -10,17 +10,12 @@ const BookingPage = () => {
     email: '',
     phone: '',
     date: new Date(),
-    duration: '', // Nuevo campo para la duración de la reserva
-    selectedTime: '', // Nuevo campo para la hora seleccionada
   });
 
   const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
   const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación antes de enviar
   const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
   
-  const [availableTimes, setAvailableTimes] = useState([]); // Horarios disponibles según la duración
-
-  // Manejo del cambio de input
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
   };
@@ -29,67 +24,29 @@ const BookingPage = () => {
     setBookingData({ ...bookingData, date });
   };
 
-  // Manejo de la selección de la duración (4 o 8 horas)
-  const handleDurationChange = (e) => {
-    const selectedDuration = e.target.value;
-    setBookingData({ ...bookingData, duration: selectedDuration });
-    
-    // Configuración de los horarios disponibles según la duración seleccionada
-    if (selectedDuration === '4') {
-      setAvailableTimes([
-        '09:00 AM - 01:00 PM', '10:00 AM - 02:00 PM', '11:00 AM - 03:00 PM', 
-        '12:00 PM - 04:00 PM', '01:00 PM - 05:00 PM', '02:00 PM - 06:00 PM', 
-        '03:00 PM - 07:00 PM', '04:00 PM - 08:00 PM', '05:00 PM - 09:00 PM', 
-        '06:00 PM - 10:00 PM', '07:00 PM - 11:00 PM'
-      ]);
-    } else if (selectedDuration === '8') {
-      setAvailableTimes([
-        '09:00 AM - 05:00 PM', '10:00 AM - 06:00 PM', '11:00 AM - 07:00 PM', 
-        '12:00 PM - 08:00 PM', '01:00 PM - 09:00 PM', '02:00 PM - 10:00 PM', 
-        '03:00 PM - 11:00 PM'
-      ]);
-    } else {
-      setAvailableTimes([]);
-    }
-  };
-
   const handleConfirmSubmit = async () => {
-    console.log('Confirmación enviada');
-    const { name, namekid, email, phone, date, duration, selectedTime } = bookingData;
-  
+    // Aquí hacemos el envío final de los datos al backend
     const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        name,
-        namekid,
-        email,
-        phone,
-        date,
-        duration,
-        selectedTime,
-      }),
+      body: JSON.stringify(bookingData),
     });
-  
+
     if (response.ok) {
-      console.log('Reserva exitosa');
       setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
-      setShowConfirmationModal(false);
-      setShowModal(true);
+      setShowConfirmationModal(false); // Cerrar modal de confirmación
+      setShowModal(true); // Mostrar modal de éxito
     } else {
-      console.log('Error al realizar la reserva');
       setModalMessage('Error submitting the booking');
-      setShowConfirmationModal(false);
-      setShowModal(true);
+      setShowConfirmationModal(false); // Cerrar modal de confirmación
+      setShowModal(true); // Mostrar modal de error
     }
   };
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Formulario enviado');
     setShowConfirmationModal(true); // Mostrar modal de confirmación
   };
 
@@ -172,64 +129,21 @@ const BookingPage = () => {
           <CalendarComponent onDateChange={handleDateChange} />
         </div>
 
-        {/* Campo para seleccionar duración de la reserva */}
-        <div className="flex flex-col">
-          <label htmlFor="duration" className="text-gray-700 font-semibold mb-2">Duración de la Reserva</label>
-          <select
-            id="duration"
-            name="duration"
-            value={bookingData.duration}
-            onChange={handleDurationChange}
-            className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-            required
-          >
-            <option value="">Selecciona la duración</option>
-            <option value="4">4 horas</option>
-            <option value="8">8 horas</option>
-          </select>
-        </div>
-
-        {/* Campo para seleccionar la hora de la reserva, depende de la duración */}
-        {availableTimes.length > 0 && (
-          <div className="flex flex-col">
-            <label htmlFor="selectedTime" className="text-gray-700 font-semibold mb-2">Selecciona el Horario</label>
-            <select
-              id="selectedTime"
-              name="selectedTime"
-              value={bookingData.selectedTime}
-              onChange={handleChange}
-              className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-              required
-            >
-              <option value="">Selecciona un horario</option>
-              {availableTimes.map((time, index) => (
-                <option key={index} value={time}>{time}</option>
-              ))}
-            </select>
-          </div>
-        )}
-
         <button type="submit" className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
           Confirmar
         </button>
       </form>
 
-      {/* Modal de confirmación */}
-      {showConfirmationModal && (
-        <ConfirmationModal
-          message="¿Estás seguro de que deseas realizar esta reserva?"
-          onConfirm={handleConfirmSubmit}
-          onCancel={closeConfirmationModal}
-        />
-      )}
+      {/* Modal de confirmación de reserva */}
+      <ConfirmationModal 
+        show={showConfirmationModal} 
+        onClose={closeConfirmationModal} 
+        onConfirm={handleConfirmSubmit} 
+        bookingData={bookingData} 
+      />
 
-      {/* Modal de mensaje */}
-      {showModal && (
-        <Modal
-          message={modalMessage}
-          onClose={closeModal}
-        />
-      )}
+      {/* Mostrar modal de resultado final */}
+      <Modal show={showModal} onClose={closeModal} message={modalMessage} />
     </div>
   );
 };

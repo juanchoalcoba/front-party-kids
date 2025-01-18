@@ -1,5 +1,4 @@
 const ConfirmationModal = ({ show, onClose, onConfirm, bookingData }) => {
-  console.log('Modal de confirmación visible');
   if (!show) return null;
 
   return (
@@ -16,9 +15,7 @@ const ConfirmationModal = ({ show, onClose, onConfirm, bookingData }) => {
             <p><strong>Nombre del Niño/a:</strong> {bookingData.namekid}</p>
             <p><strong>Email:</strong> {bookingData.email}</p>
             <p><strong>Teléfono:</strong> {bookingData.phone}</p>
-            <p><strong>Fecha de la Fiesta:</strong> {new Date(bookingData.date).toLocaleDateString()}</p>
-            <p><strong>Duración:</strong> {bookingData.duration} horas</p>
-            <p><strong>Hora Seleccionada:</strong> {bookingData.selectedTime}</p> {/* Mostrar el string tal cual */}
+            <p><strong>Fecha de la Fiesta:</strong> {bookingData.date.toLocaleDateString()}</p>
           </div>
           <div className="flex justify-between">
             <button
