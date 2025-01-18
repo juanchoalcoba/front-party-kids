@@ -16,8 +16,6 @@ const ConfirmationModal = ({ show, onClose, onConfirm, bookingData }) => {
             <p><strong>Email:</strong> {bookingData.email}</p>
             <p><strong>Teléfono:</strong> {bookingData.phone}</p>
             <p><strong>Fecha de la Fiesta:</strong> {bookingData.date.toLocaleDateString()}</p>
-            <p><strong>Duración:</strong> {bookingData.duration}</p>
-            <p><strong>Franja Horaria</strong> {bookingData.selectedTime}</p>
           </div>
           <div className="flex justify-between">
             <button
