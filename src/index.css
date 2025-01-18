@@ -12,6 +12,15 @@ body {
     font-family: 'General Sans', sans-serif;
 }
 
+/* Custom styles for booked dates */
+.booked-yellow {
+  background-color: yellow !important;
+}
+
+.booked-red {
+  background-color: red !important;
+  color: white !important;
+}
 
 
 
