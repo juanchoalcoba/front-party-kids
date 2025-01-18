@@ -50,11 +50,11 @@ const CalendarComponent = ({ onDateChange }) => {
   // Función para agregar clases a las fechas disponibles y deshabilitadas
   const tileClassName = ({ date, view }) => {
     if (view === 'month') {
-      // Si la fecha está deshabilitada, asignamos 'disabled-date'
+      // Si la fecha está deshabilitada (pasada o reservada), asignamos 'disabled-date'
       if (date < today || bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString())) {
         return 'disabled-date'; // Clase CSS personalizada para fechas deshabilitadas
       }
-      // Si la fecha está disponible, asignamos 'available-date'
+      // Si la fecha está disponible (no está deshabilitada), asignamos 'available-date'
       return 'available-date'; // Clase CSS personalizada para fechas disponibles
     }
     return '';
