@@ -142,20 +142,21 @@ const PrivatePage = () => {
                   <td className="px-4 py-2 text-gray-300">{booking.phone}</td>                   
                   <td className="px-4 py-2 text-gray-300">{booking.hours} horas</td>                   
                   <td className="px-4 py-2 text-gray-300">{booking.timeSlot}</td>                   
-                  <td className="flex flex-row justify-center items-center px-4 py-2">                     
-                    <button                       
-                      onClick={() => handleDelete(booking.name)}                       
-                      className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300"                     
-                    >                       
-                      Eliminar                     
-                    </button>                      
-                    <button                       
-                      onClick={() => handleConfirm(booking.name)}                       
-                      className={`ml-4 py-2 px-4 ${booking.confirmed ? 'bg-green-500' : 'bg-blue-600'} text-white rounded hover:bg-green-600 transition duration-300`}                     
-                    >                       
-                      {booking.confirmed ? 'Confirmada' : 'Confirmar'}                     
-                    </button>                   
-                  </td>                 
+                  <td className="flex flex-row justify-center items-center px-4 py-2">
+  <button
+    onClick={() => handleDelete(booking.name)}
+    className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300 min-w-[120px]"
+  >
+    Eliminar
+  </button>
+  <button
+    onClick={() => handleConfirm(booking.name)}
+    className={`ml-4 py-2 px-4 ${booking.confirmed ? 'bg-green-500' : 'bg-blue-600'} text-white rounded hover:bg-green-600 transition duration-300 min-w-[120px]`}
+  >
+    {booking.confirmed ? 'Confirmada' : 'Confirmar'}
+  </button>
+</td>
+            
                 </tr>               
               ))}             
             </tbody>           
