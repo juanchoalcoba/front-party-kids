@@ -67,7 +67,7 @@ const BookingPage = () => {
     let startHour = 9;
     if (bookingData.hours === '4') {
       // Para 4 horas
-      while (startHour < 19) { // 19:00pm es el último rango para 4 horas
+      while (startHour < 21) { // 21:00pm es el último rango para 4 horas (20:00 - 24:00)
         const start = `${startHour}:00`;
         const end = `${startHour + 4}:00`;
         slots.push(`${start} - ${end}`);
@@ -75,7 +75,7 @@ const BookingPage = () => {
       }
     } else if (bookingData.hours === '8') {
       // Para 8 horas
-      while (startHour < 17) { // 17:00pm es el último rango para 8 horas
+      while (startHour < 16) { // 16:00pm es el último rango para 8 horas (16:00 - 23:00)
         const start = `${startHour}:00`;
         const end = `${startHour + 8}:00`;
         slots.push(`${start} - ${end}`);
