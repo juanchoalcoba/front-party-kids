@@ -4,9 +4,10 @@
     box-sizing: border-box;
  }
 
- /* Estilo para las fechas deshabilitadas */
+/* Estilo para las fechas deshabilitadas */
 .disabled-date {
-   background-color: red !important;  /* Cambia el color de fondo */
+   background-color: rgba(255, 0, 0, 0.4) !important;  /* Rojo suave con transparencia */
    color: white !important; /* Cambia el color del texto */
  }
+ 
  
