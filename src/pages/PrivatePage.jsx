@@ -142,7 +142,7 @@ const PrivatePage = () => {
                   <td className="px-4 py-2 text-gray-300">{booking.phone}</td>                   
                   <td className="px-4 py-2 text-gray-300">{booking.hours} horas</td>                   
                   <td className="px-4 py-2 text-gray-300">{booking.timeSlot}</td>                   
-                  <td className="flex flex-col md:flex-row px-0 md:px-4 py-2">                     
+                  <td className="flex flex-row justify-center items-center px-4 py-2">                     
                     <button                       
                       onClick={() => handleDelete(booking.name)}                       
                       className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300"                     
