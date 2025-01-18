@@ -130,6 +130,8 @@ const PrivatePage = () => {
                 <th className="px-6 py-4 font-semibold">Nombre del Niño/Niña</th>
                 <th className="px-6 py-4 font-semibold">Fecha</th>
                 <th className="px-6 py-4 font-semibold">Teléfono</th>
+                <th className="px-6 py-4 font-semibold">Duracion</th>
+                <th className="px-6 py-4 font-semibold">Horario</th>
                 <th className="px-6 py-4 font-semibold">Acciones</th>
               </tr>
             </thead>
@@ -140,7 +142,7 @@ const PrivatePage = () => {
                   <td className="px-6 py-4 text-gray-200">{booking.namekid}</td>
                   <td className="px-6 py-4 text-gray-300">{new Date(booking.date).toLocaleDateString('en-CA')}</td>
                   <td className="px-6 py-4 text-gray-300">{booking.phone}</td>
-                  <td className="px-6 py-4 text-gray-300">{booking.hours}</td>
+                  <td className="px-6 py-4 text-gray-300">{booking.hours} horas</td>
                   <td className="px-6 py-4 text-gray-300">{booking.timeSlot}</td>
                   <td className="px-6 py-4">
                     <button
