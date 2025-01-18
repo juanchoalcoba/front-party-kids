@@ -10,6 +10,8 @@ const BookingPage = () => {
     email: '',
     phone: '',
     date: new Date(),
+    hours: '', // Nuevo campo para la duración de la reserva
+    timeSlot: '', // Campo para la selección de la hora específica
   });
 
   const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
@@ -57,6 +59,21 @@ const BookingPage = () => {
 
   const closeConfirmationModal = () => {
     setShowConfirmationModal(false);
+  };
+
+  // Generamos las opciones de hora basadas en la duración
+  const generateTimeSlots = () => {
+    const slots = [];
+    let startHour = 9;
+    let endHour = bookingData.hours === '4' ? 13 : 17;
+    const increment = bookingData.hours === '4' ? 1 : 2; // Para 4 horas, incrementamos de una hora, para 8 horas, de dos.
+
+    while (startHour <= endHour) {
+      slots.push(`${startHour}:00 - ${startHour + increment}:00`);
+      startHour += increment;
+    }
+
+    return slots;
   };
 
   return (
@@ -128,6 +145,43 @@ const BookingPage = () => {
           <label className="text-gray-700 font-semibold mb-2">Selecciona la Fecha</label>
           <CalendarComponent onDateChange={handleDateChange} />
         </div>
+
+        {/* Nuevo campo para seleccionar duración de horas */}
+        <div className="flex flex-col">
+          <label htmlFor="hours" className="text-gray-700 font-semibold mb-2">Duración de la Fiesta</label>
+          <select
+            id="hours"
+            name="hours"
+            value={bookingData.hours}
+            onChange={handleChange}
+            className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+            required
+          >
+            <option value="">Selecciona la duración</option>
+            <option value="4">4 horas</option>
+            <option value="8">8 horas</option>
+          </select>
+        </div>
+
+        {/* Campo para seleccionar la hora dependiendo de la duración */}
+        {bookingData.hours && (
+          <div className="flex flex-col">
+            <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">Selecciona la franja horaria</label>
+            <select
+              id="timeSlot"
+              name="timeSlot"
+              value={bookingData.timeSlot}
+              onChange={handleChange}
+              className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+              required
+            >
+              <option value="">Selecciona una opción</option>
+              {generateTimeSlots().map((slot, index) => (
+                <option key={index} value={slot}>{slot}</option>
+              ))}
+            </select>
+          </div>
+        )}
 
         <button type="submit" className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
           Confirmar
