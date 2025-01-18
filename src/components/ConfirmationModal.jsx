@@ -11,15 +11,12 @@ const ConfirmationModal = ({ show, onClose, onConfirm, bookingData }) => {
         <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full relative z-50">
           <h2 className="text-xl font-bold mb-4">¿Estás seguro de confirmar la reserva?</h2>
           <div className="mb-4 space-y-2">
-  <p><strong>Tu Nombre:</strong> {bookingData.name}</p>
-  <p><strong>Nombre del Niño/a:</strong> {bookingData.namekid}</p>
-  <p><strong>Email:</strong> {bookingData.email}</p>
-  <p><strong>Teléfono:</strong> {bookingData.phone}</p>
-  <p><strong>Fecha de la Fiesta:</strong> {bookingData.date.toLocaleDateString()}</p>
-  <p><strong>Duración de la Reserva:</strong> {bookingData.duration === '4' ? '4 horas' : '8 horas'}</p>
-  <p><strong>Horario Seleccionado:</strong> {bookingData.selectedTime}</p>
-</div>
-
+            <p><strong>Tu Nombre:</strong> {bookingData.name}</p>
+            <p><strong>Nombre del Niño/a:</strong> {bookingData.namekid}</p>
+            <p><strong>Email:</strong> {bookingData.email}</p>
+            <p><strong>Teléfono:</strong> {bookingData.phone}</p>
+            <p><strong>Fecha de la Fiesta:</strong> {bookingData.date.toLocaleDateString()}</p>
+          </div>
           <div className="flex justify-between">
             <button
               className="bg-gray-600 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 transition-all duration-300"
