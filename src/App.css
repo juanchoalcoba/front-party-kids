@@ -10,4 +10,9 @@
    color: white !important; /* Cambia el color del texto */
  }
  
+
+ .available-date {
+   background-color: rgba(0, 255, 0, 0.7) !important;  /* Verde suave con transparencia */
+   color: white !important; /* Cambia el color del texto */
+ }
  

@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
-import '../App.css'
-
 const CalendarComponent = ({ onDateChange }) => {
   const [date, setDate] = useState(new Date());
   const [bookedDates, setBookedDates] = useState([]); // Guardar fechas reservadas
@@ -49,10 +47,15 @@ const CalendarComponent = ({ onDateChange }) => {
     return false;
   };
 
-  // Función para agregar una clase a las fechas deshabilitadas
+  // Función para agregar clases a las fechas disponibles y deshabilitadas
   const tileClassName = ({ date, view }) => {
-    if (view === 'month' && (date < today || bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString()))) {
-      return 'disabled-date'; // Clase CSS personalizada
+    if (view === 'month') {
+      // Si la fecha está deshabilitada, asignamos 'disabled-date'
+      if (date < today || bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString())) {
+        return 'disabled-date'; // Clase CSS personalizada para fechas deshabilitadas
+      }
+      // Si la fecha está disponible, asignamos 'available-date'
+      return 'available-date'; // Clase CSS personalizada para fechas disponibles
     }
     return '';
   };
@@ -63,7 +66,7 @@ const CalendarComponent = ({ onDateChange }) => {
         onChange={handleDateChange} 
         value={date}
         tileDisabled={disableDates} // Deshabilitar fechas pasadas y ocupadas
-        tileClassName={tileClassName} // Agregar clase personalizada a las fechas deshabilitadas
+        tileClassName={tileClassName} // Asignar clases a las fechas disponibles y deshabilitadas
       />
     </div>
   );
