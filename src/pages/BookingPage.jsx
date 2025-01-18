@@ -67,7 +67,7 @@ const BookingPage = () => {
     let startHour = 9;
     if (bookingData.hours === '4') {
       // Para 4 horas
-      while (startHour < 21) { // 21:00pm es el último rango para 4 horas (20:00 - 24:00)
+      while (startHour < 20) { // 19:00 - 23:00 es el último rango para 4 horas
         const start = `${startHour}:00`;
         const end = `${startHour + 4}:00`;
         slots.push(`${start} - ${end}`);
@@ -84,6 +84,7 @@ const BookingPage = () => {
     }
     return slots;
   };
+  
 
   return (
     <div className="p-8 flex flex-col justify-center items-center bg-gradient-to-r from-violet-950 via-purple-600 to-blue-500 w-full min-h-screen font-robert-medium">
