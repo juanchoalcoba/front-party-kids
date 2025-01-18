@@ -123,7 +123,7 @@ const PrivatePage = () => {
         <div className="overflow-x-auto">           
           <table className="min-w-full table-auto bg-gray-800 text-white shadow-md rounded-lg text-sm">             
             <thead>               
-              <tr className="bg-gray-700 text-gray-300 text-left">                 
+              <tr className="bg-yellow-900   text-gray-300 text-left">                 
                 <th className="px-4 py-2 font-semibold">Nombre</th>                 
                 <th className="px-4 py-2 font-semibold">Nombre del Niño/Niña</th>                 
                 <th className="px-4 py-2 font-semibold">Fecha</th>                 
