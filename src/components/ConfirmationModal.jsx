@@ -1,4 +1,5 @@
 const ConfirmationModal = ({ show, onClose, onConfirm, bookingData }) => {
+  console.log('Modal de confirmación visible');
   if (!show) return null;
 
   return (

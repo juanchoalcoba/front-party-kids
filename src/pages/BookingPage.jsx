@@ -54,10 +54,9 @@ const BookingPage = () => {
   };
 
   const handleConfirmSubmit = async () => {
-    // Asegúrate de que la información necesaria esté incluida en bookingData
+    console.log('Confirmación enviada');
     const { name, namekid, email, phone, date, duration, selectedTime } = bookingData;
   
-    // Aquí hacemos el envío final de los datos al backend
     const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
       method: 'POST',
       headers: {
@@ -69,24 +68,28 @@ const BookingPage = () => {
         email,
         phone,
         date,
-        duration, // Asegúrate de que duration esté incluido
-        selectedTime, // Asegúrate de que selectedTime esté incluido
+        duration,
+        selectedTime,
       }),
     });
   
     if (response.ok) {
+      console.log('Reserva exitosa');
       setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
-      setShowConfirmationModal(false); // Cerrar modal de confirmación
-      setShowModal(true); // Mostrar modal de éxito
+      setShowConfirmationModal(false);
+      setShowModal(true);
     } else {
+      console.log('Error al realizar la reserva');
       setModalMessage('Error submitting the booking');
-      setShowConfirmationModal(false); // Cerrar modal de confirmación
-      setShowModal(true); // Mostrar modal de error
+      setShowConfirmationModal(false);
+      setShowModal(true);
     }
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('Formulario enviado');
     setShowConfirmationModal(true); // Mostrar modal de confirmación
   };
 
