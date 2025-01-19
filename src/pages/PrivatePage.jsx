@@ -33,12 +33,12 @@ const PrivatePage = () => {
   };    
 
   // Eliminar reserva   
-  const handleDelete = async (phone) => {     
+  const handleDelete = async (name) => {     
     const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta reserva?');     
     if (!confirmDelete) return;        
 
     try {       
-      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?phone=${phone}`, {         
+      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?name=${name}`, {         
         method: 'DELETE',         
         headers: {           
           'Content-Type': 'application/json',         
@@ -51,7 +51,7 @@ const PrivatePage = () => {
       }          
 
       // Si la eliminación es exitosa, actualizar el estado eliminando la reserva       
-      setBookings(prevBookings => prevBookings.filter(booking => booking.phone !== phone));       
+      setBookings(prevBookings => prevBookings.filter(booking => booking.name !== name));       
       alert('Reserva eliminada con éxito');     
     } catch (error) {       
       console.error('Error eliminando la reserva:', error);       
@@ -59,16 +59,13 @@ const PrivatePage = () => {
     }   
   };    
 
-
-
-
   // Confirmar reserva   
-  const handleConfirm = async (phone) => {     
+  const handleConfirm = async (name) => {     
     const confirm = window.confirm('¿Estás seguro de que quieres CONFIRMAR esta reserva?');     
     if (!confirm) return;      
 
     try {       
-      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?phone=${phone}`, {         
+      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?name=${name}`, {         
         method: 'PUT',         
         headers: {           
           'Content-Type': 'application/json',         
@@ -83,7 +80,7 @@ const PrivatePage = () => {
       // Si la confirmación es exitosa, actualizar el estado       
       setBookings(prevBookings =>         
         prevBookings.map(booking =>           
-          booking.phone === phone ? { ...booking, confirmed: true } : booking         
+          booking.name === name ? { ...booking, confirmed: true } : booking         
         )       
       );       
       alert('Reserva confirmada con éxito');     
