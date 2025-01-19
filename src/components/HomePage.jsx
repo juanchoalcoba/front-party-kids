@@ -28,15 +28,15 @@ function HomePage() {
         data-aos="fade-up"
         className="relative flex flex-col justify-center items-center z-10 bg-white/40 backdrop-blur-lg font-robert-medium p-8 rounded-3xl shadow-lg max-w-xl text-center"
       >
-        <h1 className="text-4xl flex text-center flex-col font-extrabold sm:text-4xl p-4 text-red-950">
-          Bienvenidos 
+        <h1 className="text-4xl text-cyan-950 flex text-center flex-col font-extrabold sm:text-4xl p-4">
+          Reserva Ahora 
           <img 
             className='w-[250px] rounded-full p-4 shadow-md shadow-black'
             src="logo.png" alt="Logo" 
           />
         </h1>
-        <p className="text-center text-blue-950 font-bold font-circular-web mb-6 text-[24px]">
-          CONSULTA TU DIA
+        <p className="text-center text-cyan-950 font-bold font-circular-web mb-4 pt-4 text-[24px]">
+          CONSULTAR FECHA
         </p>
 
         {/* Botón RESERVAS */}
@@ -44,11 +44,11 @@ function HomePage() {
           <Button 
             id="watch-trailer"
             title={
-              <button className='text-[20px] text-violet-950 font-general text-center flex items-center justify-center'>
+              <button className='text-[18px] text-blue-50 font-general text-center flex items-center justify-center'>
                 RESERVAS
               </button>
             }
-            containerClass="font-bold bg-yellow-300 block py-2 px-14 shadow-md shadow-black"
+            containerClass="font-bold bg-cyan-950 block  shadow-md shadow-gray-600"
           />
         </Link>
 
