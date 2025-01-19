@@ -33,63 +33,62 @@ const PrivatePage = () => {
   };    
 
   // Eliminar reserva   
-const handleDelete = async (id) => {     
-  const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta reserva?');     
-  if (!confirmDelete) return;        
+  const handleDelete = async (name) => {     
+    const confirmDelete = window.confirm('¿Estás seguro de que quieres eliminar esta reserva?');     
+    if (!confirmDelete) return;        
 
-  try {       
-    const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?id=${id}`, {  // Enviamos el _id         
-      method: 'DELETE',         
-      headers: {           
-        'Content-Type': 'application/json',         
-      }       
-    });          
+    try {       
+      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?name=${name}`, {         
+        method: 'DELETE',         
+        headers: {           
+          'Content-Type': 'application/json',         
+        }       
+      });          
 
-    if (!response.ok) {         
-      const data = await response.json();         
-      throw new Error(data.message || 'Error eliminando la reserva');       
-    }          
+      if (!response.ok) {         
+        const data = await response.json();         
+        throw new Error(data.message || 'Error eliminando la reserva');       
+      }          
 
-    // Si la eliminación es exitosa, actualizar el estado eliminando la reserva       
-    setBookings(prevBookings => prevBookings.filter(booking => booking._id !== id));       
-    alert('Reserva eliminada con éxito');     
-  } catch (error) {       
-    console.error('Error eliminando la reserva:', error);       
-    alert('Hubo un error al intentar eliminar la reserva');     
-  }   
-};    
+      // Si la eliminación es exitosa, actualizar el estado eliminando la reserva       
+      setBookings(prevBookings => prevBookings.filter(booking => booking.name !== name));       
+      alert('Reserva eliminada con éxito');     
+    } catch (error) {       
+      console.error('Error eliminando la reserva:', error);       
+      alert('Hubo un error al intentar eliminar la reserva');     
+    }   
+  };    
 
-// Confirmar reserva   
-const handleConfirm = async (id) => {     
-  const confirm = window.confirm('¿Estás seguro de que quieres CONFIRMAR esta reserva?');     
-  if (!confirm) return;      
+  // Confirmar reserva   
+  const handleConfirm = async (name) => {     
+    const confirm = window.confirm('¿Estás seguro de que quieres CONFIRMAR esta reserva?');     
+    if (!confirm) return;      
 
-  try {       
-    const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?id=${id}`, {  // Enviamos el _id         
-      method: 'PUT',         
-      headers: {           
-        'Content-Type': 'application/json',         
-      }       
-    });        
+    try {       
+      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?name=${name}`, {         
+        method: 'PUT',         
+        headers: {           
+          'Content-Type': 'application/json',         
+        }       
+      });        
 
-    if (!response.ok) {         
-      const data = await response.json();         
-      throw new Error(data.message || 'Error confirmando la reserva');       
-    }        
+      if (!response.ok) {         
+        const data = await response.json();         
+        throw new Error(data.message || 'Error confirmando la reserva');       
+      }        
 
-    // Si la confirmación es exitosa, actualizar el estado       
-    setBookings(prevBookings =>         
-      prevBookings.map(booking =>           
-        booking._id === id ? { ...booking, confirmed: true } : booking         
-      )       
-    );       
-    alert('Reserva confirmada con éxito');     
-  } catch (error) {       
-    console.error('Error confirmando la reserva:', error);       
-    alert('Hubo un error al intentar confirmar la reserva');     
-  }   
-};
-    
+      // Si la confirmación es exitosa, actualizar el estado       
+      setBookings(prevBookings =>         
+        prevBookings.map(booking =>           
+          booking.name === name ? { ...booking, confirmed: true } : booking         
+        )       
+      );       
+      alert('Reserva confirmada con éxito');     
+    } catch (error) {       
+      console.error('Error confirmando la reserva:', error);       
+      alert('Hubo un error al intentar confirmar la reserva');     
+    }   
+  };    
 
   // Autenticación   
   if (!authenticated) {     
