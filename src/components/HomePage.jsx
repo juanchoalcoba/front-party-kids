@@ -44,11 +44,11 @@ function HomePage() {
           <Button 
             id="watch-trailer"
             title={
-              <button className='text-[18px] text-blue-50 font-general text-center flex items-center justify-center'>
+              <button className='text-[18px] text-black font-general text-center flex items-center justify-center'>
                 RESERVAS
               </button>
             }
-            containerClass="font-bold bg-black block  shadow-md shadow-gray-600"
+            containerClass="font-bold block  shadow-md shadow-gray-800"
           />
         </Link>
 
