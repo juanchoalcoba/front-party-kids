@@ -26,6 +26,10 @@ const BookingPage = () => {
     setBookingData({ ...bookingData, date });
   };
 
+
+
+  
+
   const handleConfirmSubmit = async () => {
     // Aquí hacemos el envío final de los datos al backend
     const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
@@ -46,6 +50,8 @@ const BookingPage = () => {
       setShowModal(true); // Mostrar modal de error
     }
   };
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
