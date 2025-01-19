@@ -48,7 +48,7 @@ function HomePage() {
                 RESERVAS
               </button>
             }
-            containerClass="font-bold bg-cyan-950 block  shadow-md shadow-gray-600"
+            containerClass="font-bold bg-black block  shadow-md shadow-gray-600"
           />
         </Link>
 
