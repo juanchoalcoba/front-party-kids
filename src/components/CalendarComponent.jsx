@@ -4,66 +4,91 @@ import 'react-calendar/dist/Calendar.css';
 
 import '../App.css'
 
-const CalendarComponent = ({ onDateChange }) => {
+const CalendarComponent = ({ onDateChange, setBookedHours }) => {
   const [date, setDate] = useState(new Date());
-  const [bookedDates, setBookedDates] = useState([]); // Guardar fechas reservadas
-  const today = new Date(); // Fecha de hoy
+  const [bookedDates, setBookedDates] = useState([]); // Fechas con reservas
+  const [bookedSlots, setBookedSlots] = useState({}); // Horarios ocupados por fecha
+  const today = new Date();
 
-  // Función para obtener fechas reservadas desde el backend
   const fetchBookedDates = async () => {
     try {
       const response = await fetch('https://api-party-kids.vercel.app/api/bookings');
       const data = await response.json();
-      // Mapeamos solo las fechas de las reservas
-      const booked = data.map(booking => new Date(booking.date));
-      setBookedDates(booked);
+      // Mapear solo las fechas y horas de las reservas
+      const dates = [];
+      const slots = {};
+      
+      data.forEach(booking => {
+        const bookingDate = new Date(booking.date);
+        dates.push(bookingDate);
+
+        // Guardamos los horarios ocupados para cada fecha
+        const startTime = new Date(booking.date).getHours();
+        const endTime = startTime + parseInt(booking.hours, 10);
+        slots[bookingDate.toDateString()] = slots[bookingDate.toDateString()] || [];
+        for (let i = startTime; i < endTime; i++) {
+          slots[bookingDate.toDateString()].push(`${i}:00`);
+        }
+      });
+
+      setBookedDates(dates);
+      setBookedSlots(slots);
     } catch (error) {
       console.error('Error fetching booked dates:', error);
     }
   };
 
   useEffect(() => {
-    fetchBookedDates(); // Llamada cuando el componente se monta
+    fetchBookedDates();
   }, []);
 
-  // Función que maneja el cambio de fecha
   const handleDateChange = (newDate) => {
     setDate(newDate);
     onDateChange(newDate);
+    setBookedHours(bookedSlots[newDate.toDateString()] || []);
   };
 
-  // Función para deshabilitar las fechas reservadas y pasadas
   const disableDates = ({ date, view }) => {
-    // Solo deshabilitamos las fechas si estamos en la vista de mes
     if (view === 'month') {
-      // Deshabilitar fechas pasadas
-      if (date < today) {
-        return true;
-      }
+      if (date < today) return true; // Deshabilitar fechas pasadas
+      // Si no hay franjas horarias disponibles, deshabilitar el día
+      const dateString = date.toDateString();
+      const availableSlots = bookedSlots[dateString] || [];
+      const allSlots = Array.from({ length: 24 }, (_, i) => `${i}:00`); // 24 horas del día
 
-      // Deshabilitar fechas reservadas
-      return bookedDates.some(bookedDate => 
-        bookedDate.toDateString() === date.toDateString()
-      );
+      // Verificar si existen franjas horarias disponibles
+      const available = allSlots.filter(slot => !availableSlots.includes(slot));
+      return available.length === 0;
     }
     return false;
   };
 
-  // Función para agregar una clase a las fechas deshabilitadas
   const tileClassName = ({ date, view }) => {
-    if (view === 'month' && (date < today || bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString()))) {
-      return 'disabled-date'; // Clase CSS personalizada
+    if (view === 'month') {
+      const dateString = date.toDateString();
+      const availableSlots = bookedSlots[dateString] || [];
+      const allSlots = Array.from({ length: 24 }, (_, i) => `${i}:00`); // 24 horas del día
+
+      // Verificar si no hay franjas horarias disponibles
+      const available = allSlots.filter(slot => !availableSlots.includes(slot));
+
+      // Si no hay franjas horarias disponibles, marcar el día de rojo
+      if (available.length === 0) {
+        return 'no-availability'; // Clase para marcar en rojo
+      } else if (bookedDates.some(bookedDate => bookedDate.toDateString() === dateString)) {
+        return 'highlighted-date'; // Clase para marcar los días con reservas pero con disponibilidad
+      }
     }
     return '';
   };
 
   return (
     <div>
-      <Calendar 
-        onChange={handleDateChange} 
+      <Calendar
+        onChange={handleDateChange}
         value={date}
-        tileDisabled={disableDates} // Deshabilitar fechas pasadas y ocupadas
-        tileClassName={tileClassName} // Agregar clase personalizada a las fechas deshabilitadas
+        tileDisabled={disableDates}
+        tileClassName={tileClassName}
       />
     </div>
   );
