@@ -67,29 +67,29 @@ const BookingPage = () => {
     setShowConfirmationModal(false);
   };
 
-  const generateTimeSlots = () => {
-    const slots = [];
-    let startHour = 8; // Cambiado a las 8:00 para incluir este horario
-  
-    // Cambios para manejar reservas de 4 y 8 horas
-    if (bookingData.hours === '4') {
-      while (startHour <= 20) { // Cambiado a <= 20 para incluir el rango de 20:00 - 24:00
-        const start = `${startHour}:00`;
-        const end = `${startHour + 4}:00`;
-        slots.push(`${start} - ${end}`);
-        startHour++;
-      }
-    } else if (bookingData.hours === '8') {
-      while (startHour <= 16) { // Cambiado a <= 16 para incluir el rango de 16:00 - 24:00
-        const start = `${startHour}:00`;
-        const end = `${startHour + 8}:00`;
-        slots.push(`${start} - ${end}`);
-        startHour++;
-      }
+ // Generamos las opciones de hora basadas en la duración
+const generateTimeSlots = () => {
+  const slots = [];
+  let startHour = 8; // Cambiado a las 8:00 para incluir este horario
+  if (bookingData.hours === '4') {
+    // Para 4 horas
+    while (startHour <= 20) { // Cambiado a <= 20 para incluir el rango de 20:00 - 24:00
+      const start = `${startHour}:00`;
+      const end = `${startHour + 4}:00`;
+      slots.push(`${start} - ${end}`);
+      startHour++;
     }
-    return slots;
-  };
-  
+  } else if (bookingData.hours === '8') {
+    // Para 8 horas
+    while (startHour <= 16) { // Cambiado a <= 16 para incluir el rango de 16:00 - 24:00
+      const start = `${startHour}:00`;
+      const end = `${startHour + 8}:00`;
+      slots.push(`${start} - ${end}`);
+      startHour++;
+    }
+  }
+  return slots;
+};
 
   
 
