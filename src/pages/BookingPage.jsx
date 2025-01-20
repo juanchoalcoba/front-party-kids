@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CalendarComponent from '../components/CalendarComponent';
 import Modal from '../components/Modal'; // Importamos el modal para mostrar mensajes
 import ConfirmationModal from '../components/ConfirmationModal'; // Modal para confirmar reserva
@@ -14,26 +14,10 @@ const BookingPage = () => {
     timeSlot: '', // Campo para la selección de la hora específica
   });
 
-  const [bookedDates, setBookedDates] = useState([]); // Estado para las fechas reservadas
   const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
   const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación antes de enviar
   const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
   
-  // Obtener las fechas ya reservadas desde el backend
-  useEffect(() => {
-    const fetchBookedDates = async () => {
-      try {
-        const response = await fetch('https://api-party-kids.vercel.app/api/bookings');
-        const data = await response.json();
-        setBookedDates(data); // Asignar las reservas existentes al estado bookedDates
-      } catch (error) {
-        console.error('Error fetching booked dates:', error);
-      }
-    };
-
-    fetchBookedDates();
-  }, []); // Ejecutar solo una vez cuando se monta el componente
-
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
   };
@@ -42,7 +26,12 @@ const BookingPage = () => {
     setBookingData({ ...bookingData, date });
   };
 
+
+
+  
+
   const handleConfirmSubmit = async () => {
+    // Aquí hacemos el envío final de los datos al backend
     const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
       method: 'POST',
       headers: {
@@ -62,6 +51,8 @@ const BookingPage = () => {
     }
   };
 
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowConfirmationModal(true); // Mostrar modal de confirmación
@@ -76,66 +67,37 @@ const BookingPage = () => {
     setShowConfirmationModal(false);
   };
 
-  const generateTimeSlots = (selectedDate, duration, bookedDates) => {
+  const generateTimeSlots = () => {
     const slots = [];
-    let startHour = 8; // Horario de inicio
+    let startHour = 8; // Cambiado a las 8:00 para incluir este horario
   
-    // Obtenemos las reservas del día seleccionado
-    const dayBookings = bookedDates.filter(booking => {
-      const bookingDate = new Date(booking.date).toDateString();
-      const selectedBookingDate = new Date(selectedDate).toDateString();
-      return bookingDate === selectedBookingDate;
-    });
-  
-    if (duration === '4') {
-      // Generar slots de 4 horas
-      while (startHour <= 20) {
+    // Cambios para manejar reservas de 4 y 8 horas
+    if (bookingData.hours === '4') {
+      while (startHour <= 20) { // Cambiado a <= 20 para incluir el rango de 20:00 - 24:00
         const start = `${startHour}:00`;
         const end = `${startHour + 4}:00`;
-  
-        // Verificar si el slot está disponible comparando con las reservas existentes
-        const slotAvailable = dayBookings.every(booking => {
-          const bookedStartHour = new Date(booking.startTime).getHours();
-          const bookedEndHour = new Date(booking.endTime).getHours();
-          return (startHour + 4 <= bookedStartHour || startHour >= bookedEndHour);
-        });
-  
-        if (slotAvailable) {
-          slots.push(`${start} - ${end}`);
-        }
-  
+        slots.push(`${start} - ${end}`);
         startHour++;
       }
-    } else if (duration === '8') {
-      // Generar slots de 8 horas
-      while (startHour <= 16) {
+    } else if (bookingData.hours === '8') {
+      while (startHour <= 16) { // Cambiado a <= 16 para incluir el rango de 16:00 - 24:00
         const start = `${startHour}:00`;
         const end = `${startHour + 8}:00`;
-  
-        const slotAvailable = dayBookings.every(booking => {
-          const bookedStartHour = new Date(booking.startTime).getHours();
-          const bookedEndHour = new Date(booking.endTime).getHours();
-          return (startHour + 8 <= bookedStartHour || startHour >= bookedEndHour);
-        });
-  
-        if (slotAvailable) {
-          slots.push(`${start} - ${end}`);
-        }
-  
+        slots.push(`${start} - ${end}`);
         startHour++;
       }
     }
-  
     return slots;
   };
+  
+
+  
 
   return (
     <div className="p-8 flex flex-col justify-center items-center bg-gradient-to-r from-violet-950 via-purple-600 to-blue-500 w-full min-h-screen font-robert-medium">
       <h1 className="text-3xl mb-6 font-bold text-center text-blue-50">¡Completa el formulario para registrar tu fiesta!</h1>
       
       <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-xl shadow-xl w-full sm:w-96">
-        {/* Formulario */}
-
         <div className="flex flex-col">
           <label htmlFor="name" className="text-gray-700 font-semibold mb-2">Tu Nombre</label>
           <input
@@ -217,7 +179,8 @@ const BookingPage = () => {
             <option value="8">8 horas</option>
           </select>
         </div>
-        
+
+        {/* Campo para seleccionar la hora dependiendo de la duración */}
         {bookingData.hours && (
           <div className="flex flex-col">
             <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">Selecciona la franja horaria</label>
@@ -230,8 +193,7 @@ const BookingPage = () => {
               required
             >
               <option value="">Selecciona una opción</option>
-              {/* Llamamos a generateTimeSlots y le pasamos la fecha seleccionada y la duración */}
-              {generateTimeSlots(bookingData.date, bookingData.hours, bookedDates).map((slot, index) => (
+              {generateTimeSlots().map((slot, index) => (
                 <option key={index} value={slot}>{slot}</option>
               ))}
             </select>

@@ -4,8 +4,18 @@
     box-sizing: border-box;
  }
 
-/* Estilo para las fechas deshabilitadas */
-.disabled-date {
-   background-color: rgba(255, 0, 0, 0.7) !important;  /* Rojo suave con transparencia */
-   color: white !important; /* Cambia el color del texto */
+/* Fecha con franjas disponibles */
+.available-date {
+   background-color: yellow !important; /* Amarillo para indicar disponibilidad */
  }
+ 
+ /* Fecha completamente ocupada */
+ .booked-date {
+   background-color: red !important; /* Rojo para indicar que está completamente ocupada */
+ }
+ 
+ /* Fecha deshabilitada (pasada) */
+ .disabled-date {
+   background-color: lightgray !important; /* Gris para fechas pasadas */
+ }
+ 
