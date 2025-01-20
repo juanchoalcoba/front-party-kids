@@ -4,11 +4,8 @@
     box-sizing: border-box;
  }
 
- .disabled-date {
-   background-color: #ef4444 !important; /* Rojo */
- }
- 
- /* Fondo para días parcialmente ocupados (amarillo) */
- .partially-booked-date {
-   background-color: #facc15 !important; /* Amarillo */
+/* Estilo para las fechas deshabilitadas */
+.disabled-date {
+   background-color: rgba(255, 0, 0, 0.7) !important;  /* Rojo suave con transparencia */
+   color: white !important; /* Cambia el color del texto */
  }

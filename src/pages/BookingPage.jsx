@@ -1,39 +1,23 @@
-import { useState, useEffect } from 'react';
-import CalendarComponent from '../components/CalendarComponent'; // Asegúrate de tener este componente para seleccionar la fecha
-import Modal from '../components/Modal'; 
-import ConfirmationModal from '../components/ConfirmationModal';
+import { useState } from 'react';
+import CalendarComponent from '../components/CalendarComponent';
+import Modal from '../components/Modal'; // Importamos el modal para mostrar mensajes
+import ConfirmationModal from '../components/ConfirmationModal'; // Modal para confirmar reserva
 
 const BookingPage = () => {
   const [bookingData, setBookingData] = useState({
     name: '',
-    namekid: '',
+    namekid: '', // Nuevo campo para el nombre del niño/niña
     email: '',
     phone: '',
     date: new Date(),
-    hours: '',
-    timeSlot: '',
+    hours: '', // Nuevo campo para la duración de la reserva
+    timeSlot: '', // Campo para la selección de la hora específica
   });
 
-  const [existingBookings, setExistingBookings] = useState([]); // Guardar reservas existentes para el día seleccionado
-  const [showModal, setShowModal] = useState(false);
-  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState('');
-
-  useEffect(() => {
-    // Fetch de las reservas existentes al seleccionar una fecha
-    const fetchBookings = async () => {
-      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?date=${bookingData.date.toISOString()}`);
-      if (response.ok) {
-        const data = await response.json();
-        setExistingBookings(data); // Guardamos las reservas existentes en el estado
-      }
-    };
-    
-    if (bookingData.date) {
-      fetchBookings();
-    }
-  }, [bookingData.date]);
-
+  const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación antes de enviar
+  const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
+  
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
   };
@@ -42,7 +26,12 @@ const BookingPage = () => {
     setBookingData({ ...bookingData, date });
   };
 
+
+
+  
+
   const handleConfirmSubmit = async () => {
+    // Aquí hacemos el envío final de los datos al backend
     const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
       method: 'POST',
       headers: {
@@ -53,80 +42,69 @@ const BookingPage = () => {
 
     if (response.ok) {
       setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
-      setShowConfirmationModal(false);
-      setShowModal(true);
+      setShowConfirmationModal(false); // Cerrar modal de confirmación
+      setShowModal(true); // Mostrar modal de éxito
     } else {
-      setModalMessage('Error al enviar la reserva');
-      setShowConfirmationModal(false);
-      setShowModal(true);
+      setModalMessage('Error submitting the booking');
+      setShowConfirmationModal(false); // Cerrar modal de confirmación
+      setShowModal(true); // Mostrar modal de error
     }
   };
 
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setShowConfirmationModal(true);
+    setShowConfirmationModal(true); // Mostrar modal de confirmación
   };
 
   const closeModal = () => {
     setShowModal(false);
-    window.location.href = '/';
+    window.location.href = '/'; // Redirige a la página de inicio (opcional)
   };
 
   const closeConfirmationModal = () => {
     setShowConfirmationModal(false);
   };
 
-  // Función para verificar las franjas horarias ocupadas y generar las disponibles
-  const generateTimeSlots = () => {
-    const slots = [];
-    let startHour = 8;
-    const bookedRanges = existingBookings.map(booking => ({
-      start: parseInt(booking.timeSlot.split(' - ')[0], 10),
-      end: parseInt(booking.timeSlot.split(' - ')[1], 10),
-    }));
-
-    if (bookingData.hours === '4') {
-      while (startHour <= 20) {
-        const endHour = startHour + 4;
-        const isSlotAvailable = !bookedRanges.some(
-          (range) => startHour < range.end && endHour > range.start
-        );
-
-        if (isSlotAvailable) {
-          slots.push(`${startHour}:00 - ${endHour}:00`);
-        }
-
-        startHour++;
-      }
-    } else if (bookingData.hours === '8') {
-      while (startHour <= 16) {
-        const endHour = startHour + 8;
-        const isSlotAvailable = !bookedRanges.some(
-          (range) => startHour < range.end && endHour > range.start
-        );
-
-        if (isSlotAvailable) {
-          slots.push(`${startHour}:00 - ${endHour}:00`);
-        }
-
-        startHour++;
-      }
+ // Generamos las opciones de hora basadas en la duración
+const generateTimeSlots = () => {
+  const slots = [];
+  let startHour = 8; // Cambiado a las 8:00 para incluir este horario
+  if (bookingData.hours === '4') {
+    // Para 4 horas
+    while (startHour <= 20) { // Cambiado a <= 20 para incluir el rango de 20:00 - 24:00
+      const start = `${startHour}:00`;
+      const end = `${startHour + 4}:00`;
+      slots.push(`${start} - ${end}`);
+      startHour++;
     }
-    return slots;
-  };
+  } else if (bookingData.hours === '8') {
+    // Para 8 horas
+    while (startHour <= 16) { // Cambiado a <= 16 para incluir el rango de 16:00 - 24:00
+      const start = `${startHour}:00`;
+      const end = `${startHour + 8}:00`;
+      slots.push(`${start} - ${end}`);
+      startHour++;
+    }
+  }
+  return slots;
+};
+
+  
 
   return (
     <div className="p-8 flex flex-col justify-center items-center bg-gradient-to-r from-violet-950 via-purple-600 to-blue-500 w-full min-h-screen font-robert-medium">
       <h1 className="text-3xl mb-6 font-bold text-center text-blue-50">¡Completa el formulario para registrar tu fiesta!</h1>
-
+      
       <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-xl shadow-xl w-full sm:w-96">
-        {/* Campo nombre del organizador */}
         <div className="flex flex-col">
-          <label htmlFor="name" className="text-gray-700 font-semibold mb-2">Nombre del Organizador</label>
+          <label htmlFor="name" className="text-gray-700 font-semibold mb-2">Tu Nombre</label>
           <input
             type="text"
             id="name"
             name="name"
+            placeholder="Escribe tu nombre y apellido"
             value={bookingData.name}
             onChange={handleChange}
             className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
@@ -134,13 +112,13 @@ const BookingPage = () => {
           />
         </div>
 
-        {/* Campo nombre del niño */}
         <div className="flex flex-col">
-          <label htmlFor="namekid" className="text-gray-700 font-semibold mb-2">Nombre del Niño</label>
+          <label htmlFor="namekid" className="text-gray-700 font-semibold mb-2">Nombre del Niño/a</label>
           <input
             type="text"
             id="namekid"
             name="namekid"
+            placeholder="Escribe el nombre del niño/a"
             value={bookingData.namekid}
             onChange={handleChange}
             className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
@@ -148,13 +126,13 @@ const BookingPage = () => {
           />
         </div>
 
-        {/* Campo email */}
         <div className="flex flex-col">
           <label htmlFor="email" className="text-gray-700 font-semibold mb-2">Email</label>
           <input
             type="email"
             id="email"
             name="email"
+            placeholder="Escribe tu email"
             value={bookingData.email}
             onChange={handleChange}
             className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
@@ -162,23 +140,30 @@ const BookingPage = () => {
           />
         </div>
 
-        {/* Campo teléfono */}
         <div className="flex flex-col">
           <label htmlFor="phone" className="text-gray-700 font-semibold mb-2">Teléfono</label>
           <input
             type="tel"
             id="phone"
             name="phone"
+            placeholder="Escribe tu número de teléfono"
             value={bookingData.phone}
             onChange={handleChange}
             className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
             required
+            minLength="8" // Mínimo de 8 caracteres
+            maxLength="9" // Máximo de 9 caracteres
+            pattern="^\d{8,9}$" // Acepta solo números con 8 o 9 dígitos
+            title="El número debe tener entre 8 y 9 dígitos"
           />
         </div>
-        {/* Calendario de selección de fecha */}
-        <CalendarComponent selectedDate={bookingData.date} onDateChange={handleDateChange} />
 
-        {/* Campo de duración */}
+        <div className="flex flex-col">
+          <label className="text-gray-700 font-semibold mb-2">Selecciona la Fecha</label>
+          <CalendarComponent onDateChange={handleDateChange} />
+        </div>
+
+        {/* Nuevo campo para seleccionar duración de horas */}
         <div className="flex flex-col">
           <label htmlFor="hours" className="text-gray-700 font-semibold mb-2">Duración de la Fiesta</label>
           <select
@@ -195,7 +180,7 @@ const BookingPage = () => {
           </select>
         </div>
 
-        {/* Campo de selección de hora */}
+        {/* Campo para seleccionar la hora dependiendo de la duración */}
         {bookingData.hours && (
           <div className="flex flex-col">
             <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">Selecciona la franja horaria</label>
@@ -215,12 +200,12 @@ const BookingPage = () => {
           </div>
         )}
 
-
         <button type="submit" className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
           Confirmar
         </button>
       </form>
 
+      {/* Modal de confirmación de reserva */}
       <ConfirmationModal 
         show={showConfirmationModal} 
         onClose={closeConfirmationModal} 
@@ -228,6 +213,7 @@ const BookingPage = () => {
         bookingData={bookingData} 
       />
 
+      {/* Mostrar modal de resultado final */}
       <Modal show={showModal} onClose={closeModal} message={modalMessage} />
     </div>
   );
