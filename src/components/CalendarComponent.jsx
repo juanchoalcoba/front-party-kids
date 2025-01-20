@@ -4,55 +4,67 @@ import 'react-calendar/dist/Calendar.css';
 
 import '../App.css'
 
-const CalendarComponent = ({ onDateChange }) => {
-  const [date, setDate] = useState(new Date());
-  const [bookedDates, setBookedDates] = useState([]); // Guardar fechas reservadas
-  const today = new Date(); // Fecha de hoy
+const CalendarComponent = ({ selectedDate, onDateChange }) => {
+  const [date, setDate] = useState(selectedDate || new Date());  // Usamos selectedDate como valor inicial
+  const [bookedSlots, setBookedSlots] = useState([]); // Guardar franjas horarias reservadas
+  const today = new Date();
 
-  // Función para obtener fechas reservadas desde el backend
-  const fetchBookedDates = async () => {
+  // Función para obtener las franjas horarias reservadas desde el backend
+  const fetchBookedSlots = async () => {
     try {
       const response = await fetch('https://api-party-kids.vercel.app/api/bookings');
       const data = await response.json();
-      // Mapeamos solo las fechas de las reservas
-      const booked = data.map(booking => new Date(booking.date));
-      setBookedDates(booked);
+      
+      const slots = data.map(booking => ({
+        date: new Date(booking.date),
+        startTime: new Date(booking.startTime),
+        endTime: new Date(booking.endTime)
+      }));
+      
+      setBookedSlots(slots);
     } catch (error) {
-      console.error('Error fetching booked dates:', error);
+      console.error('Error fetching booked slots:', error);
     }
   };
 
   useEffect(() => {
-    fetchBookedDates(); // Llamada cuando el componente se monta
+    fetchBookedSlots(); // Llamada cuando el componente se monta
   }, []);
 
-  // Función que maneja el cambio de fecha
   const handleDateChange = (newDate) => {
     setDate(newDate);
-    onDateChange(newDate);
+    onDateChange(newDate);  // Llamamos al callback para actualizar la fecha en el componente padre
   };
 
-  // Función para deshabilitar las fechas reservadas y pasadas
+  // Deshabilitar fechas pasadas o completamente ocupadas
   const disableDates = ({ date, view }) => {
-    // Solo deshabilitamos las fechas si estamos en la vista de mes
     if (view === 'month') {
-      // Deshabilitar fechas pasadas
       if (date < today) {
         return true;
       }
 
-      // Deshabilitar fechas reservadas
-      return bookedDates.some(bookedDate => 
-        bookedDate.toDateString() === date.toDateString()
-      );
+      // Verificar si el día está completamente reservado
+      const isFullyBooked = bookedSlots.filter(slot => 
+        slot.date.toDateString() === date.toDateString()
+      ).length >= 4; // Suponiendo 4 franjas horarias de 4 horas
+
+      return isFullyBooked;
     }
     return false;
   };
 
-  // Función para agregar una clase a las fechas deshabilitadas
+  // Agregar clase personalizada a las fechas deshabilitadas o parcialmente ocupadas
   const tileClassName = ({ date, view }) => {
-    if (view === 'month' && (date < today || bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString()))) {
-      return 'disabled-date'; // Clase CSS personalizada
+    if (view === 'month') {
+      const slotsForDay = bookedSlots.filter(slot =>
+        slot.date.toDateString() === date.toDateString()
+      );
+
+      if (slotsForDay.length >= 4) {
+        return 'disabled-date'; // Día totalmente reservado
+      } else if (slotsForDay.length > 0) {
+        return 'partially-booked-date'; // Día parcialmente reservado
+      }
     }
     return '';
   };
@@ -61,9 +73,9 @@ const CalendarComponent = ({ onDateChange }) => {
     <div>
       <Calendar 
         onChange={handleDateChange} 
-        value={date}
-        tileDisabled={disableDates} // Deshabilitar fechas pasadas y ocupadas
-        tileClassName={tileClassName} // Agregar clase personalizada a las fechas deshabilitadas
+        value={date}  // Establecemos el valor del calendario con el estado `date`
+        tileDisabled={disableDates}
+        tileClassName={tileClassName}
       />
     </div>
   );
