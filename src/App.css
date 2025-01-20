@@ -4,15 +4,8 @@
     box-sizing: border-box;
  }
 
-/* Marcar los días sin franjas horarias disponibles en rojo */
-.no-availability {
-   background-color: red !important;
-   color: white !important;
+/* Estilo para las fechas deshabilitadas */
+.disabled-date {
+   background-color: rgba(255, 0, 0, 0.7) !important;  /* Rojo suave con transparencia */
+   color: white !important; /* Cambia el color del texto */
  }
- 
- /* Resaltar días con reservas pero con disponibilidad (amarillo) */
- .highlighted-date {
-   background-color: yellow !important;
-   color: black !important;
- }
- 

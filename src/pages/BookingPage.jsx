@@ -1,52 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CalendarComponent from '../components/CalendarComponent';
-import Modal from '../components/Modal'; // Modal para mostrar mensajes
+import Modal from '../components/Modal'; // Importamos el modal para mostrar mensajes
 import ConfirmationModal from '../components/ConfirmationModal'; // Modal para confirmar reserva
 
 const BookingPage = () => {
   const [bookingData, setBookingData] = useState({
     name: '',
-    namekid: '',
+    namekid: '', // Nuevo campo para el nombre del niño/niña
     email: '',
     phone: '',
     date: new Date(),
-    hours: '',
-    timeSlot: '',
+    hours: '', // Nuevo campo para la duración de la reserva
+    timeSlot: '', // Campo para la selección de la hora específica
   });
 
-  const [showModal, setShowModal] = useState(false);
-  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState('');
-  const [bookedHours, setBookedHours] = useState({}); // Guardar franjas horarias ocupadas por fecha
-
-  // Función para obtener las fechas y franjas horarias ocupadas
-  const fetchBookedDates = async () => {
-    try {
-      const response = await fetch('https://api-party-kids.vercel.app/api/bookings');
-      const data = await response.json();
-      const slots = {};
-
-      data.forEach(booking => {
-        const bookingDate = new Date(booking.date);
-        const startTime = new Date(booking.date).getHours();
-        const endTime = startTime + parseInt(booking.hours, 10);
-        
-        slots[bookingDate.toDateString()] = slots[bookingDate.toDateString()] || [];
-        for (let i = startTime; i < endTime; i++) {
-          slots[bookingDate.toDateString()].push(`${i}:00`);
-        }
-      });
-
-      setBookedHours(slots); // Actualiza las franjas horarias ocupadas
-    } catch (error) {
-      console.error('Error fetching booked dates:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchBookedDates(); // Cargar las franjas horarias ocupadas
-  }, []);
-
+  const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación antes de enviar
+  const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
+  
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
   };
@@ -55,32 +26,12 @@ const BookingPage = () => {
     setBookingData({ ...bookingData, date });
   };
 
-  const generateTimeSlots = () => {
-    const slots = [];
-    const bookedSlotsForDay = bookedHours[bookingData.date.toDateString()] || [];
 
-    const allSlots = Array.from({ length: 24 }, (_, i) => `${i}:00`); // Horas del día
-    const available = allSlots.filter(slot => !bookedSlotsForDay.includes(slot));
 
-    // Generamos franjas horarias de acuerdo con la duración seleccionada
-    if (bookingData.hours === '4') {
-      available.forEach(slot => {
-        const start = slot;
-        const end = `${parseInt(slot.split(':')[0], 10) + 4}:00`;
-        slots.push(`${start} - ${end}`);
-      });
-    } else if (bookingData.hours === '8') {
-      available.forEach(slot => {
-        const start = slot;
-        const end = `${parseInt(slot.split(':')[0], 10) + 8}:00`;
-        slots.push(`${start} - ${end}`);
-      });
-    }
-
-    return slots;
-  };
+  
 
   const handleConfirmSubmit = async () => {
+    // Aquí hacemos el envío final de los datos al backend
     const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
       method: 'POST',
       headers: {
@@ -91,14 +42,16 @@ const BookingPage = () => {
 
     if (response.ok) {
       setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
-      setShowConfirmationModal(false);
-      setShowModal(true);
+      setShowConfirmationModal(false); // Cerrar modal de confirmación
+      setShowModal(true); // Mostrar modal de éxito
     } else {
-      setModalMessage('Error al realizar la reserva');
-      setShowConfirmationModal(false);
-      setShowModal(true);
+      setModalMessage('Error submitting the booking');
+      setShowConfirmationModal(false); // Cerrar modal de confirmación
+      setShowModal(true); // Mostrar modal de error
     }
   };
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -113,6 +66,32 @@ const BookingPage = () => {
   const closeConfirmationModal = () => {
     setShowConfirmationModal(false);
   };
+
+ // Generamos las opciones de hora basadas en la duración
+const generateTimeSlots = () => {
+  const slots = [];
+  let startHour = 8; // Cambiado a las 8:00 para incluir este horario
+  if (bookingData.hours === '4') {
+    // Para 4 horas
+    while (startHour <= 20) { // Cambiado a <= 20 para incluir el rango de 20:00 - 24:00
+      const start = `${startHour}:00`;
+      const end = `${startHour + 4}:00`;
+      slots.push(`${start} - ${end}`);
+      startHour++;
+    }
+  } else if (bookingData.hours === '8') {
+    // Para 8 horas
+    while (startHour <= 16) { // Cambiado a <= 16 para incluir el rango de 16:00 - 24:00
+      const start = `${startHour}:00`;
+      const end = `${startHour + 8}:00`;
+      slots.push(`${start} - ${end}`);
+      startHour++;
+    }
+  }
+  return slots;
+};
+
+  
 
   return (
     <div className="p-8 flex flex-col justify-center items-center bg-gradient-to-r from-violet-950 via-purple-600 to-blue-500 w-full min-h-screen font-robert-medium">
@@ -172,18 +151,19 @@ const BookingPage = () => {
             onChange={handleChange}
             className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
             required
-            minLength="8"
-            maxLength="9"
-            pattern="^\d{8,9}$"
+            minLength="8" // Mínimo de 8 caracteres
+            maxLength="9" // Máximo de 9 caracteres
+            pattern="^\d{8,9}$" // Acepta solo números con 8 o 9 dígitos
             title="El número debe tener entre 8 y 9 dígitos"
           />
         </div>
 
         <div className="flex flex-col">
           <label className="text-gray-700 font-semibold mb-2">Selecciona la Fecha</label>
-          <CalendarComponent onDateChange={handleDateChange} setBookedHours={setBookedHours} />
+          <CalendarComponent onDateChange={handleDateChange} />
         </div>
 
+        {/* Nuevo campo para seleccionar duración de horas */}
         <div className="flex flex-col">
           <label htmlFor="hours" className="text-gray-700 font-semibold mb-2">Duración de la Fiesta</label>
           <select
@@ -200,6 +180,7 @@ const BookingPage = () => {
           </select>
         </div>
 
+        {/* Campo para seleccionar la hora dependiendo de la duración */}
         {bookingData.hours && (
           <div className="flex flex-col">
             <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">Selecciona la franja horaria</label>
@@ -219,20 +200,21 @@ const BookingPage = () => {
           </div>
         )}
 
-        <button
-          type="submit"
-          className="bg-gradient-to-r from-blue-800 to-blue-500 text-white p-3 w-full rounded-lg mt-6 font-bold"
-        >
-          Reservar Fiesta
+        <button type="submit" className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
+          Confirmar
         </button>
       </form>
 
-      <Modal isOpen={showModal} onClose={closeModal} message={modalMessage} />
-      <ConfirmationModal
-        isOpen={showConfirmationModal}
-        onClose={closeConfirmationModal}
-        onConfirm={handleConfirmSubmit}
+      {/* Modal de confirmación de reserva */}
+      <ConfirmationModal 
+        show={showConfirmationModal} 
+        onClose={closeConfirmationModal} 
+        onConfirm={handleConfirmSubmit} 
+        bookingData={bookingData} 
       />
+
+      {/* Mostrar modal de resultado final */}
+      <Modal show={showModal} onClose={closeModal} message={modalMessage} />
     </div>
   );
 };
