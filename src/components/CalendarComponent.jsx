@@ -6,24 +6,34 @@ import '../App.css'
 
 const CalendarComponent = ({ onDateChange }) => {
   const [date, setDate] = useState(new Date());
-  const [bookedDates, setBookedDates] = useState([]); // Guardar fechas reservadas
-  const today = new Date(); // Fecha de hoy
+  const [bookedDates, setBookedDates] = useState([]); // Fechas totalmente reservadas
+  const [partialBookedDates, setPartialBookedDates] = useState([]); // Fechas parcialmente reservadas
+  const today = new Date();
 
-  // Función para obtener fechas reservadas desde el backend
+  // Función para obtener las fechas reservadas desde el backend
   const fetchBookedDates = async () => {
     try {
       const response = await fetch('https://api-party-kids.vercel.app/api/bookings');
       const data = await response.json();
-      // Mapeamos solo las fechas de las reservas
-      const booked = data.map(booking => new Date(booking.date));
-      setBookedDates(booked);
+      
+      // Mapeamos las reservas y las clasificamos según su disponibilidad
+      const fullBooked = data
+        .filter(booking => booking.status === 'full') // Suponiendo que tienes un campo 'status' en la API
+        .map(booking => new Date(booking.date));
+      
+      const partialBooked = data
+        .filter(booking => booking.status === 'partial') // Fechas con espacio aún disponible
+        .map(booking => new Date(booking.date));
+      
+      setBookedDates(fullBooked); // Fechas totalmente ocupadas
+      setPartialBookedDates(partialBooked); // Fechas parcialmente ocupadas
     } catch (error) {
       console.error('Error fetching booked dates:', error);
     }
   };
 
   useEffect(() => {
-    fetchBookedDates(); // Llamada cuando el componente se monta
+    fetchBookedDates();
   }, []);
 
   // Función que maneja el cambio de fecha
@@ -32,27 +42,26 @@ const CalendarComponent = ({ onDateChange }) => {
     onDateChange(newDate);
   };
 
-  // Función para deshabilitar las fechas reservadas y pasadas
+  // Función para deshabilitar fechas completamente reservadas y pasadas
   const disableDates = ({ date, view }) => {
-    // Solo deshabilitamos las fechas si estamos en la vista de mes
     if (view === 'month') {
-      // Deshabilitar fechas pasadas
       if (date < today) {
-        return true;
+        return true; // Deshabilitar fechas pasadas
       }
-
-      // Deshabilitar fechas reservadas
-      return bookedDates.some(bookedDate => 
-        bookedDate.toDateString() === date.toDateString()
-      );
+      return bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString()); // Deshabilitar fechas sin espacio
     }
     return false;
   };
 
-  // Función para agregar una clase a las fechas deshabilitadas
+  // Función para agregar una clase a las fechas deshabilitadas o con reservas parciales
   const tileClassName = ({ date, view }) => {
-    if (view === 'month' && (date < today || bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString()))) {
-      return 'disabled-date'; // Clase CSS personalizada
+    if (view === 'month') {
+      if (bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString())) {
+        return 'disabled-date'; // Fechas completamente reservadas
+      }
+      if (partialBookedDates.some(partialDate => partialDate.toDateString() === date.toDateString())) {
+        return 'partial-booked-date'; // Fechas con reserva parcial (color amarillo)
+      }
     }
     return '';
   };
@@ -62,8 +71,8 @@ const CalendarComponent = ({ onDateChange }) => {
       <Calendar 
         onChange={handleDateChange} 
         value={date}
-        tileDisabled={disableDates} // Deshabilitar fechas pasadas y ocupadas
-        tileClassName={tileClassName} // Agregar clase personalizada a las fechas deshabilitadas
+        tileDisabled={disableDates} // Deshabilitar fechas pasadas y totalmente reservadas
+        tileClassName={tileClassName} // Aplicar clases CSS a las fechas deshabilitadas o parcialmente reservadas
       />
     </div>
   );

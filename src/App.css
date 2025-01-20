@@ -4,16 +4,13 @@
     box-sizing: border-box;
  }
 
- .partially-booked {
-   background-color: yellow;
- }
- 
  .fully-booked {
-   background-color: red;
+   background-color: red !important;
+   color: white;
  }
  
- .disabled-date {
-   background-color: gray;
-   pointer-events: none;
+ .partially-booked {
+   background-color: yellow !important;
  }
+ 
  
