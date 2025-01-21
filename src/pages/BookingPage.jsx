@@ -73,19 +73,46 @@ const BookingPage = () => {
     const maxStartHourFor4Hours = 20; // Última hora de inicio válida para 4 horas (20:00)
     const maxStartHourFor8Hours = 16; // Última hora de inicio válida para 8 horas (16:00)
   
+    // Calcula las horas inválidas según la duración de la fiesta
+    const invalidHours = new Set();
+    
+    if (bookingData.hours === '4') {
+      // Para 4 horas: excluimos 4 horas hacia atrás y 4 hacia adelante
+      if (bookingData.timeSlot) {
+        const selectedHour = parseInt(bookingData.timeSlot.split(':')[0], 10);
+        for (let i = selectedHour - 4; i < selectedHour + 4; i++) {
+          if (i >= 8 && i <= 20) invalidHours.add(i); // Asegura que la hora esté dentro de rango
+        }
+      }
+    } else if (bookingData.hours === '8') {
+      // Para 8 horas: excluimos 8 horas hacia atrás y 8 hacia adelante
+      if (bookingData.timeSlot) {
+        const selectedHour = parseInt(bookingData.timeSlot.split(':')[0], 10);
+        for (let i = selectedHour - 8; i < selectedHour + 8; i++) {
+          if (i >= 8 && i <= 16) invalidHours.add(i); // Asegura que la hora esté dentro de rango
+        }
+      }
+    }
+  
+    // Generamos las horas válidas
     if (bookingData.hours === '4') {
       // Para 4 horas: desde las 8 AM hasta las 8 PM (último posible inicio a las 8 PM)
       while (startHour <= maxStartHourFor4Hours) {
-        times.push(`${startHour}:00`);
+        if (!invalidHours.has(startHour)) {
+          times.push(`${startHour}:00`);
+        }
         startHour++;
       }
     } else if (bookingData.hours === '8') {
       // Para 8 horas: desde las 8 AM hasta las 4 PM (último posible inicio a las 4 PM)
       while (startHour <= maxStartHourFor8Hours) {
-        times.push(`${startHour}:00`);
+        if (!invalidHours.has(startHour)) {
+          times.push(`${startHour}:00`);
+        }
         startHour++;
       }
     }
+    
     return times;
   };
 

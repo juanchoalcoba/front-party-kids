@@ -4,8 +4,23 @@
     box-sizing: border-box;
  }
 
-/* Estilo para las fechas deshabilitadas */
-.disabled-date {
-   background-color: rgba(255, 0, 0, 0.7) !important;  /* Rojo suave con transparencia */
-   color: white !important; /* Cambia el color del texto */
+/* Estilo para fechas ocupadas */
+.booked-date {
+   background-color: red !important;
+   color: white v;
+   border-radius: 50%;
+   font-weight: bold;
  }
+ 
+ /* Estilo para fechas disponibles */
+ .reserved-indicator {
+   background-color: yellow !important;
+   border-radius: 50%;
+   color: black;
+   font-weight: bold;
+   text-align: center;
+   width: 20px;
+   height: 20px;
+   margin: 0 auto;
+ }
+ 
