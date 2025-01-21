@@ -4,8 +4,25 @@
     box-sizing: border-box;
  }
 
-/* Estilo para las fechas deshabilitadas */
+/* Clase para fechas deshabilitadas (ocupadas) */
 .disabled-date {
-   background-color: rgba(255, 0, 0, 0.7) !important;  /* Rojo suave con transparencia */
-   color: white !important; /* Cambia el color del texto */
+   background-color: #f8d7da !important; /* Rojo suave */
+   color: #721c24 !important;
+   pointer-events: none !important;
+   opacity: 0.6 !important;
  }
+ 
+ /* Clase para fechas parcialmente ocupadas */
+ .partially-booked {
+   background-color: #fff3cd !important;  /* Amarillo suave */
+   color: #856404 !important;
+   pointer-events: none !important;
+   opacity: 0.8 !important;
+ }
+ 
+ /* Clase para fechas seleccionadas, si quieres algo distinto */
+ .react-calendar__tile--active {
+   background-color: #6f42c1 !important; /* Color personalizado */
+   color: white !important;
+ }
+ 
