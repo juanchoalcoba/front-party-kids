@@ -4,17 +4,8 @@
     box-sizing: border-box;
  }
 
- .disabled-date {
-   color: gray;
+/* Estilo para las fechas deshabilitadas */
+.disabled-date {
+   background-color: rgba(255, 0, 0, 0.7) !important;  /* Rojo suave con transparencia */
+   color: white !important; /* Cambia el color del texto */
  }
- 
- .fully-booked-date {
-   background-color: red;
-   color: white;
- }
- 
- .partially-booked-date {
-   background-color: yellow;
-   color: black;
- }
- 
