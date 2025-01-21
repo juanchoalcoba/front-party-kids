@@ -4,8 +4,17 @@
     box-sizing: border-box;
  }
 
-/* Estilo para las fechas deshabilitadas */
-.disabled-date {
-   background-color: rgba(255, 0, 0, 0.7) !important;  /* Rojo suave con transparencia */
-   color: white !important; /* Cambia el color del texto */
+ .no-availability {
+   background-color: red !important; /* Fechas sin disponibilidad */
+   color: white !important;
  }
+ 
+ .partially-available {
+   background-color: yellow !important; /* Fechas parcialmente disponibles */
+   color: black !important;
+ }
+ 
+ .disabled-date {
+   background-color: lightgray !important; /* Deshabilitar fechas pasadas */
+ }
+ 
