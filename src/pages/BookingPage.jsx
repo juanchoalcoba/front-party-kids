@@ -198,6 +198,23 @@ const BookingPage = () => {
           <CalendarComponent onDateChange={handleDateChange} bookedDates={bookedDates} />
         </div>
 
+
+      {/* Nuevo campo para seleccionar duración de horas */}
+      <div className="flex flex-col">
+          <label htmlFor="hours" className="text-gray-700 font-semibold mb-2">Duración de la Fiesta</label>
+          <select
+            id="hours"
+            name="hours"
+            value={bookingData.hours}
+            onChange={handleChange}
+            className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+            required
+          >
+            <option value="">Selecciona la duración</option>
+            <option value="4">4 horas</option>
+            <option value="8">8 horas</option>
+          </select>
+        </div>
        
         {/* Campo para seleccionar hora de inicio */}
         {bookingData.hours && (
