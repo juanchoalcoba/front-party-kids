@@ -6,20 +6,20 @@
 
 /* Calendar styles */
 .disabled-date {
-   background-color: #f8d7da; /* Rojo suave para fechas pasadas */
-   color: #f44336; /* Rojo para texto */
+   background-color: #f8d7da !important; /* Rojo suave para fechas pasadas */
+   color: #f44336 !important; /* Rojo para texto */
    pointer-events: none; /* Deshabilitar la interactividad */
  }
  
  .fully-booked {
-   background-color: #f44336; /* Rojo para fechas completamente ocupadas */
-   color: white; /* Blanco para texto */
-   pointer-events: none; /* Deshabilitar la interactividad */
+   background-color: #f44336 !important; /* Rojo para fechas completamente ocupadas */
+   color: white !important; /* Blanco para texto */
+   pointer-events: none !important; /* Deshabilitar la interactividad */
  }
  
  .partially-booked {
-   background-color: #ffeb3b; /* Amarillo para fechas parcialmente ocupadas */
-   color: black; /* Color de texto negro */
-   pointer-events: none; /* Deshabilitar la interactividad */
+   background-color: #ffeb3b !important; /* Amarillo para fechas parcialmente ocupadas */
+   color: black !important; /* Color de texto negro */
+   pointer-events: none !important; /* Deshabilitar la interactividad */
  }
  
