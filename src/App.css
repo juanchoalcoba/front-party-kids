@@ -4,19 +4,8 @@
     box-sizing: border-box;
  }
 
-/* Deshabilitar fechas pasadas */
+/* Estilo para las fechas deshabilitadas */
 .disabled-date {
-   background-color: lightgray !important;
+   background-color: rgba(255, 0, 0, 0.7) !important;  /* Rojo suave con transparencia */
+   color: white !important; /* Cambia el color del texto */
  }
- 
- /* Fecha completamente ocupada (rojo) */
- .fully-booked {
-   background-color: red !important;
- }
- 
- /* Fecha parcialmente ocupada (amarillo) */
- .partially-booked {
-   background-color: yellow !important;
- }
- 
- 
