@@ -4,8 +4,22 @@
     box-sizing: border-box;
  }
 
-/* Estilo para las fechas deshabilitadas */
+/* Calendar styles */
 .disabled-date {
-   background-color: rgba(255, 0, 0, 0.7) !important;  /* Rojo suave con transparencia */
-   color: white !important; /* Cambia el color del texto */
+   background-color: #f8d7da; /* Rojo suave para fechas pasadas */
+   color: #f44336; /* Rojo para texto */
+   pointer-events: none; /* Deshabilitar la interactividad */
  }
+ 
+ .fully-booked {
+   background-color: #f44336; /* Rojo para fechas completamente ocupadas */
+   color: white; /* Blanco para texto */
+   pointer-events: none; /* Deshabilitar la interactividad */
+ }
+ 
+ .partially-booked {
+   background-color: #ffeb3b; /* Amarillo para fechas parcialmente ocupadas */
+   color: black; /* Color de texto negro */
+   pointer-events: none; /* Deshabilitar la interactividad */
+ }
+ 

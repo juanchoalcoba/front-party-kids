@@ -1,30 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import '../App.css';
 
-import '../App.css'
-
-const CalendarComponent = ({ onDateChange }) => {
+const CalendarComponent = ({ onDateChange, bookedHours }) => {
   const [date, setDate] = useState(new Date());
-  const [bookedDates, setBookedDates] = useState([]); // Guardar fechas reservadas
-  const today = new Date(); // Fecha de hoy
-
-  // Función para obtener fechas reservadas desde el backend
-  const fetchBookedDates = async () => {
-    try {
-      const response = await fetch('https://api-party-kids.vercel.app/api/bookings');
-      const data = await response.json();
-      // Mapeamos solo las fechas de las reservas
-      const booked = data.map(booking => new Date(booking.date));
-      setBookedDates(booked);
-    } catch (error) {
-      console.error('Error fetching booked dates:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchBookedDates(); // Llamada cuando el componente se monta
-  }, []);
+  const today = new Date();
 
   // Función que maneja el cambio de fecha
   const handleDateChange = (newDate) => {
@@ -34,25 +15,42 @@ const CalendarComponent = ({ onDateChange }) => {
 
   // Función para deshabilitar las fechas reservadas y pasadas
   const disableDates = ({ date, view }) => {
-    // Solo deshabilitamos las fechas si estamos en la vista de mes
     if (view === 'month') {
       // Deshabilitar fechas pasadas
       if (date < today) {
         return true;
       }
 
-      // Deshabilitar fechas reservadas
-      return bookedDates.some(bookedDate => 
-        bookedDate.toDateString() === date.toDateString()
-      );
+      // Si la fecha está completamente ocupada (8 horas reservadas)
+      const dateString = date.toISOString().split('T')[0]; // Formato "YYYY-MM-DD"
+      const reservedHoursForDate = bookedHours[dateString] || [];
+      if (reservedHoursForDate.length >= 8) {
+        return true; // Si ya hay 8 horas reservadas, se deshabilita la fecha
+      }
     }
     return false;
   };
 
-  // Función para agregar una clase a las fechas deshabilitadas
+  // Función para agregar una clase a las fechas deshabilitadas y con disponibilidad
   const tileClassName = ({ date, view }) => {
-    if (view === 'month' && (date < today || bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString()))) {
-      return 'disabled-date'; // Clase CSS personalizada
+    if (view === 'month') {
+      // Fechas pasadas
+      if (date < today) {
+        return 'disabled-date'; // Fecha pasada, se deshabilita
+      }
+
+      // Fechas con reservas
+      const dateString = date.toISOString().split('T')[0]; // Formato "YYYY-MM-DD"
+      const reservedHoursForDate = bookedHours[dateString] || [];
+
+      const isFullyBooked = reservedHoursForDate.length >= 8; // 8 horas por día
+      const isPartiallyBooked = reservedHoursForDate.length > 0 && reservedHoursForDate.length < 8;
+
+      if (isFullyBooked) {
+        return 'fully-booked'; // Fecha completamente ocupada (rojo)
+      } else if (isPartiallyBooked) {
+        return 'partially-booked'; // Fecha parcialmente ocupada (amarillo)
+      }
     }
     return '';
   };
