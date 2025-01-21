@@ -67,35 +67,27 @@ const BookingPage = () => {
     setShowConfirmationModal(false);
   };
 
-  const generateStartTimes = (bookedTimes) => {
+  const generateStartTimes = () => {
     const times = [];
     let startHour = 8; // Empezamos a las 8:00 AM
     const maxStartHourFor4Hours = 20; // Última hora de inicio válida para 4 horas (20:00)
     const maxStartHourFor8Hours = 16; // Última hora de inicio válida para 8 horas (16:00)
   
-    // Verificar si la hora está ocupada
-    const isOccupied = (time) => bookedTimes.includes(time);
-  
     if (bookingData.hours === '4') {
       // Para 4 horas: desde las 8 AM hasta las 8 PM (último posible inicio a las 8 PM)
       while (startHour <= maxStartHourFor4Hours) {
-        if (!isOccupied(startHour)) {
-          times.push(`${startHour}:00`);
-        }
+        times.push(`${startHour}:00`);
         startHour++;
       }
     } else if (bookingData.hours === '8') {
       // Para 8 horas: desde las 8 AM hasta las 4 PM (último posible inicio a las 4 PM)
       while (startHour <= maxStartHourFor8Hours) {
-        if (!isOccupied(startHour)) {
-          times.push(`${startHour}:00`);
-        }
+        times.push(`${startHour}:00`);
         startHour++;
       }
     }
     return times;
   };
-  
 
   return (
     <div className="p-8 flex flex-col justify-center items-center bg-gradient-to-r from-violet-950 via-purple-600 to-blue-500 w-full min-h-screen font-robert-medium">
