@@ -46,32 +46,58 @@ const BookingPage = () => {
     setBookingData({ ...bookingData, date });
   };
 
+
+  
   const generateStartTimes = () => {
     const times = [];
     let startHour = 8;
     const maxStartHourFor4Hours = 20; 
     const maxStartHourFor8Hours = 16;
-
+  
     // Obtenemos las horas ya reservadas para esta fecha
     const bookedSlotsForDate = bookedHours.filter(
       booking => new Date(booking.date).toDateString() === bookingData.date.toDateString()
     ).map(booking => booking.timeSlot);
-
+  
+    const removeBookedHours = (startTime, duration) => {
+      const booked = [];
+      for (let i = 0; i < duration; i++) {
+        const hourToCheck = startTime + i;
+        booked.push(`${hourToCheck}:00`);
+      }
+      return booked;
+    };
+  
     if (bookingData.hours === '4') {
       while (startHour <= maxStartHourFor4Hours) {
-        if (!bookedSlotsForDate.includes(`${startHour}:00`)) {
-          times.push(`${startHour}:00`);
+        const potentialSlot = `${startHour}:00`;
+        // Si no está reservado y se puede agregar
+        if (!bookedSlotsForDate.includes(potentialSlot)) {
+          // Eliminar también las siguientes horas de la reserva (duración de 4 horas)
+          const bookedForThisSlot = removeBookedHours(startHour, 4);
+          // Verificar si alguna de las horas de la duración de la reserva está ocupada
+          if (!bookedForThisSlot.some(hour => bookedSlotsForDate.includes(hour))) {
+            times.push(potentialSlot);
+          }
         }
         startHour++;
       }
     } else if (bookingData.hours === '8') {
       while (startHour <= maxStartHourFor8Hours) {
-        if (!bookedSlotsForDate.includes(`${startHour}:00`)) {
-          times.push(`${startHour}:00`);
+        const potentialSlot = `${startHour}:00`;
+        // Si no está reservado y se puede agregar
+        if (!bookedSlotsForDate.includes(potentialSlot)) {
+          // Eliminar también las siguientes horas de la reserva (duración de 8 horas)
+          const bookedForThisSlot = removeBookedHours(startHour, 8);
+          // Verificar si alguna de las horas de la duración de la reserva está ocupada
+          if (!bookedForThisSlot.some(hour => bookedSlotsForDate.includes(hour))) {
+            times.push(potentialSlot);
+          }
         }
         startHour++;
       }
     }
+  
     return times;
   };
 

@@ -31,21 +31,20 @@ const CalendarComponent = ({ onDateChange, bookedHours }) => {
     return false;
   };
 
-  // Función para agregar una clase a las fechas deshabilitadas y con disponibilidad
   const tileClassName = ({ date, view }) => {
     if (view === 'month') {
       // Fechas pasadas
       if (date < today) {
         return 'disabled-date'; // Fecha pasada, se deshabilita
       }
-
+  
       // Fechas con reservas
       const dateString = date.toISOString().split('T')[0]; // Formato "YYYY-MM-DD"
       const reservedHoursForDate = bookedHours[dateString] || [];
-
+  
       const isFullyBooked = reservedHoursForDate.length >= 8; // 8 horas por día
       const isPartiallyBooked = reservedHoursForDate.length > 0 && reservedHoursForDate.length < 8;
-
+  
       if (isFullyBooked) {
         return 'fully-booked'; // Fecha completamente ocupada (rojo)
       } else if (isPartiallyBooked) {
