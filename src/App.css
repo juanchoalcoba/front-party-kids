@@ -4,22 +4,8 @@
     box-sizing: border-box;
  }
 
- /* Estilo para las fechas completamente ocupadas (rojo) */
-.fully-booked {
-   background-color: red !important; /* Rojo */
-   color: white !important; /* Texto blanco */
+/* Estilo para las fechas deshabilitadas */
+.disabled-date {
+   background-color: rgba(255, 0, 0, 0.7) !important;  /* Rojo suave con transparencia */
+   color: white !important; /* Cambia el color del texto */
  }
- 
- /* Estilo para las fechas parcialmente ocupadas (amarillo) */
- .partially-booked {
-   background-color: yellow !important; /* Amarillo */
-   color: black !important; /* Texto negro */
- }
- 
- /* Estilo para las fechas deshabilitadas (pasadas) */
- .disabled-date {
-   background-color: #d3d3d3 !important; /* Gris */
-   color: #a9a9a9 !important; /* Texto gris */
- }
- 
- 
