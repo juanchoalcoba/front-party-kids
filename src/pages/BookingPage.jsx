@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useState } from 'react';
 import CalendarComponent from '../components/CalendarComponent';
 import Modal from '../components/Modal';
 import ConfirmationModal from '../components/ConfirmationModal';
@@ -28,15 +28,15 @@ const BookingPage = () => {
     fetchReservedSlots(date); // Verificar disponibilidad para la nueva fecha
   };
 
-  // Función para obtener las reservas de la base de datos
+  // Función para obtener las reservas de la base de datos solo para la fecha seleccionada
   const fetchReservedSlots = async (selectedDate) => {
     try {
-      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?date=${selectedDate}`);
+      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?date=${selectedDate.toISOString().split('T')[0]}`);
       const data = await response.json();
-      
-      // Asumimos que la respuesta contiene un array con las horas reservadas
+
+      // Asumimos que la respuesta contiene un array con las horas reservadas para la fecha seleccionada
       const reservedSlots = data.map((booking) => booking.timeSlot);
-      setReservedTimeSlots(reservedSlots); // Guardamos las horas reservadas
+      setReservedTimeSlots(reservedSlots); // Guardamos las horas reservadas solo para esa fecha
     } catch (error) {
       console.error("Error al obtener las reservas:", error);
     }
@@ -86,7 +86,7 @@ const BookingPage = () => {
       // Para 4 horas
       while (startHour <= maxStartHourFor4Hours) {
         const timeSlot = `${startHour}:00`;
-        // Si el timeSlot no está reservado, lo agregamos a la lista
+        // Si el timeSlot no está reservado para la fecha seleccionada, lo agregamos a la lista
         if (!reservedTimeSlots.includes(timeSlot)) {
           times.push(timeSlot);
         }
@@ -96,7 +96,7 @@ const BookingPage = () => {
       // Para 8 horas
       while (startHour <= maxStartHourFor8Hours) {
         const timeSlot = `${startHour}:00`;
-        // Si el timeSlot no está reservado, lo agregamos a la lista
+        // Si el timeSlot no está reservado para la fecha seleccionada, lo agregamos a la lista
         if (!reservedTimeSlots.includes(timeSlot)) {
           times.push(timeSlot);
         }
@@ -141,7 +141,7 @@ const BookingPage = () => {
           />
         </div>
 
-
+        {/* Email */}
         <div className="flex flex-col">
           <label htmlFor="email" className="text-gray-700 font-semibold mb-2">Email</label>
           <input
@@ -156,6 +156,7 @@ const BookingPage = () => {
           />
         </div>
 
+        {/* Teléfono */}
         <div className="flex flex-col">
           <label htmlFor="phone" className="text-gray-700 font-semibold mb-2">Teléfono</label>
           <input
@@ -167,15 +168,12 @@ const BookingPage = () => {
             onChange={handleChange}
             className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
             required
-            minLength="8" // Mínimo de 8 caracteres
-            maxLength="9" // Máximo de 9 caracteres
-            pattern="^\d{8,9}$" // Acepta solo números con 8 o 9 dígitos
+            minLength="8"
+            maxLength="9"
+            pattern="^\d{8,9}$"
             title="El número debe tener entre 8 y 9 dígitos"
           />
         </div>
-
-
-
 
         {/* Fecha */}
         <div className="flex flex-col">
@@ -212,27 +210,33 @@ const BookingPage = () => {
               className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
               required
             >
-              <option value="">Selecciona una opción</option>
-              {generateStartTimes().map((time, index) => (
-                <option key={index} value={time}>{time}</option>
+              <option value="">Selecciona la hora</option>
+              {generateStartTimes().map((timeSlot) => (
+                <option key={timeSlot} value={timeSlot}>
+                  {timeSlot}
+                </option>
               ))}
             </select>
           </div>
         )}
 
-        <button type="submit" className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
-          Confirmar
+        <button
+          type="submit"
+          className="bg-purple-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-purple-700 transition duration-300"
+        >
+          Reservar
         </button>
       </form>
 
-      <ConfirmationModal
-        show={showConfirmationModal}
-        onClose={closeConfirmationModal}
-        onConfirm={handleConfirmSubmit}
-        bookingData={bookingData}
-      />
+      {/* Modal de confirmación */}
+      <Modal isOpen={showModal} onClose={closeModal}>
+        <p>{modalMessage}</p>
+      </Modal>
 
-      <Modal show={showModal} onClose={closeModal} message={modalMessage} />
+      {/* Modal de confirmación antes de enviar */}
+      <ConfirmationModal isOpen={showConfirmationModal} onClose={closeConfirmationModal} onConfirm={handleConfirmSubmit}>
+        <p>¿Estás seguro de que deseas enviar la reserva?</p>
+      </ConfirmationModal>
     </div>
   );
 };
