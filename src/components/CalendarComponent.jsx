@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import TimeSlotSelector from './TimeSlotSelector'; // Asegúrate de que este path sea correcto
 
 import '../App.css'
 
@@ -58,12 +59,16 @@ const CalendarComponent = ({ onDateChange }) => {
 
   return (
     <div>
+      {/* Calendario de selección de fecha */}
       <Calendar 
         onChange={handleDateChange} 
         value={date}
         tileDisabled={disableDates} // Deshabilitar fechas pasadas
         tileClassName={tileClassName} // Agregar clase personalizada a las fechas deshabilitadas y reservadas
       />
+
+      {/* Componente de selección de horas */}
+      <TimeSlotSelector selectedDate={date} />
     </div>
   );
 };
