@@ -4,8 +4,15 @@
     box-sizing: border-box;
  }
 
-/* Estilo para las fechas deshabilitadas */
+/* Estilo para fechas pasadas deshabilitadas */
 .disabled-date {
-   background-color: rgba(255, 0, 0, 0.7) !important;  /* Rojo suave con transparencia */
-   color: white !important; /* Cambia el color del texto */
+   background-color: #f0f0f0 !important;
+   pointer-events: none;
  }
+ 
+ /* Estilo para fechas con reservas */
+ .reserved-date {
+   background-color: #ffeb3b !important; /* Amarillo */
+   color: #000 !important; /* Texto negro para contraste */
+ }
+ 
