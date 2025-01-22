@@ -17,13 +17,25 @@ const BookingPage = () => {
   const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
   const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación antes de enviar
   const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
+  const [reservedSlots, setReservedSlots] = useState([]);
   
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
   };
 
-  const handleDateChange = (date) => {
+  const handleDateChange = async (date) => {
     setBookingData({ ...bookingData, date });
+    
+    // Realizamos una consulta para obtener las horas ya reservadas en esa fecha
+    const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?date=${date.toISOString()}`);
+    
+    if (response.ok) {
+      const data = await response.json();
+      const reservedHours = data.map((booking) => booking.timeSlot); // Extraemos los horarios reservados
+      setReservedSlots(reservedHours); // Guardamos las horas reservadas en el estado
+    } else {
+      console.error('Error fetching reserved slots');
+    }
   };
 
 
@@ -72,22 +84,29 @@ const BookingPage = () => {
     let startHour = 8; // Empezamos a las 8:00 AM
     const maxStartHourFor4Hours = 20; // Última hora de inicio válida para 4 horas (20:00)
     const maxStartHourFor8Hours = 16; // Última hora de inicio válida para 8 horas (16:00)
-  
+    
     if (bookingData.hours === '4') {
       // Para 4 horas: desde las 8 AM hasta las 8 PM (último posible inicio a las 8 PM)
       while (startHour <= maxStartHourFor4Hours) {
-        times.push(`${startHour}:00`);
+        const time = `${startHour}:00`;
+        if (!reservedSlots.includes(time)) { // Filtramos los horarios que ya están reservados
+          times.push(time);
+        }
         startHour++;
       }
     } else if (bookingData.hours === '8') {
       // Para 8 horas: desde las 8 AM hasta las 4 PM (último posible inicio a las 4 PM)
       while (startHour <= maxStartHourFor8Hours) {
-        times.push(`${startHour}:00`);
+        const time = `${startHour}:00`;
+        if (!reservedSlots.includes(time)) { // Filtramos los horarios que ya están reservados
+          times.push(time);
+        }
         startHour++;
       }
     }
     return times;
   };
+  
 
   return (
     <div className="p-8 flex flex-col justify-center items-center bg-gradient-to-r from-violet-950 via-purple-600 to-blue-500 w-full min-h-screen font-robert-medium">
@@ -156,7 +175,10 @@ const BookingPage = () => {
 
         <div className="flex flex-col">
           <label className="text-gray-700 font-semibold mb-2">Selecciona la Fecha</label>
-          <CalendarComponent onDateChange={handleDateChange} />
+          <CalendarComponent 
+  onDateChange={handleDateChange} 
+  reservedDates={reservedSlots.map(slot => slot.date)} // Pasamos las fechas con reservas
+/>
         </div>
 
        {/* Nuevo campo para seleccionar duración de horas */}
