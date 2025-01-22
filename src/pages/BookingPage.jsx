@@ -40,17 +40,18 @@ const BookingPage = () => {
       },
       body: JSON.stringify(bookingData),
     });
-
+  
     if (response.ok) {
-      // Actualizamos las horas reservadas para la fecha seleccionada
-      setBookedSlots((prevBookedSlots) => ({
-        ...prevBookedSlots,
-        [bookingData.date.toDateString()]: [
-          ...(prevBookedSlots[bookingData.date.toDateString()] || []),
-          bookingData.timeSlot,
-        ],
-      }));
-
+      // Una vez que se ha hecho la reserva, actualizamos las horas reservadas para esa fecha.
+      setBookedSlots((prevBookedSlots) => {
+        const selectedDate = bookingData.date.toDateString(); // Fecha seleccionada
+        const existingSlots = prevBookedSlots[selectedDate] || []; // Horas reservadas previamente
+        return {
+          ...prevBookedSlots,
+          [selectedDate]: [...existingSlots, bookingData.timeSlot], // Agregamos la hora seleccionada
+        };
+      });
+  
       setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
       setShowConfirmationModal(false); // Cerrar modal de confirmación
       setShowModal(true); // Mostrar modal de éxito
