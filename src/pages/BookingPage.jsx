@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useState, useEffect } from 'react';
 import CalendarComponent from '../components/CalendarComponent';
 import Modal from '../components/Modal'; // Importamos el modal para mostrar mensajes
 import ConfirmationModal from '../components/ConfirmationModal'; // Modal para confirmar reserva
@@ -17,8 +17,8 @@ const BookingPage = () => {
   const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
   const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación antes de enviar
   const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
-  const [reservedTimes, setReservedTimes] = useState([]); // Estado para las horas ya reservadas
-  
+  const [reservedTimes, setReservedTimes] = useState({}); // Estado para las horas ya reservadas por fecha
+
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
   };
@@ -38,11 +38,21 @@ const BookingPage = () => {
     });
 
     if (response.ok) {
+      // Actualizar el estado de horas reservadas para esa fecha solo después de confirmada la reserva
+      const selectedDate = bookingData.date.toLocaleDateString();
+      const newReservedTimes = { ...reservedTimes };
+
+      if (!newReservedTimes[selectedDate]) {
+        newReservedTimes[selectedDate] = [];
+      }
+      newReservedTimes[selectedDate].push(bookingData.timeSlot);
+
+      setReservedTimes(newReservedTimes); // Actualizamos las horas reservadas
       setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
       setShowConfirmationModal(false); // Cerrar modal de confirmación
       setShowModal(true); // Mostrar modal de éxito
     } else {
-      setModalMessage('Error submitting the booking');
+      setModalMessage('Error al procesar la reserva');
       setShowConfirmationModal(false); // Cerrar modal de confirmación
       setShowModal(true); // Mostrar modal de error
     }
@@ -81,7 +91,7 @@ const BookingPage = () => {
         startHour++;
       }
     }
-    
+
     // Filtrar las horas reservadas para ese día
     const selectedDate = bookingData.date.toLocaleDateString(); // Fecha seleccionada por el usuario
     const unavailableTimes = reservedTimes[selectedDate] || [];
@@ -89,19 +99,7 @@ const BookingPage = () => {
   };
 
   const handleTimeSlotChange = (e) => {
-    const selectedTime = e.target.value;
-    const selectedDate = bookingData.date.toLocaleDateString();
-    const newReservedTimes = { ...reservedTimes };
-    
-    if (!newReservedTimes[selectedDate]) {
-      newReservedTimes[selectedDate] = [];
-    }
-    
-    const newTimes = [...newReservedTimes[selectedDate], selectedTime];
-    newReservedTimes[selectedDate] = newTimes;
-
-    setReservedTimes(newReservedTimes);
-    setBookingData({ ...bookingData, timeSlot: selectedTime });
+    setBookingData({ ...bookingData, timeSlot: e.target.value });
   };
 
   return (
