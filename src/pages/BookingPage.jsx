@@ -17,8 +17,6 @@ const BookingPage = () => {
   const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
   const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación antes de enviar
   const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
-  const [bookedSlots, setBookedSlots] = useState({});
-
   
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
@@ -41,15 +39,8 @@ const BookingPage = () => {
       },
       body: JSON.stringify(bookingData),
     });
-  
+
     if (response.ok) {
-      // Actualiza las horas reservadas para el día seleccionado
-      const selectedDate = bookingData.date.toISOString().split('T')[0]; // Solo la parte de la fecha (YYYY-MM-DD)
-      setBookedSlots(prevSlots => ({
-        ...prevSlots,
-        [selectedDate]: [...(prevSlots[selectedDate] || []), bookingData.timeSlot], // Agrega la hora al array de la fecha seleccionada
-      }));
-  
       setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
       setShowConfirmationModal(false); // Cerrar modal de confirmación
       setShowModal(true); // Mostrar modal de éxito
@@ -59,7 +50,6 @@ const BookingPage = () => {
       setShowModal(true); // Mostrar modal de error
     }
   };
-  
 
 
 
@@ -83,31 +73,21 @@ const BookingPage = () => {
     const maxStartHourFor4Hours = 20; // Última hora de inicio válida para 4 horas (20:00)
     const maxStartHourFor8Hours = 16; // Última hora de inicio válida para 8 horas (16:00)
   
-    const selectedDate = bookingData.date.toISOString().split('T')[0]; // Solo la parte de la fecha (YYYY-MM-DD)
-    const bookedTimesForDate = bookedSlots[selectedDate] || []; // Obtén las horas reservadas para la fecha seleccionada
-  
     if (bookingData.hours === '4') {
+      // Para 4 horas: desde las 8 AM hasta las 8 PM (último posible inicio a las 8 PM)
       while (startHour <= maxStartHourFor4Hours) {
-        const timeSlot = `${startHour}:00`;
-        if (!bookedTimesForDate.includes(timeSlot)) {
-          // Solo agrega la hora si no está reservada
-          times.push(timeSlot);
-        }
+        times.push(`${startHour}:00`);
         startHour++;
       }
     } else if (bookingData.hours === '8') {
+      // Para 8 horas: desde las 8 AM hasta las 4 PM (último posible inicio a las 4 PM)
       while (startHour <= maxStartHourFor8Hours) {
-        const timeSlot = `${startHour}:00`;
-        if (!bookedTimesForDate.includes(timeSlot)) {
-          times.push(timeSlot);
-        }
+        times.push(`${startHour}:00`);
         startHour++;
       }
     }
-  
     return times;
   };
-  
 
   return (
     <div className="p-8 flex flex-col justify-center items-center bg-gradient-to-r from-violet-950 via-purple-600 to-blue-500 w-full min-h-screen font-robert-medium">
