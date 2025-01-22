@@ -1,36 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CalendarComponent from '../components/CalendarComponent';
-import Modal from '../components/Modal';
-import ConfirmationModal from '../components/ConfirmationModal';
+import Modal from '../components/Modal'; // Importamos el modal para mostrar mensajes
+import ConfirmationModal from '../components/ConfirmationModal'; // Modal para confirmar reserva
 
 const BookingPage = () => {
   const [bookingData, setBookingData] = useState({
     name: '',
-    namekid: '',
+    namekid: '', // Nuevo campo para el nombre del niño/niña
     email: '',
     phone: '',
     date: new Date(),
-    hours: '',
-    timeSlot: '',
+    hours: '', // Nuevo campo para la duración de la reserva
+    timeSlot: '', // Campo para la selección de la hora específica
   });
 
-  const [occupiedTimes, setOccupiedTimes] = useState([]); // Estado para los horarios ocupados
-  const [showModal, setShowModal] = useState(false);
-  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState('');
-
-  useEffect(() => {
-    if (bookingData.date) {
-      fetchOccupiedTimes(bookingData.date);
-    }
-  }, [bookingData.date]);
-
-  const fetchOccupiedTimes = async (date) => {
-    const response = await fetch(`https://api-party-kids.vercel.app/api/occupied-times?date=${date.toISOString()}`);
-    const data = await response.json();
-    setOccupiedTimes(data.occupiedTimes);
-  };
-
+  const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación antes de enviar
+  const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
+  
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
   };
@@ -39,7 +26,12 @@ const BookingPage = () => {
     setBookingData({ ...bookingData, date });
   };
 
+
+
+  
+
   const handleConfirmSubmit = async () => {
+    // Aquí hacemos el envío final de los datos al backend
     const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
       method: 'POST',
       headers: {
@@ -50,23 +42,25 @@ const BookingPage = () => {
 
     if (response.ok) {
       setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
-      setShowConfirmationModal(false);
-      setShowModal(true);
+      setShowConfirmationModal(false); // Cerrar modal de confirmación
+      setShowModal(true); // Mostrar modal de éxito
     } else {
-      setModalMessage('Error al enviar la reserva');
-      setShowConfirmationModal(false);
-      setShowModal(true);
+      setModalMessage('Error submitting the booking');
+      setShowConfirmationModal(false); // Cerrar modal de confirmación
+      setShowModal(true); // Mostrar modal de error
     }
   };
 
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setShowConfirmationModal(true);
+    setShowConfirmationModal(true); // Mostrar modal de confirmación
   };
 
   const closeModal = () => {
     setShowModal(false);
-    window.location.href = '/';
+    window.location.href = '/'; // Redirige a la página de inicio (opcional)
   };
 
   const closeConfirmationModal = () => {
@@ -75,24 +69,24 @@ const BookingPage = () => {
 
   const generateStartTimes = () => {
     const times = [];
-    let startHour = 8;
-    const maxStartHourFor4Hours = 20;
-    const maxStartHourFor8Hours = 16;
-
+    let startHour = 8; // Empezamos a las 8:00 AM
+    const maxStartHourFor4Hours = 20; // Última hora de inicio válida para 4 horas (20:00)
+    const maxStartHourFor8Hours = 16; // Última hora de inicio válida para 8 horas (16:00)
+  
     if (bookingData.hours === '4') {
+      // Para 4 horas: desde las 8 AM hasta las 8 PM (último posible inicio a las 8 PM)
       while (startHour <= maxStartHourFor4Hours) {
         times.push(`${startHour}:00`);
         startHour++;
       }
     } else if (bookingData.hours === '8') {
+      // Para 8 horas: desde las 8 AM hasta las 4 PM (último posible inicio a las 4 PM)
       while (startHour <= maxStartHourFor8Hours) {
         times.push(`${startHour}:00`);
         startHour++;
       }
     }
-    
-    // Filtrar los horarios ocupados
-    return times.filter(time => !occupiedTimes.includes(time));
+    return times;
   };
 
   return (
@@ -153,9 +147,9 @@ const BookingPage = () => {
             onChange={handleChange}
             className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
             required
-            minLength="8"
-            maxLength="9"
-            pattern="^\d{8,9}$"
+            minLength="8" // Mínimo de 8 caracteres
+            maxLength="9" // Máximo de 9 caracteres
+            pattern="^\d{8,9}$" // Acepta solo números con 8 o 9 dígitos
             title="El número debe tener entre 8 y 9 dígitos"
           />
         </div>
@@ -165,53 +159,57 @@ const BookingPage = () => {
           <CalendarComponent onDateChange={handleDateChange} />
         </div>
 
-        <div className="flex flex-col">
-          <label htmlFor="hours" className="text-gray-700 font-semibold mb-2">Duración de la Fiesta</label>
-          <select
-            id="hours"
-            name="hours"
-            value={bookingData.hours}
-            onChange={handleChange}
-            className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-            required
-          >
-            <option value="">Selecciona la duración</option>
-            <option value="4">4 horas</option>
-            <option value="8">8 horas</option>
-          </select>
-        </div>
+       {/* Nuevo campo para seleccionar duración de horas */}
+<div className="flex flex-col">
+  <label htmlFor="hours" className="text-gray-700 font-semibold mb-2">Duración de la Fiesta</label>
+  <select
+    id="hours"
+    name="hours"
+    value={bookingData.hours}
+    onChange={handleChange}
+    className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+    required
+  >
+    <option value="">Selecciona la duración</option>
+    <option value="4">4 horas</option>
+    <option value="8">8 horas</option>
+  </select>
+</div>
 
-        {bookingData.hours && (
-          <div className="flex flex-col">
-            <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">Selecciona la hora de inicio</label>
-            <select
-              id="timeSlot"
-              name="timeSlot"
-              value={bookingData.timeSlot}
-              onChange={handleChange}
-              className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-              required
-            >
-              <option value="">Selecciona una opción</option>
-              {generateStartTimes().map((time, index) => (
-                <option key={index} value={time}>{time}</option>
-              ))}
-            </select>
-          </div>
-        )}
+{/* Campo para seleccionar la hora de inicio dependiendo de la duración */}
+{bookingData.hours && (
+  <div className="flex flex-col">
+    <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">Selecciona la hora de inicio</label>
+    <select
+      id="timeSlot"
+      name="timeSlot"
+      value={bookingData.timeSlot}
+      onChange={handleChange}
+      className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+      required
+    >
+      <option value="">Selecciona una opción</option>
+      {generateStartTimes().map((time, index) => (
+        <option key={index} value={time}>{time}</option>
+      ))}
+    </select>
+  </div>
+)}
 
         <button type="submit" className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
           Confirmar
         </button>
       </form>
 
-      <ConfirmationModal
-        show={showConfirmationModal}
-        onClose={closeConfirmationModal}
-        onConfirm={handleConfirmSubmit}
-        bookingData={bookingData}
+      {/* Modal de confirmación de reserva */}
+      <ConfirmationModal 
+        show={showConfirmationModal} 
+        onClose={closeConfirmationModal} 
+        onConfirm={handleConfirmSubmit} 
+        bookingData={bookingData} 
       />
 
+      {/* Mostrar modal de resultado final */}
       <Modal show={showModal} onClose={closeModal} message={modalMessage} />
     </div>
   );
