@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-
 import '../App.css'
 
 const CalendarComponent = ({ onDateChange }) => {
@@ -41,7 +40,7 @@ const CalendarComponent = ({ onDateChange }) => {
         return true;
       }
 
-      // Deshabilitar fechas reservadas
+      // Deshabilitar fechas reservadas (no seleccionables)
       return bookedDates.some(bookedDate => 
         bookedDate.toDateString() === date.toDateString()
       );
@@ -49,10 +48,18 @@ const CalendarComponent = ({ onDateChange }) => {
     return false;
   };
 
-  // Función para agregar una clase a las fechas deshabilitadas
+  // Función para agregar clases a las fechas deshabilitadas
   const tileClassName = ({ date, view }) => {
-    if (view === 'month' && (date < today || bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString()))) {
-      return 'disabled-date'; // Clase CSS personalizada
+    if (view === 'month') {
+      // Marcar fechas pasadas en gris
+      if (date < today) {
+        return 'past-date'; // Clase CSS para fechas pasadas (gris)
+      }
+
+      // Marcar fechas con reserva pero seleccionables en amarillo
+      if (bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString())) {
+        return 'reserved-date'; // Clase CSS para fechas con reserva (amarillo)
+      }
     }
     return '';
   };

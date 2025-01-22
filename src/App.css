@@ -4,15 +4,13 @@
     box-sizing: border-box;
  }
 
-/* Estilo para fechas pasadas deshabilitadas */
-.disabled-date {
-   background-color: #f0f0f0 !important;
-   pointer-events: none;
+ .past-date {
+   background-color: #d3d3d3 !important; /* Gris claro */
+   pointer-events: none !important; /* Deshabilitar interacción */
+ }
+
+ .reserved-date {
+   background-color: #ffeb3b !important; /* Amarillo claro */
  }
  
- /* Estilo para fechas con reservas */
- .reserved-date {
-   background-color: #ffeb3b !important; /* Amarillo */
-   color: #000 !important; /* Texto negro para contraste */
- }
  
