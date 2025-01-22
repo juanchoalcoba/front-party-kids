@@ -41,9 +41,6 @@ const CalendarComponent = ({ onDateChange }) => {
     return false;
   };
 
-
-  
-
   // Función para agregar una clase a las fechas reservadas y deshabilitadas
   const tileClassName = ({ date, view }) => {
     if (view === 'month') {
