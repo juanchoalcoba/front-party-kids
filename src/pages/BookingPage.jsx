@@ -17,6 +17,8 @@ const BookingPage = () => {
   const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
   const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación antes de enviar
   const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
+  const [reservedHours, setReservedHours] = useState([]);
+
   
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
@@ -24,10 +26,26 @@ const BookingPage = () => {
 
   const handleDateChange = (date) => {
     setBookingData({ ...bookingData, date });
+    fetchReservedHours(date); // Llamar a la función para obtener las horas reservadas
   };
 
 
-
+  const fetchReservedHours = async (date) => {
+    const formattedDate = date.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+  
+    try {
+      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?date=${formattedDate}`);
+      if (response.ok) {
+        const data = await response.json();
+        // Filtramos solo las horas que están reservadas para esa fecha
+        const hours = data.map(booking => booking.timeSlot);
+        setReservedHours(hours);
+      }
+    } catch (error) {
+      console.error('Error fetching reserved hours:', error);
+    }
+  };
+  
   
 
   const handleConfirmSubmit = async () => {
@@ -67,27 +85,7 @@ const BookingPage = () => {
     setShowConfirmationModal(false);
   };
 
-  const generateStartTimes = () => {
-    const times = [];
-    let startHour = 8; // Empezamos a las 8:00 AM
-    const maxStartHourFor4Hours = 20; // Última hora de inicio válida para 4 horas (20:00)
-    const maxStartHourFor8Hours = 16; // Última hora de inicio válida para 8 horas (16:00)
   
-    if (bookingData.hours === '4') {
-      // Para 4 horas: desde las 8 AM hasta las 8 PM (último posible inicio a las 8 PM)
-      while (startHour <= maxStartHourFor4Hours) {
-        times.push(`${startHour}:00`);
-        startHour++;
-      }
-    } else if (bookingData.hours === '8') {
-      // Para 8 horas: desde las 8 AM hasta las 4 PM (último posible inicio a las 4 PM)
-      while (startHour <= maxStartHourFor8Hours) {
-        times.push(`${startHour}:00`);
-        startHour++;
-      }
-    }
-    return times;
-  };
 
   return (
     <div className="p-8 flex flex-col justify-center items-center bg-gradient-to-r from-violet-950 via-purple-600 to-blue-500 w-full min-h-screen font-robert-medium">
@@ -156,45 +154,12 @@ const BookingPage = () => {
 
         <div className="flex flex-col">
           <label className="text-gray-700 font-semibold mb-2">Selecciona la Fecha</label>
-          <CalendarComponent onDateChange={handleDateChange} />
+          <CalendarComponent 
+  onDateChange={handleDateChange} 
+  reservedHours={reservedHours}  // Pasa las horas reservadas como prop
+/>
         </div>
 
-       {/* Nuevo campo para seleccionar duración de horas */}
-<div className="flex flex-col">
-  <label htmlFor="hours" className="text-gray-700 font-semibold mb-2">Duración de la Fiesta</label>
-  <select
-    id="hours"
-    name="hours"
-    value={bookingData.hours}
-    onChange={handleChange}
-    className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-    required
-  >
-    <option value="">Selecciona la duración</option>
-    <option value="4">4 horas</option>
-    <option value="8">8 horas</option>
-  </select>
-</div>
-
-{/* Campo para seleccionar la hora de inicio dependiendo de la duración */}
-{bookingData.hours && (
-  <div className="flex flex-col">
-    <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">Selecciona la hora de inicio</label>
-    <select
-      id="timeSlot"
-      name="timeSlot"
-      value={bookingData.timeSlot}
-      onChange={handleChange}
-      className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-      required
-    >
-      <option value="">Selecciona una opción</option>
-      {generateStartTimes().map((time, index) => (
-        <option key={index} value={time}>{time}</option>
-      ))}
-    </select>
-  </div>
-)}
 
         <button type="submit" className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
           Confirmar
