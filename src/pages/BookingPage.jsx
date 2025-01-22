@@ -17,7 +17,7 @@ const BookingPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
-  const [reservedTimeSlots, setReservedTimeSlots] = useState([]); // Lista de horas ya reservadas
+  const [reservedTimeSlots, setReservedTimeSlots] = useState([]); // Lista de horas ya reservadas solo para la fecha seleccionada
 
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
