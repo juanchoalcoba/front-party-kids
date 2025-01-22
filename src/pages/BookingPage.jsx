@@ -175,10 +175,7 @@ const BookingPage = () => {
 
         <div className="flex flex-col">
           <label className="text-gray-700 font-semibold mb-2">Selecciona la Fecha</label>
-          <CalendarComponent 
-  onDateChange={handleDateChange} 
-  reservedDates={reservedSlots.map(slot => slot.date)} // Pasamos las fechas con reservas
-/>
+          <CalendarComponent onDateChange={handleDateChange} />
         </div>
 
        {/* Nuevo campo para seleccionar duración de horas */}
