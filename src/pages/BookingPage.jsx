@@ -142,7 +142,7 @@ const BookingPage = () => {
         </div>
 
 
-        <div className="flex flex-col">
+              <div className="flex flex-col">
           <label htmlFor="email" className="text-gray-700 font-semibold mb-2">Email</label>
           <input
             type="email"
