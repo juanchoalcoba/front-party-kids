@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState} from 'react';
 import CalendarComponent from '../components/CalendarComponent';
 import Modal from '../components/Modal'; // Importamos el modal para mostrar mensajes
 import ConfirmationModal from '../components/ConfirmationModal'; // Modal para confirmar reserva
@@ -17,6 +17,7 @@ const BookingPage = () => {
   const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
   const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación antes de enviar
   const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
+  const [reservedTimes, setReservedTimes] = useState([]); // Estado para las horas ya reservadas
   
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
@@ -25,10 +26,6 @@ const BookingPage = () => {
   const handleDateChange = (date) => {
     setBookingData({ ...bookingData, date });
   };
-
-
-
-  
 
   const handleConfirmSubmit = async () => {
     // Aquí hacemos el envío final de los datos al backend
@@ -50,8 +47,6 @@ const BookingPage = () => {
       setShowModal(true); // Mostrar modal de error
     }
   };
-
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -86,7 +81,27 @@ const BookingPage = () => {
         startHour++;
       }
     }
-    return times;
+    
+    // Filtrar las horas reservadas para ese día
+    const selectedDate = bookingData.date.toLocaleDateString(); // Fecha seleccionada por el usuario
+    const unavailableTimes = reservedTimes[selectedDate] || [];
+    return times.filter(time => !unavailableTimes.includes(time));
+  };
+
+  const handleTimeSlotChange = (e) => {
+    const selectedTime = e.target.value;
+    const selectedDate = bookingData.date.toLocaleDateString();
+    const newReservedTimes = { ...reservedTimes };
+    
+    if (!newReservedTimes[selectedDate]) {
+      newReservedTimes[selectedDate] = [];
+    }
+    
+    const newTimes = [...newReservedTimes[selectedDate], selectedTime];
+    newReservedTimes[selectedDate] = newTimes;
+
+    setReservedTimes(newReservedTimes);
+    setBookingData({ ...bookingData, timeSlot: selectedTime });
   };
 
   return (
@@ -159,42 +174,42 @@ const BookingPage = () => {
           <CalendarComponent onDateChange={handleDateChange} />
         </div>
 
-       {/* Nuevo campo para seleccionar duración de horas */}
-<div className="flex flex-col">
-  <label htmlFor="hours" className="text-gray-700 font-semibold mb-2">Duración de la Fiesta</label>
-  <select
-    id="hours"
-    name="hours"
-    value={bookingData.hours}
-    onChange={handleChange}
-    className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-    required
-  >
-    <option value="">Selecciona la duración</option>
-    <option value="4">4 horas</option>
-    <option value="8">8 horas</option>
-  </select>
-</div>
+        {/* Nuevo campo para seleccionar duración de horas */}
+        <div className="flex flex-col">
+          <label htmlFor="hours" className="text-gray-700 font-semibold mb-2">Duración de la Fiesta</label>
+          <select
+            id="hours"
+            name="hours"
+            value={bookingData.hours}
+            onChange={handleChange}
+            className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+            required
+          >
+            <option value="">Selecciona la duración</option>
+            <option value="4">4 horas</option>
+            <option value="8">8 horas</option>
+          </select>
+        </div>
 
-{/* Campo para seleccionar la hora de inicio dependiendo de la duración */}
-{bookingData.hours && (
-  <div className="flex flex-col">
-    <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">Selecciona la hora de inicio</label>
-    <select
-      id="timeSlot"
-      name="timeSlot"
-      value={bookingData.timeSlot}
-      onChange={handleChange}
-      className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-      required
-    >
-      <option value="">Selecciona una opción</option>
-      {generateStartTimes().map((time, index) => (
-        <option key={index} value={time}>{time}</option>
-      ))}
-    </select>
-  </div>
-)}
+        {/* Campo para seleccionar la hora de inicio dependiendo de la duración */}
+        {bookingData.hours && (
+          <div className="flex flex-col">
+            <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">Selecciona la hora de inicio</label>
+            <select
+              id="timeSlot"
+              name="timeSlot"
+              value={bookingData.timeSlot}
+              onChange={handleTimeSlotChange}
+              className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+              required
+            >
+              <option value="">Selecciona una opción</option>
+              {generateStartTimes().map((time, index) => (
+                <option key={index} value={time}>{time}</option>
+              ))}
+            </select>
+          </div>
+        )}
 
         <button type="submit" className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
           Confirmar
