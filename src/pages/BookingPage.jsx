@@ -141,6 +141,42 @@ const BookingPage = () => {
           />
         </div>
 
+
+        <div className="flex flex-col">
+          <label htmlFor="email" className="text-gray-700 font-semibold mb-2">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Escribe tu email"
+            value={bookingData.email}
+            onChange={handleChange}
+            className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+            required
+          />
+        </div>
+
+        <div className="flex flex-col">
+          <label htmlFor="phone" className="text-gray-700 font-semibold mb-2">Teléfono</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="Escribe tu número de teléfono"
+            value={bookingData.phone}
+            onChange={handleChange}
+            className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+            required
+            minLength="8" // Mínimo de 8 caracteres
+            maxLength="9" // Máximo de 9 caracteres
+            pattern="^\d{8,9}$" // Acepta solo números con 8 o 9 dígitos
+            title="El número debe tener entre 8 y 9 dígitos"
+          />
+        </div>
+
+
+
+
         {/* Fecha */}
         <div className="flex flex-col">
           <label className="text-gray-700 font-semibold mb-2">Selecciona la Fecha</label>
