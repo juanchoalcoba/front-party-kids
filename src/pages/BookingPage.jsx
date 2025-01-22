@@ -50,7 +50,7 @@ const BookingPage = () => {
   
     if (response.ok) {
       // Actualizar el backend para marcar ese horario como reservado
-      await fetch('https://api-party-kids.vercel.app/api/reserve-time', {
+      await fetch('https://api-party-kids.vercel.app/api/bookings/reserve-time', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
