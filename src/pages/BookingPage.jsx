@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CalendarComponent from '../components/CalendarComponent';
 import Modal from '../components/Modal'; // Importamos el modal para mostrar mensajes
 import ConfirmationModal from '../components/ConfirmationModal'; // Modal para confirmar reserva
@@ -17,6 +17,7 @@ const BookingPage = () => {
   const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
   const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación antes de enviar
   const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
+  const [occupiedSlots, setOccupiedSlots] = useState([]);
   
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
@@ -27,7 +28,19 @@ const BookingPage = () => {
   };
 
 
-
+  useEffect(() => {
+    const fetchOccupiedSlots = async () => {
+      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/available?date=${bookingData.date.toISOString().split('T')[0]}`);
+      if (response.ok) {
+        const data = await response.json();
+        setOccupiedSlots(data.availableSlots);
+      }
+    };
+  
+    if (bookingData.date) {
+      fetchOccupiedSlots();
+    }
+  }, [bookingData.date]);
   
 
   const handleConfirmSubmit = async () => {
@@ -72,17 +85,26 @@ const BookingPage = () => {
     let startHour = 8; // Empezamos a las 8:00 AM
     const maxStartHourFor4Hours = 20; // Última hora de inicio válida para 4 horas (20:00)
     const maxStartHourFor8Hours = 16; // Última hora de inicio válida para 8 horas (16:00)
+    
+    const isSlotOccupied = (hour) => {
+      // Verifica si la hora está ocupada
+      return occupiedSlots.includes(hour);
+    };
   
     if (bookingData.hours === '4') {
       // Para 4 horas: desde las 8 AM hasta las 8 PM (último posible inicio a las 8 PM)
       while (startHour <= maxStartHourFor4Hours) {
-        times.push(`${startHour}:00`);
+        if (!isSlotOccupied(startHour)) {
+          times.push(`${startHour}:00`);
+        }
         startHour++;
       }
     } else if (bookingData.hours === '8') {
       // Para 8 horas: desde las 8 AM hasta las 4 PM (último posible inicio a las 4 PM)
       while (startHour <= maxStartHourFor8Hours) {
-        times.push(`${startHour}:00`);
+        if (!isSlotOccupied(startHour)) {
+          times.push(`${startHour}:00`);
+        }
         startHour++;
       }
     }
