@@ -1,24 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import CalendarComponent from '../components/CalendarComponent';
-import Modal from '../components/Modal'; // Modal de mensaje
-import ConfirmationModal from '../components/ConfirmationModal'; // Modal de confirmación
+import Modal from '../components/Modal'; // Importamos el modal para mostrar mensajes
+import ConfirmationModal from '../components/ConfirmationModal'; // Modal para confirmar reserva
 
 const BookingPage = () => {
   const [bookingData, setBookingData] = useState({
     name: '',
-    namekid: '',
+    namekid: '', // Nuevo campo para el nombre del niño/niña
     email: '',
     phone: '',
     date: new Date(),
-    hours: '', // Duración de la reserva
-    timeSlot: '', // Hora seleccionada
+    hours: '', // Nuevo campo para la duración de la reserva
+    timeSlot: '', // Campo para la selección de la hora específica
   });
 
-  const [showModal, setShowModal] = useState(false); // Mostrar modal de confirmación
-  const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Mostrar modal antes de confirmar
+  const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación antes de enviar
   const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
-  const [reservedTimes, setReservedTimes] = useState({}); // Estado para horas reservadas por fecha
-
+  const [reservedTimes, setReservedTimes] = useState({});
+  
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
   };
@@ -26,6 +26,10 @@ const BookingPage = () => {
   const handleDateChange = (date) => {
     setBookingData({ ...bookingData, date });
   };
+
+
+
+  
 
   const handleConfirmSubmit = async () => {
     // Enviar la reserva
@@ -36,22 +40,22 @@ const BookingPage = () => {
       },
       body: JSON.stringify(bookingData),
     });
-
+  
     if (response.ok) {
       const selectedDate = bookingData.date.toLocaleDateString();
       const newReservedTimes = { ...reservedTimes };
-
+  
       // Asegurarse de que haya un array para la fecha seleccionada
       if (!newReservedTimes[selectedDate]) {
         newReservedTimes[selectedDate] = [];
       }
-
+  
       // Agregar la hora seleccionada al array de horas reservadas
       newReservedTimes[selectedDate].push(bookingData.timeSlot);
-
+  
       // Actualizar el estado de las horas reservadas
       setReservedTimes(newReservedTimes);
-
+  
       // Mostrar mensaje de éxito
       setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
       setShowConfirmationModal(false);
@@ -62,6 +66,9 @@ const BookingPage = () => {
       setShowModal(true);
     }
   };
+  
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -70,20 +77,19 @@ const BookingPage = () => {
 
   const closeModal = () => {
     setShowModal(false);
-    window.location.href = '/'; // Opcional: redirige al inicio
+    window.location.href = '/'; // Redirige a la página de inicio (opcional)
   };
 
   const closeConfirmationModal = () => {
     setShowConfirmationModal(false);
   };
 
-  // Generar las horas disponibles según la duración
   const generateStartTimes = () => {
     const times = [];
     let startHour = 8; // Empezamos a las 8 AM
     const maxStartHourFor4Hours = 20; // Última hora válida para 4 horas
     const maxStartHourFor8Hours = 16; // Última hora válida para 8 horas
-
+  
     // Generar horas según la duración seleccionada
     if (bookingData.hours === '4') {
       while (startHour <= maxStartHourFor4Hours) {
@@ -96,16 +102,13 @@ const BookingPage = () => {
         startHour++;
       }
     }
-
+  
     // Filtrar las horas reservadas para la fecha seleccionada
     const selectedDate = bookingData.date.toLocaleDateString();
     const unavailableTimes = reservedTimes[selectedDate] || [];
     return times.filter(time => !unavailableTimes.includes(time)); // Filtrar las horas ocupadas
   };
-
-  const handleTimeSlotChange = (e) => {
-    setBookingData({ ...bookingData, timeSlot: e.target.value });
-  };
+  
 
   return (
     <div className="p-8 flex flex-col justify-center items-center bg-gradient-to-r from-violet-950 via-purple-600 to-blue-500 w-full min-h-screen font-robert-medium">
@@ -165,9 +168,9 @@ const BookingPage = () => {
             onChange={handleChange}
             className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
             required
-            minLength="8"
-            maxLength="9"
-            pattern="^\d{8,9}$"
+            minLength="8" // Mínimo de 8 caracteres
+            maxLength="9" // Máximo de 9 caracteres
+            pattern="^\d{8,9}$" // Acepta solo números con 8 o 9 dígitos
             title="El número debe tener entre 8 y 9 dígitos"
           />
         </div>
@@ -177,40 +180,42 @@ const BookingPage = () => {
           <CalendarComponent onDateChange={handleDateChange} />
         </div>
 
-        <div className="flex flex-col">
-          <label htmlFor="hours" className="text-gray-700 font-semibold mb-2">Duración de la Fiesta</label>
-          <select
-            id="hours"
-            name="hours"
-            value={bookingData.hours}
-            onChange={handleChange}
-            className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-            required
-          >
-            <option value="">Selecciona la duración</option>
-            <option value="4">4 horas</option>
-            <option value="8">8 horas</option>
-          </select>
-        </div>
+       {/* Nuevo campo para seleccionar duración de horas */}
+<div className="flex flex-col">
+  <label htmlFor="hours" className="text-gray-700 font-semibold mb-2">Duración de la Fiesta</label>
+  <select
+    id="hours"
+    name="hours"
+    value={bookingData.hours}
+    onChange={handleChange}
+    className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+    required
+  >
+    <option value="">Selecciona la duración</option>
+    <option value="4">4 horas</option>
+    <option value="8">8 horas</option>
+  </select>
+</div>
 
-        {bookingData.hours && (
-          <div className="flex flex-col">
-            <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">Selecciona la hora de inicio</label>
-            <select
-              id="timeSlot"
-              name="timeSlot"
-              value={bookingData.timeSlot}
-              onChange={handleTimeSlotChange}
-              className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-              required
-            >
-              <option value="">Selecciona una opción</option>
-              {generateStartTimes().map((time, index) => (
-                <option key={index} value={time}>{time}</option>
-              ))}
-            </select>
-          </div>
-        )}
+{/* Campo para seleccionar la hora de inicio dependiendo de la duración */}
+{bookingData.hours && (
+  <div className="flex flex-col">
+    <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">Selecciona la hora de inicio</label>
+    <select
+      id="timeSlot"
+      name="timeSlot"
+      value={bookingData.timeSlot}
+      onChange={handleChange}
+      className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+      required
+    >
+      <option value="">Selecciona una opción</option>
+      {generateStartTimes().map((time, index) => (
+        <option key={index} value={time}>{time}</option>
+      ))}
+    </select>
+  </div>
+)}
 
         <button type="submit" className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
           Confirmar
