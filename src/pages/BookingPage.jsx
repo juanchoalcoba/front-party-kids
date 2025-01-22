@@ -17,7 +17,6 @@ const BookingPage = () => {
   const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
   const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación antes de enviar
   const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
-  const [reservedTimes, setReservedTimes] = useState({});
   
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
@@ -32,7 +31,7 @@ const BookingPage = () => {
   
 
   const handleConfirmSubmit = async () => {
-    // Enviar la reserva
+    // Aquí hacemos el envío final de los datos al backend
     const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
       method: 'POST',
       headers: {
@@ -40,33 +39,17 @@ const BookingPage = () => {
       },
       body: JSON.stringify(bookingData),
     });
-  
+
     if (response.ok) {
-      const selectedDate = bookingData.date.toLocaleDateString();
-      const newReservedTimes = { ...reservedTimes };
-  
-      // Asegurarse de que haya un array para la fecha seleccionada
-      if (!newReservedTimes[selectedDate]) {
-        newReservedTimes[selectedDate] = [];
-      }
-  
-      // Agregar la hora seleccionada al array de horas reservadas
-      newReservedTimes[selectedDate].push(bookingData.timeSlot);
-  
-      // Actualizar el estado de las horas reservadas
-      setReservedTimes(newReservedTimes);
-  
-      // Mostrar mensaje de éxito
       setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
-      setShowConfirmationModal(false);
-      setShowModal(true);
+      setShowConfirmationModal(false); // Cerrar modal de confirmación
+      setShowModal(true); // Mostrar modal de éxito
     } else {
-      setModalMessage('Error al procesar la reserva');
-      setShowConfirmationModal(false);
-      setShowModal(true);
+      setModalMessage('Error submitting the booking');
+      setShowConfirmationModal(false); // Cerrar modal de confirmación
+      setShowModal(true); // Mostrar modal de error
     }
   };
-  
 
 
 
@@ -86,29 +69,25 @@ const BookingPage = () => {
 
   const generateStartTimes = () => {
     const times = [];
-    let startHour = 8; // Empezamos a las 8 AM
-    const maxStartHourFor4Hours = 20; // Última hora válida para 4 horas
-    const maxStartHourFor8Hours = 16; // Última hora válida para 8 horas
+    let startHour = 8; // Empezamos a las 8:00 AM
+    const maxStartHourFor4Hours = 20; // Última hora de inicio válida para 4 horas (20:00)
+    const maxStartHourFor8Hours = 16; // Última hora de inicio válida para 8 horas (16:00)
   
-    // Generar horas según la duración seleccionada
     if (bookingData.hours === '4') {
+      // Para 4 horas: desde las 8 AM hasta las 8 PM (último posible inicio a las 8 PM)
       while (startHour <= maxStartHourFor4Hours) {
         times.push(`${startHour}:00`);
         startHour++;
       }
     } else if (bookingData.hours === '8') {
+      // Para 8 horas: desde las 8 AM hasta las 4 PM (último posible inicio a las 4 PM)
       while (startHour <= maxStartHourFor8Hours) {
         times.push(`${startHour}:00`);
         startHour++;
       }
     }
-  
-    // Filtrar las horas reservadas para la fecha seleccionada
-    const selectedDate = bookingData.date.toLocaleDateString();
-    const unavailableTimes = reservedTimes[selectedDate] || [];
-    return times.filter(time => !unavailableTimes.includes(time)); // Filtrar las horas ocupadas
+    return times;
   };
-  
 
   return (
     <div className="p-8 flex flex-col justify-center items-center bg-gradient-to-r from-violet-950 via-purple-600 to-blue-500 w-full min-h-screen font-robert-medium">
