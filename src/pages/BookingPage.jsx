@@ -17,6 +17,8 @@ const BookingPage = () => {
   const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
   const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación antes de enviar
   const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
+  const [reservedTimes, setReservedTimes] = useState({});
+
   
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
@@ -39,9 +41,22 @@ const BookingPage = () => {
       },
       body: JSON.stringify(bookingData),
     });
-
+  
     if (response.ok) {
       setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
+      
+      // Obtener la fecha seleccionada en formato YYYY-MM-DD
+      const selectedDate = bookingData.date.toISOString().split('T')[0];
+      
+      // Actualizar el estado de reservedTimes
+      setReservedTimes(prevTimes => {
+        const timesForDate = prevTimes[selectedDate] || [];
+        return {
+          ...prevTimes,
+          [selectedDate]: [...timesForDate, bookingData.timeSlot],
+        };
+      });
+  
       setShowConfirmationModal(false); // Cerrar modal de confirmación
       setShowModal(true); // Mostrar modal de éxito
     } else {
@@ -50,6 +65,7 @@ const BookingPage = () => {
       setShowModal(true); // Mostrar modal de error
     }
   };
+  
 
 
 
@@ -86,8 +102,15 @@ const BookingPage = () => {
         startHour++;
       }
     }
-    return times;
+  
+    // Obtener las horas reservadas para la fecha seleccionada
+    const selectedDate = bookingData.date.toISOString().split('T')[0]; // Convertir a formato YYYY-MM-DD
+    const reservedForSelectedDate = reservedTimes[selectedDate] || [];
+  
+    // Filtrar las horas que ya han sido reservadas
+    return times.filter(time => !reservedForSelectedDate.includes(time));
   };
+  
 
   return (
     <div className="p-8 flex flex-col justify-center items-center bg-gradient-to-r from-violet-950 via-purple-600 to-blue-500 w-full min-h-screen font-robert-medium">
