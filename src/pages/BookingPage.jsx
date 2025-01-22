@@ -17,15 +17,19 @@ const BookingPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
-  const [reservedSlots, setReservedSlots] = useState([]); // Almacenar los slots ya reservados
+  const [reservedSlots, setReservedSlots] = useState({}); // Cambiar a un objeto con fechas como claves
 
-  // Obtener las reservas existentes de la API
+  // Obtener las reservas existentes de la API para una fecha específica
   const fetchReservedSlots = async (selectedDate) => {
-    const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?date=${selectedDate}`);
+    const formattedDate = selectedDate.toISOString().split('T')[0]; // Convertir la fecha en formato YYYY-MM-DD
+    const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?date=${formattedDate}`);
     if (response.ok) {
       const data = await response.json();
       const slots = data.map((booking) => booking.timeSlot); // Extraemos los slots ocupados
-      setReservedSlots(slots);
+      setReservedSlots((prevState) => ({
+        ...prevState,
+        [formattedDate]: slots, // Actualizar solo para la fecha seleccionada
+      }));
     } else {
       console.error('Error fetching reserved slots');
     }
@@ -33,8 +37,7 @@ const BookingPage = () => {
 
   // Actualizar la disponibilidad de las horas cada vez que se cambia la fecha
   useEffect(() => {
-    const formattedDate = bookingData.date.toISOString().split('T')[0]; // Convertir la fecha en formato YYYY-MM-DD
-    fetchReservedSlots(formattedDate);
+    fetchReservedSlots(bookingData.date); // Llamar a la función con la fecha seleccionada
   }, [bookingData.date]);
 
   const handleChange = (e) => {
@@ -85,20 +88,29 @@ const BookingPage = () => {
     let startHour = 8;
     const maxStartHourFor4Hours = 20;
     const maxStartHourFor8Hours = 16;
+    const formattedDate = bookingData.date.toISOString().split('T')[0];
+
+    // Obtener los slots reservados para el día seleccionado
+    const slotsForDate = reservedSlots[formattedDate] || [];
+
+    // Verifica si se ha seleccionado una hora, y si es así, la excluye de la lista de horas
+    const excludedTime = bookingData.timeSlot;
 
     if (bookingData.hours === '4') {
       while (startHour <= maxStartHourFor4Hours) {
         const time = `${startHour}:00`;
-        if (!reservedSlots.includes(time)) {
-          times.push(time); // Solo agregamos el tiempo si no está reservado
+        // Asegúrate de que la hora no esté reservada ni seleccionada
+        if (!slotsForDate.includes(time) && time !== excludedTime) {
+          times.push(time);
         }
         startHour++;
       }
     } else if (bookingData.hours === '8') {
       while (startHour <= maxStartHourFor8Hours) {
         const time = `${startHour}:00`;
-        if (!reservedSlots.includes(time)) {
-          times.push(time); // Solo agregamos el tiempo si no está reservado
+        // Asegúrate de que la hora no esté reservada ni seleccionada
+        if (!slotsForDate.includes(time) && time !== excludedTime) {
+          times.push(time);
         }
         startHour++;
       }
