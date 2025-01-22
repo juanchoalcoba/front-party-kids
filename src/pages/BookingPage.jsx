@@ -27,109 +27,29 @@ const BookingPage = () => {
   };
 
 
-  
-
-  const generateStartTimes = async () => {
-    const occupiedSlots = await getOccupiedSlots(); // Llamada al backend para obtener los horarios ocupados
-    const times = [];
-    let startHour = 8;
-    const maxStartHourFor4Hours = 20;
-    const maxStartHourFor8Hours = 16;
-  
-    const isSlotAvailable = (time) => !occupiedSlots.includes(time); // Verifica si el horario está ocupado
-  
-    if (bookingData.hours === '4') {
-      while (startHour <= maxStartHourFor4Hours) {
-        const time = `${startHour}:00`;
-        if (isSlotAvailable(time)) times.push(time);
-        startHour++;
-      }
-    } else if (bookingData.hours === '8') {
-      while (startHour <= maxStartHourFor8Hours) {
-        const time = `${startHour}:00`;
-        if (isSlotAvailable(time)) times.push(time);
-        startHour++;
-      }
-    }
-  
-    return times;
-  };
-
-
-
-  // Función para obtener los horarios ocupados desde el backend
-const getOccupiedSlots = async () => {
-  const response = await fetch('https://api-party-kids.vercel.app/api/bookings/occupiedSlots');
-  if (response.ok) {
-    const data = await response.json();
-    return data; // Devuelve los horarios ocupados desde el backend
-  } else {
-    console.error('Error al obtener los horarios ocupados');
-    return [];
-  }
-};
-  
-
-
-
-  // Función para actualizar los horarios ocupados en el backend
-const updateOccupiedSlots = async (updatedSlots) => {
-  try {
-    const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
-      method: 'PUT',  // O 'PATCH' si solo actualizas parcialmente
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ occupiedSlots: updatedSlots }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Error al actualizar los horarios ocupados');
-    }
-
-    console.log('Horarios ocupados actualizados exitosamente');
-  } catch (error) {
-    console.error('Error al actualizar horarios ocupados:', error);
-  }
-};
 
   
 
   const handleConfirmSubmit = async () => {
-    // Obtener los horarios ocupados antes de hacer la reserva
-    const newOccupiedSlots = await getOccupiedSlots();
-  
-    // Verificar si el timeSlot ya está ocupado
-    if (newOccupiedSlots.includes(bookingData.timeSlot)) {
-      setModalMessage('Este horario ya está ocupado. Por favor, selecciona otro.');
-      setShowConfirmationModal(false);
-      setShowModal(true); // Mostrar el modal de error
+    // Aquí hacemos el envío final de los datos al backend
+    const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(bookingData),
+    });
+
+    if (response.ok) {
+      setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
+      setShowConfirmationModal(false); // Cerrar modal de confirmación
+      setShowModal(true); // Mostrar modal de éxito
     } else {
-      // Si el horario no está ocupado, hacer la reserva
-      const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(bookingData),
-      });
-  
-      if (response.ok) {
-        setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
-        setShowConfirmationModal(false); // Cerrar modal de confirmación
-        setShowModal(true); // Mostrar modal de éxito
-  
-        // Actualizar los horarios ocupados para reflejar la nueva reserva
-        await updateOccupiedSlots([...newOccupiedSlots, bookingData.timeSlot]);
-      } else {
-        setModalMessage('Error al enviar la reserva');
-        setShowConfirmationModal(false); // Cerrar modal de confirmación
-        setShowModal(true); // Mostrar modal de error
-      }
+      setModalMessage('Error submitting the booking');
+      setShowConfirmationModal(false); // Cerrar modal de confirmación
+      setShowModal(true); // Mostrar modal de error
     }
   };
-  
-  
 
 
 
@@ -147,7 +67,27 @@ const updateOccupiedSlots = async (updatedSlots) => {
     setShowConfirmationModal(false);
   };
 
+  const generateStartTimes = () => {
+    const times = [];
+    let startHour = 8; // Empezamos a las 8:00 AM
+    const maxStartHourFor4Hours = 20; // Última hora de inicio válida para 4 horas (20:00)
+    const maxStartHourFor8Hours = 16; // Última hora de inicio válida para 8 horas (16:00)
   
+    if (bookingData.hours === '4') {
+      // Para 4 horas: desde las 8 AM hasta las 8 PM (último posible inicio a las 8 PM)
+      while (startHour <= maxStartHourFor4Hours) {
+        times.push(`${startHour}:00`);
+        startHour++;
+      }
+    } else if (bookingData.hours === '8') {
+      // Para 8 horas: desde las 8 AM hasta las 4 PM (último posible inicio a las 4 PM)
+      while (startHour <= maxStartHourFor8Hours) {
+        times.push(`${startHour}:00`);
+        startHour++;
+      }
+    }
+    return times;
+  };
 
   return (
     <div className="p-8 flex flex-col justify-center items-center bg-gradient-to-r from-violet-950 via-purple-600 to-blue-500 w-full min-h-screen font-robert-medium">
