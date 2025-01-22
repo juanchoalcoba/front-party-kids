@@ -17,6 +17,7 @@ const BookingPage = () => {
   const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
   const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación antes de enviar
   const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
+  const [reservedTimes, setReservedTimes] = useState([]);
   
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
@@ -24,14 +25,21 @@ const BookingPage = () => {
 
   const handleDateChange = (date) => {
     setBookingData({ ...bookingData, date });
+    fetchReservedTimes(date);  // Cargar horarios reservados al cambiar la fecha
   };
 
 
-
+  
+  const fetchReservedTimes = async (selectedDate) => {
+    // Suponiendo que tienes una API que devuelve los horarios reservados
+    const response = await fetch(`https://api-party-kids.vercel.app/api/bookings/reserved-times?date=${selectedDate}`);
+    const data = await response.json();
+    setReservedTimes(data.reservedTimes);
+  };
   
 
   const handleConfirmSubmit = async () => {
-    // Aquí hacemos el envío final de los datos al backend
+    // Aquí enviamos la reserva al backend
     const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
       method: 'POST',
       headers: {
@@ -39,8 +47,20 @@ const BookingPage = () => {
       },
       body: JSON.stringify(bookingData),
     });
-
+  
     if (response.ok) {
+      // Actualizar el backend para marcar ese horario como reservado
+      await fetch('https://api-party-kids.vercel.app/api/reserve-time', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          date: bookingData.date,
+          time: bookingData.timeSlot,
+        }),
+      });
+  
       setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
       setShowConfirmationModal(false); // Cerrar modal de confirmación
       setShowModal(true); // Mostrar modal de éxito
@@ -69,20 +89,26 @@ const BookingPage = () => {
 
   const generateStartTimes = () => {
     const times = [];
-    let startHour = 8; // Empezamos a las 8:00 AM
-    const maxStartHourFor4Hours = 20; // Última hora de inicio válida para 4 horas (20:00)
-    const maxStartHourFor8Hours = 16; // Última hora de inicio válida para 8 horas (16:00)
+    let startHour = 8;
+    const maxStartHourFor4Hours = 20;
+    const maxStartHourFor8Hours = 16;
+  
+    const reservedSet = new Set(reservedTimes); // Usamos un Set para una búsqueda más rápida
   
     if (bookingData.hours === '4') {
-      // Para 4 horas: desde las 8 AM hasta las 8 PM (último posible inicio a las 8 PM)
       while (startHour <= maxStartHourFor4Hours) {
-        times.push(`${startHour}:00`);
+        const time = `${startHour}:00`;
+        if (!reservedSet.has(time)) {  // Solo incluir horarios no reservados
+          times.push(time);
+        }
         startHour++;
       }
     } else if (bookingData.hours === '8') {
-      // Para 8 horas: desde las 8 AM hasta las 4 PM (último posible inicio a las 4 PM)
       while (startHour <= maxStartHourFor8Hours) {
-        times.push(`${startHour}:00`);
+        const time = `${startHour}:00`;
+        if (!reservedSet.has(time)) {  // Solo incluir horarios no reservados
+          times.push(time);
+        }
         startHour++;
       }
     }
