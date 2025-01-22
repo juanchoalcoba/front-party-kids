@@ -1,23 +1,23 @@
 import { useState, useEffect } from 'react';
 import CalendarComponent from '../components/CalendarComponent';
-import Modal from '../components/Modal'; // Importamos el modal para mostrar mensajes
-import ConfirmationModal from '../components/ConfirmationModal'; // Modal para confirmar reserva
+import Modal from '../components/Modal'; // Modal de mensaje
+import ConfirmationModal from '../components/ConfirmationModal'; // Modal de confirmación
 
 const BookingPage = () => {
   const [bookingData, setBookingData] = useState({
     name: '',
-    namekid: '', // Nuevo campo para el nombre del niño/niña
+    namekid: '',
     email: '',
     phone: '',
     date: new Date(),
-    hours: '', // Nuevo campo para la duración de la reserva
-    timeSlot: '', // Campo para la selección de la hora específica
+    hours: '', // Duración de la reserva
+    timeSlot: '', // Hora seleccionada
   });
 
-  const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
-  const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación antes de enviar
+  const [showModal, setShowModal] = useState(false); // Mostrar modal de confirmación
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Mostrar modal antes de confirmar
   const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
-  const [reservedTimes, setReservedTimes] = useState({}); // Estado para las horas ya reservadas por fecha
+  const [reservedTimes, setReservedTimes] = useState({}); // Estado para horas reservadas por fecha
 
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
@@ -28,7 +28,7 @@ const BookingPage = () => {
   };
 
   const handleConfirmSubmit = async () => {
-    // Aquí hacemos el envío final de los datos al backend
+    // Enviar la reserva
     const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
       method: 'POST',
       headers: {
@@ -38,24 +38,28 @@ const BookingPage = () => {
     });
 
     if (response.ok) {
-      // Actualizar el estado de horas reservadas para esa fecha solo después de confirmada la reserva
       const selectedDate = bookingData.date.toLocaleDateString();
       const newReservedTimes = { ...reservedTimes };
 
+      // Asegurarse de que haya un array para la fecha seleccionada
       if (!newReservedTimes[selectedDate]) {
         newReservedTimes[selectedDate] = [];
       }
+
+      // Agregar la hora seleccionada al array de horas reservadas
       newReservedTimes[selectedDate].push(bookingData.timeSlot);
 
-      // Actualizamos las horas reservadas y eliminamos la hora seleccionada de las opciones disponibles
-      setReservedTimes(newReservedTimes); // Actualizamos las horas reservadas
+      // Actualizar el estado de las horas reservadas
+      setReservedTimes(newReservedTimes);
+
+      // Mostrar mensaje de éxito
       setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
-      setShowConfirmationModal(false); // Cerrar modal de confirmación
-      setShowModal(true); // Mostrar modal de éxito
+      setShowConfirmationModal(false);
+      setShowModal(true);
     } else {
       setModalMessage('Error al procesar la reserva');
-      setShowConfirmationModal(false); // Cerrar modal de confirmación
-      setShowModal(true); // Mostrar modal de error
+      setShowConfirmationModal(false);
+      setShowModal(true);
     }
   };
 
@@ -66,37 +70,37 @@ const BookingPage = () => {
 
   const closeModal = () => {
     setShowModal(false);
-    window.location.href = '/'; // Redirige a la página de inicio (opcional)
+    window.location.href = '/'; // Opcional: redirige al inicio
   };
 
   const closeConfirmationModal = () => {
     setShowConfirmationModal(false);
   };
 
+  // Generar las horas disponibles según la duración
   const generateStartTimes = () => {
     const times = [];
-    let startHour = 8; // Empezamos a las 8:00 AM
-    const maxStartHourFor4Hours = 20; // Última hora de inicio válida para 4 horas (20:00)
-    const maxStartHourFor8Hours = 16; // Última hora de inicio válida para 8 horas (16:00)
-  
+    let startHour = 8; // Empezamos a las 8 AM
+    const maxStartHourFor4Hours = 20; // Última hora válida para 4 horas
+    const maxStartHourFor8Hours = 16; // Última hora válida para 8 horas
+
+    // Generar horas según la duración seleccionada
     if (bookingData.hours === '4') {
-      // Para 4 horas: desde las 8 AM hasta las 8 PM (último posible inicio a las 8 PM)
       while (startHour <= maxStartHourFor4Hours) {
         times.push(`${startHour}:00`);
         startHour++;
       }
     } else if (bookingData.hours === '8') {
-      // Para 8 horas: desde las 8 AM hasta las 4 PM (último posible inicio a las 4 PM)
       while (startHour <= maxStartHourFor8Hours) {
         times.push(`${startHour}:00`);
         startHour++;
       }
     }
 
-    // Filtrar las horas reservadas para ese día
-    const selectedDate = bookingData.date.toLocaleDateString(); // Fecha seleccionada por el usuario
+    // Filtrar las horas reservadas para la fecha seleccionada
+    const selectedDate = bookingData.date.toLocaleDateString();
     const unavailableTimes = reservedTimes[selectedDate] || [];
-    return times.filter(time => !unavailableTimes.includes(time));
+    return times.filter(time => !unavailableTimes.includes(time)); // Filtrar las horas ocupadas
   };
 
   const handleTimeSlotChange = (e) => {
@@ -161,9 +165,9 @@ const BookingPage = () => {
             onChange={handleChange}
             className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
             required
-            minLength="8" // Mínimo de 8 caracteres
-            maxLength="9" // Máximo de 9 caracteres
-            pattern="^\d{8,9}$" // Acepta solo números con 8 o 9 dígitos
+            minLength="8"
+            maxLength="9"
+            pattern="^\d{8,9}$"
             title="El número debe tener entre 8 y 9 dígitos"
           />
         </div>
@@ -173,7 +177,6 @@ const BookingPage = () => {
           <CalendarComponent onDateChange={handleDateChange} />
         </div>
 
-        {/* Nuevo campo para seleccionar duración de horas */}
         <div className="flex flex-col">
           <label htmlFor="hours" className="text-gray-700 font-semibold mb-2">Duración de la Fiesta</label>
           <select
@@ -190,7 +193,6 @@ const BookingPage = () => {
           </select>
         </div>
 
-        {/* Campo para seleccionar la hora de inicio dependiendo de la duración */}
         {bookingData.hours && (
           <div className="flex flex-col">
             <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">Selecciona la hora de inicio</label>
