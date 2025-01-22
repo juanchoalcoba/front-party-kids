@@ -17,7 +17,6 @@ const BookingPage = () => {
   const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
   const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación antes de enviar
   const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
-  const [bookedSlots, setBookedSlots] = useState({});
   
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
@@ -40,18 +39,8 @@ const BookingPage = () => {
       },
       body: JSON.stringify(bookingData),
     });
-  
+
     if (response.ok) {
-      // Una vez que se ha hecho la reserva, actualizamos las horas reservadas para esa fecha.
-      setBookedSlots((prevBookedSlots) => {
-        const selectedDate = bookingData.date.toDateString(); // Fecha seleccionada
-        const existingSlots = prevBookedSlots[selectedDate] || []; // Horas reservadas previamente
-        return {
-          ...prevBookedSlots,
-          [selectedDate]: [...existingSlots, bookingData.timeSlot], // Agregamos la hora seleccionada
-        };
-      });
-  
       setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
       setShowConfirmationModal(false); // Cerrar modal de confirmación
       setShowModal(true); // Mostrar modal de éxito
@@ -83,25 +72,17 @@ const BookingPage = () => {
     let startHour = 8; // Empezamos a las 8:00 AM
     const maxStartHourFor4Hours = 20; // Última hora de inicio válida para 4 horas (20:00)
     const maxStartHourFor8Hours = 16; // Última hora de inicio válida para 8 horas (16:00)
-
-    const bookedSlotsForDate = bookedSlots[bookingData.date.toDateString()] || []; // Horas ya reservadas para la fecha seleccionada
-
+  
     if (bookingData.hours === '4') {
       // Para 4 horas: desde las 8 AM hasta las 8 PM (último posible inicio a las 8 PM)
       while (startHour <= maxStartHourFor4Hours) {
-        if (!bookedSlotsForDate.includes(`${startHour}:00`)) {
-          // Solo mostramos horas que no están reservadas
-          times.push(`${startHour}:00`);
-        }
+        times.push(`${startHour}:00`);
         startHour++;
       }
     } else if (bookingData.hours === '8') {
       // Para 8 horas: desde las 8 AM hasta las 4 PM (último posible inicio a las 4 PM)
       while (startHour <= maxStartHourFor8Hours) {
-        if (!bookedSlotsForDate.includes(`${startHour}:00`)) {
-          // Solo mostramos horas que no están reservadas
-          times.push(`${startHour}:00`);
-        }
+        times.push(`${startHour}:00`);
         startHour++;
       }
     }

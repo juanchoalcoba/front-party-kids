@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+
 import '../App.css'
 
-const CalendarComponent = ({ onDateChange, bookedSlots }) => {
+const CalendarComponent = ({ onDateChange }) => {
   const [date, setDate] = useState(new Date());
   const [bookedDates, setBookedDates] = useState([]); // Guardar fechas reservadas
   const today = new Date(); // Fecha de hoy
@@ -28,29 +29,30 @@ const CalendarComponent = ({ onDateChange, bookedSlots }) => {
   // Función que maneja el cambio de fecha
   const handleDateChange = (newDate) => {
     setDate(newDate);
-    onDateChange(newDate); // Notificar la nueva fecha seleccionada al padre
+    onDateChange(newDate);
   };
 
-  // Función para deshabilitar las fechas anteriores al día actual
+  // Función para deshabilitar las fechas reservadas y pasadas
   const disableDates = ({ date, view }) => {
+    // Solo deshabilitamos las fechas si estamos en la vista de mes
     if (view === 'month') {
-      // Deshabilitar fechas anteriores al día de hoy
-      return date < today;
+      // Deshabilitar fechas pasadas
+      if (date < today) {
+        return true;
+      }
+
+      // Deshabilitar fechas reservadas
+      return bookedDates.some(bookedDate => 
+        bookedDate.toDateString() === date.toDateString()
+      );
     }
     return false;
   };
 
-  // Función para agregar una clase a las fechas reservadas y deshabilitadas
+  // Función para agregar una clase a las fechas deshabilitadas
   const tileClassName = ({ date, view }) => {
-    if (view === 'month') {
-      // Resaltar las fechas reservadas en amarillo
-      if (bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString())) {
-        return 'booked-date'; // Clase CSS para las fechas reservadas
-      }
-      // Deshabilitar las fechas anteriores a hoy
-      if (date < today) {
-        return 'disabled-date'; // Clase CSS personalizada
-      }
+    if (view === 'month' && (date < today || bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString()))) {
+      return 'disabled-date'; // Clase CSS personalizada
     }
     return '';
   };
@@ -60,10 +62,9 @@ const CalendarComponent = ({ onDateChange, bookedSlots }) => {
       <Calendar 
         onChange={handleDateChange} 
         value={date}
-        tileDisabled={disableDates} // Deshabilitar fechas pasadas
-        tileClassName={tileClassName} // Agregar clase personalizada a las fechas deshabilitadas y reservadas
+        tileDisabled={disableDates} // Deshabilitar fechas pasadas y ocupadas
+        tileClassName={tileClassName} // Agregar clase personalizada a las fechas deshabilitadas
       />
-      {/* Aquí podrías agregar lógica adicional para mostrar horas reservadas según la fecha seleccionada */}
     </div>
   );
 };
