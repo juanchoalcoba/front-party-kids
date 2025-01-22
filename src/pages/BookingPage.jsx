@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useState } from 'react';
 import CalendarComponent from '../components/CalendarComponent';
 import Modal from '../components/Modal'; // Importamos el modal para mostrar mensajes
 import ConfirmationModal from '../components/ConfirmationModal'; // Modal para confirmar reserva
@@ -14,7 +14,6 @@ const BookingPage = () => {
     timeSlot: '', // Campo para la selección de la hora específica
   });
 
-  const [reservedTimeSlots, setReservedTimeSlots] = useState([]); // Horarios reservados para la fecha seleccionada
   const [showModal, setShowModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación de reserva
   const [showConfirmationModal, setShowConfirmationModal] = useState(false); // Estado para mostrar/ocultar modal de confirmación antes de enviar
   const [modalMessage, setModalMessage] = useState(''); // Mensaje en el modal
@@ -23,22 +22,13 @@ const BookingPage = () => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
   };
 
-  const handleDateChange = async (date) => {
+  const handleDateChange = (date) => {
     setBookingData({ ...bookingData, date });
-
-    // Fetch para obtener las horas reservadas de la fecha seleccionada
-    try {
-      const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?date=${date.toISOString()}`);
-      if (response.ok) {
-        const reservedSlots = await response.json();
-        setReservedTimeSlots(reservedSlots); // Guardamos los horarios reservados para la fecha
-      } else {
-        console.error('Error fetching reserved time slots');
-      }
-    } catch (error) {
-      console.error('Fetch error:', error);
-    }
   };
+
+
+
+  
 
   const handleConfirmSubmit = async () => {
     // Aquí hacemos el envío final de los datos al backend
@@ -61,6 +51,8 @@ const BookingPage = () => {
     }
   };
 
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowConfirmationModal(true); // Mostrar modal de confirmación
@@ -75,22 +67,24 @@ const BookingPage = () => {
     setShowConfirmationModal(false);
   };
 
-  // Generar horas de inicio disponibles excluyendo las ya reservadas
   const generateStartTimes = () => {
     const times = [];
     let startHour = 8; // Empezamos a las 8:00 AM
     const maxStartHourFor4Hours = 20; // Última hora de inicio válida para 4 horas (20:00)
     const maxStartHourFor8Hours = 16; // Última hora de inicio válida para 8 horas (16:00)
-
-    const maxStartHour = bookingData.hours === '4' ? maxStartHourFor4Hours : maxStartHourFor8Hours;
-
-    while (startHour <= maxStartHour) {
-      const time = `${startHour}:00`;
-      // Si la hora no está reservada, la añadimos a las horas disponibles
-      if (!reservedTimeSlots.includes(time)) {
-        times.push(time);
+  
+    if (bookingData.hours === '4') {
+      // Para 4 horas: desde las 8 AM hasta las 8 PM (último posible inicio a las 8 PM)
+      while (startHour <= maxStartHourFor4Hours) {
+        times.push(`${startHour}:00`);
+        startHour++;
       }
-      startHour++;
+    } else if (bookingData.hours === '8') {
+      // Para 8 horas: desde las 8 AM hasta las 4 PM (último posible inicio a las 4 PM)
+      while (startHour <= maxStartHourFor8Hours) {
+        times.push(`${startHour}:00`);
+        startHour++;
+      }
     }
     return times;
   };
@@ -153,9 +147,9 @@ const BookingPage = () => {
             onChange={handleChange}
             className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
             required
-            minLength="8"
-            maxLength="9"
-            pattern="^\d{8,9}$"
+            minLength="8" // Mínimo de 8 caracteres
+            maxLength="9" // Máximo de 9 caracteres
+            pattern="^\d{8,9}$" // Acepta solo números con 8 o 9 dígitos
             title="El número debe tener entre 8 y 9 dígitos"
           />
         </div>
@@ -165,61 +159,58 @@ const BookingPage = () => {
           <CalendarComponent onDateChange={handleDateChange} />
         </div>
 
-        {/* Nuevo campo para seleccionar duración de horas */}
-        <div className="flex flex-col">
-          <label htmlFor="hours" className="text-gray-700 font-semibold mb-2">Duración de la Fiesta</label>
-          <select
-            id="hours"
-            name="hours"
-            value={bookingData.hours}
-            onChange={handleChange}
-            className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-            required
-          >
-            <option value="">Selecciona la duración</option>
-            <option value="4">4 horas</option>
-            <option value="8">8 horas</option>
-          </select>
-        </div>
+       {/* Nuevo campo para seleccionar duración de horas */}
+<div className="flex flex-col">
+  <label htmlFor="hours" className="text-gray-700 font-semibold mb-2">Duración de la Fiesta</label>
+  <select
+    id="hours"
+    name="hours"
+    value={bookingData.hours}
+    onChange={handleChange}
+    className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+    required
+  >
+    <option value="">Selecciona la duración</option>
+    <option value="4">4 horas</option>
+    <option value="8">8 horas</option>
+  </select>
+</div>
 
-        {/* Campo para seleccionar la hora de inicio dependiendo de la duración */}
-        {bookingData.hours && (
-          <div className="flex flex-col">
-            <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">Selecciona la hora de inicio</label>
-            <select
-              id="timeSlot"
-              name="timeSlot"
-              value={bookingData.timeSlot}
-              onChange={handleChange}
-              className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-              required
-            >
-              <option value="">Selecciona una hora</option>
-              {generateStartTimes().map((time) => (
-                <option key={time} value={time}>{time}</option>
-              ))}
-            </select>
-          </div>
-        )}
+{/* Campo para seleccionar la hora de inicio dependiendo de la duración */}
+{bookingData.hours && (
+  <div className="flex flex-col">
+    <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">Selecciona la hora de inicio</label>
+    <select
+      id="timeSlot"
+      name="timeSlot"
+      value={bookingData.timeSlot}
+      onChange={handleChange}
+      className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+      required
+    >
+      <option value="">Selecciona una opción</option>
+      {generateStartTimes().map((time, index) => (
+        <option key={index} value={time}>{time}</option>
+      ))}
+    </select>
+  </div>
+)}
 
-        <button
-          type="submit"
-          className="bg-pink-400 text-white py-3 px-6 rounded-lg shadow-lg hover:bg-pink-500 transition-all duration-300 w-full"
-        >
-          Confirmar Reserva
+        <button type="submit" className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
+          Confirmar
         </button>
       </form>
 
-      {/* Modal para mensajes */}
-      {showModal && <Modal message={modalMessage} onClose={closeModal} />}
-      {/* Modal de confirmación antes de enviar */}
-      {showConfirmationModal && (
-        <ConfirmationModal
-          onConfirm={handleConfirmSubmit}
-          onClose={closeConfirmationModal}
-          message="¿Estás seguro de confirmar la reserva?"
-        />
-      )}
+      {/* Modal de confirmación de reserva */}
+      <ConfirmationModal 
+        show={showConfirmationModal} 
+        onClose={closeConfirmationModal} 
+        onConfirm={handleConfirmSubmit} 
+        bookingData={bookingData} 
+      />
+
+      {/* Mostrar modal de resultado final */}
+      <Modal show={showModal} onClose={closeModal} message={modalMessage} />
     </div>
   );
 };
