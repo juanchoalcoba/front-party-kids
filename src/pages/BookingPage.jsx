@@ -47,6 +47,7 @@ const BookingPage = () => {
       }
       newReservedTimes[selectedDate].push(bookingData.timeSlot);
 
+      // Actualizamos las horas reservadas y eliminamos la hora seleccionada de las opciones disponibles
       setReservedTimes(newReservedTimes); // Actualizamos las horas reservadas
       setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
       setShowConfirmationModal(false); // Cerrar modal de confirmación
