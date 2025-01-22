@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CalendarComponent from '../components/CalendarComponent';
 import Modal from '../components/Modal';
 import ConfirmationModal from '../components/ConfirmationModal';
@@ -17,9 +17,7 @@ const BookingPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
-  
-  // Usamos un objeto para manejar las horas reservadas por fecha
-  const [reservedSlotsByDate, setReservedSlotsByDate] = useState({});
+  const [reservedSlots, setReservedSlots] = useState({});
 
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
@@ -27,18 +25,19 @@ const BookingPage = () => {
 
   const handleDateChange = async (date) => {
     setBookingData({ ...bookingData, date });
-    
-    // Realizamos una consulta para obtener las horas ya reservadas en esa fecha
+
+    const dateKey = date.toISOString().split('T')[0]; // Usamos solo la fecha (sin la hora)
+    if (reservedSlots[dateKey]) {
+      return; // Si ya tenemos las horas reservadas para esa fecha, no hacer nada
+    }
+
     const response = await fetch(`https://api-party-kids.vercel.app/api/bookings?date=${date.toISOString()}`);
-    
     if (response.ok) {
       const data = await response.json();
       const reservedHours = data.map((booking) => booking.timeSlot);
-
-      // Actualizamos las horas reservadas para esta fecha específica
-      setReservedSlotsByDate((prev) => ({
-        ...prev,
-        [date.toISOString()]: reservedHours, // Guardamos las horas reservadas con la fecha como clave
+      setReservedSlots((prevState) => ({
+        ...prevState,
+        [dateKey]: reservedHours,
       }));
     } else {
       console.error('Error fetching reserved slots');
@@ -46,6 +45,15 @@ const BookingPage = () => {
   };
 
   const handleConfirmSubmit = async () => {
+    const dateKey = bookingData.date.toISOString().split('T')[0];
+    const updatedReservedSlots = { ...reservedSlots };
+
+    if (!updatedReservedSlots[dateKey]) {
+      updatedReservedSlots[dateKey] = [];
+    }
+
+    updatedReservedSlots[dateKey].push(bookingData.timeSlot);
+
     const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
       method: 'POST',
       headers: {
@@ -58,6 +66,8 @@ const BookingPage = () => {
       setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
       setShowConfirmationModal(false);
       setShowModal(true);
+
+      setReservedSlots(updatedReservedSlots); // Actualizamos las horas reservadas en el estado
     } else {
       setModalMessage('Error submitting the booking');
       setShowConfirmationModal(false);
@@ -85,12 +95,12 @@ const BookingPage = () => {
     const maxStartHourFor4Hours = 20;
     const maxStartHourFor8Hours = 16;
 
-    const reservedSlotsForToday = reservedSlotsByDate[bookingData.date.toISOString()] || [];
+    const dateKey = bookingData.date.toISOString().split('T')[0];
 
     if (bookingData.hours === '4') {
       while (startHour <= maxStartHourFor4Hours) {
         const time = `${startHour}:00`;
-        if (!reservedSlotsForToday.includes(time)) {
+        if (!reservedSlots[dateKey]?.includes(time)) {
           times.push(time);
         }
         startHour++;
@@ -98,7 +108,7 @@ const BookingPage = () => {
     } else if (bookingData.hours === '8') {
       while (startHour <= maxStartHourFor8Hours) {
         const time = `${startHour}:00`;
-        if (!reservedSlotsForToday.includes(time)) {
+        if (!reservedSlots[dateKey]?.includes(time)) {
           times.push(time);
         }
         startHour++;
