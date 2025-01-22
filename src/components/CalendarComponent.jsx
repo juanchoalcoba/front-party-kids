@@ -32,27 +32,26 @@ const CalendarComponent = ({ onDateChange }) => {
     onDateChange(newDate);
   };
 
-  // Función para deshabilitar las fechas reservadas y pasadas
+  // Función para deshabilitar las fechas anteriores al día actual
   const disableDates = ({ date, view }) => {
-    // Solo deshabilitamos las fechas si estamos en la vista de mes
     if (view === 'month') {
-      // Deshabilitar fechas pasadas
-      if (date < today) {
-        return true;
-      }
-
-      // Deshabilitar fechas reservadas
-      return bookedDates.some(bookedDate => 
-        bookedDate.toDateString() === date.toDateString()
-      );
+      // Deshabilitar fechas anteriores al día de hoy
+      return date < today;
     }
     return false;
   };
 
-  // Función para agregar una clase a las fechas deshabilitadas
+  // Función para agregar una clase a las fechas reservadas y deshabilitadas
   const tileClassName = ({ date, view }) => {
-    if (view === 'month' && (date < today || bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString()))) {
-      return 'disabled-date'; // Clase CSS personalizada
+    if (view === 'month') {
+      // Resaltar las fechas reservadas en amarillo
+      if (bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString())) {
+        return 'booked-date'; // Clase CSS para las fechas reservadas
+      }
+      // Deshabilitar las fechas anteriores a hoy
+      if (date < today) {
+        return 'disabled-date'; // Clase CSS personalizada
+      }
     }
     return '';
   };
@@ -62,8 +61,8 @@ const CalendarComponent = ({ onDateChange }) => {
       <Calendar 
         onChange={handleDateChange} 
         value={date}
-        tileDisabled={disableDates} // Deshabilitar fechas pasadas y ocupadas
-        tileClassName={tileClassName} // Agregar clase personalizada a las fechas deshabilitadas
+        tileDisabled={disableDates} // Deshabilitar fechas pasadas
+        tileClassName={tileClassName} // Agregar clase personalizada a las fechas deshabilitadas y reservadas
       />
     </div>
   );
