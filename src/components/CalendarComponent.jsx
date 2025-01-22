@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState} from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../App.css';
 
-const CalendarComponent = ({ onDateChange, bookedDates = [] }) => {
+const CalendarComponent = ({ onDateChange, bookedDates }) => {
   const [date, setDate] = useState(new Date());
   const today = new Date(); // Fecha de hoy
 
@@ -24,8 +24,8 @@ const CalendarComponent = ({ onDateChange, bookedDates = [] }) => {
   // Función para agregar una clase a las fechas reservadas y deshabilitadas
   const tileClassName = ({ date, view }) => {
     if (view === 'month') {
-      // Asegurarnos de que bookedDates es un array y que contiene fechas
-      if (Array.isArray(bookedDates) && bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString())) {
+      // Resaltar las fechas reservadas
+      if (bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString())) {
         return 'booked-date'; // Clase CSS para las fechas reservadas
       }
       if (date < today) {
