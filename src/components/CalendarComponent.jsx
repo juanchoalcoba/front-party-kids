@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+
 import '../App.css'
 
 const CalendarComponent = ({ onDateChange }) => {
@@ -31,34 +32,25 @@ const CalendarComponent = ({ onDateChange }) => {
     onDateChange(newDate);
   };
 
-  // Función para deshabilitar las fechas reservadas y pasadas
+  // Función para deshabilitar las fechas anteriores al día actual
   const disableDates = ({ date, view }) => {
-    // Solo deshabilitamos las fechas si estamos en la vista de mes
     if (view === 'month') {
-      // Deshabilitar fechas pasadas
-      if (date < today) {
-        return true;
-      }
-
-      // Deshabilitar fechas reservadas (no seleccionables)
-      return bookedDates.some(bookedDate => 
-        bookedDate.toDateString() === date.toDateString()
-      );
+      // Deshabilitar fechas anteriores al día de hoy
+      return date < today;
     }
     return false;
   };
 
-  // Función para agregar clases a las fechas deshabilitadas
+  // Función para agregar una clase a las fechas reservadas y deshabilitadas
   const tileClassName = ({ date, view }) => {
     if (view === 'month') {
-      // Marcar fechas pasadas en gris
-      if (date < today) {
-        return 'past-date'; // Clase CSS para fechas pasadas (gris)
-      }
-
-      // Marcar fechas con reserva pero seleccionables en amarillo
+      // Resaltar las fechas reservadas en amarillo
       if (bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString())) {
-        return 'reserved-date'; // Clase CSS para fechas con reserva (amarillo)
+        return 'booked-date'; // Clase CSS para las fechas reservadas
+      }
+      // Deshabilitar las fechas anteriores a hoy
+      if (date < today) {
+        return 'disabled-date'; // Clase CSS personalizada
       }
     }
     return '';
@@ -69,8 +61,8 @@ const CalendarComponent = ({ onDateChange }) => {
       <Calendar 
         onChange={handleDateChange} 
         value={date}
-        tileDisabled={disableDates} // Deshabilitar fechas pasadas y ocupadas
-        tileClassName={tileClassName} // Agregar clase personalizada a las fechas deshabilitadas
+        tileDisabled={disableDates} // Deshabilitar fechas pasadas
+        tileClassName={tileClassName} // Agregar clase personalizada a las fechas deshabilitadas y reservadas
       />
     </div>
   );

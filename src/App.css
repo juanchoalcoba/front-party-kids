@@ -4,13 +4,14 @@
     box-sizing: border-box;
  }
 
- .past-date {
-   background-color: #d3d3d3 !important; /* Gris claro */
-   pointer-events: none !important; /* Deshabilitar interacción */
+ .disabled-date {
+   background-color: #f0f0f0 !important; /* Color para fechas deshabilitadas (pasadas) */
+   pointer-events: none !important; /* Evitar que se seleccionen */
  }
-
- .reserved-date {
-   background-color: #ffeb3b !important; /* Amarillo claro */
+ 
+ .booked-date {
+   background-color: yellow !important; /* Color para fechas reservadas */
+   pointer-events: auto !important; /* Asegurarse de que se puedan seleccionar */
  }
  
  
