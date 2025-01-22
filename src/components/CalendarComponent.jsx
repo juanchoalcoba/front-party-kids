@@ -12,12 +12,12 @@ const CalendarComponent = ({ onDateChange }) => {
   // Función para obtener fechas reservadas desde el backend
   const fetchBookedDates = async () => {
     try {
-      const response = await fetch(
-        "https://api-party-kids.vercel.app/api/bookings"
-      );
+      const response = await fetch("https://api-party-kids.vercel.app/api/bookings");
       const data = await response.json();
       // Mapeamos solo las fechas de las reservas
-      const booked = data.map((booking) => new Date(booking.date));
+      const booked = data.map((booking) => ({
+        date: new Date(booking.date),   // Fecha de la reserva
+      }));
       setBookedDates(booked);
     } catch (error) {
       console.error("Error fetching booked dates:", error);
@@ -31,7 +31,7 @@ const CalendarComponent = ({ onDateChange }) => {
   // Función que maneja el cambio de fecha
   const handleDateChange = (newDate) => {
     setDate(newDate);
-    onDateChange(newDate);
+    onDateChange(newDate); // Enviar la fecha seleccionada al componente superior
   };
 
   // Función para deshabilitar las fechas anteriores al día actual
@@ -49,7 +49,7 @@ const CalendarComponent = ({ onDateChange }) => {
       // Resaltar las fechas reservadas en amarillo
       if (
         bookedDates.some(
-          (bookedDate) => bookedDate.toDateString() === date.toDateString()
+          (bookedDate) => bookedDate.date.toDateString() === date.toDateString()
         )
       ) {
         return "booked-date"; // Clase CSS para las fechas reservadas
@@ -65,10 +65,10 @@ const CalendarComponent = ({ onDateChange }) => {
   return (
     <div>
       <Calendar
-        onChange={handleDateChange}
-        value={date}
+        onChange={handleDateChange} // Maneja el cambio de fecha
+        value={date} // Valor actual del calendario
         tileDisabled={disableDates} // Deshabilitar fechas pasadas
-        tileClassName={tileClassName} // Agregar clase personalizada a las fechas deshabilitadas y reservadas
+        tileClassName={tileClassName} // Agregar clase personalizada a las fechas reservadas y deshabilitadas
       />
     </div>
   );
