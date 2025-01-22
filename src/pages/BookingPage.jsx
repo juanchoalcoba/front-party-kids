@@ -103,13 +103,16 @@ const BookingPage = () => {
       }
     }
   
-    // Obtener las horas reservadas para la fecha seleccionada
-    const selectedDate = bookingData.date.toISOString().split('T')[0]; // Convertir a formato YYYY-MM-DD
+    // Convertir la fecha seleccionada a formato YYYY-MM-DD
+    const selectedDate = bookingData.date.toISOString().split('T')[0];
     const reservedForSelectedDate = reservedTimes[selectedDate] || [];
   
     // Filtrar las horas que ya han sido reservadas
-    return times.filter(time => !reservedForSelectedDate.includes(time));
+    const availableTimes = times.filter(time => !reservedForSelectedDate.includes(time));
+  
+    return availableTimes;
   };
+  
   
 
   return (
