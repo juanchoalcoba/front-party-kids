@@ -11,7 +11,7 @@ const BookingPage = () => {
     phone: '',
     date: new Date(),
     hours: '',
-    timeSlot: '',
+    timeSlot: ''
   });
 
   const [showModal, setShowModal] = useState(false);
@@ -31,20 +31,32 @@ const BookingPage = () => {
   };
 
   const handleConfirmSubmit = async () => {
-    const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(bookingData),
-    });
-
-    if (response.ok) {
-      setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
-      setShowConfirmationModal(false);
+    // Validar que todos los campos están completos
+    if (!bookingData.name || !bookingData.namekid || !bookingData.email || !bookingData.phone || !bookingData.date || !bookingData.hours || !bookingData.timeSlot) {
+      setModalMessage('Por favor, completa todos los campos.');
       setShowModal(true);
-    } else {
-      setModalMessage('Error submitting the booking');
+      return;
+    }
+
+    // Enviar los datos
+    try {
+      const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bookingData),
+      });
+
+      if (response.ok) {
+        setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
+        setShowConfirmationModal(false);
+        setShowModal(true);
+      } else {
+        throw new Error('Error al enviar la reserva');
+      }
+    } catch (error) {
+      setModalMessage('Error enviando la reserva: ' + error.message);
       setShowConfirmationModal(false);
       setShowModal(true);
     }
@@ -63,8 +75,6 @@ const BookingPage = () => {
   const closeConfirmationModal = () => {
     setShowConfirmationModal(false);
   };
-
- 
 
   return (
     <div className="p-8 flex flex-col justify-center items-center bg-gradient-to-r from-violet-950 via-purple-600 to-blue-500 w-full min-h-screen font-robert-medium">
@@ -135,11 +145,9 @@ const BookingPage = () => {
           <label className="text-gray-700 font-semibold mb-2">Selecciona la Fecha</label>
           <CalendarComponent 
             onDateChange={handleDateChange} 
-            onBookingDataChange={handleBookingDataChange} // Pasar función de callback
+            onBookingDataChange={handleBookingDataChange}
           />
         </div>
-
-        
 
         <button type="submit" className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
           Confirmar
