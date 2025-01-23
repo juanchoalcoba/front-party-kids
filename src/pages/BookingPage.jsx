@@ -141,6 +141,9 @@ const BookingPage = () => {
           />
         </div>
 
+
+        
+
         <div className="flex flex-col">
           <label className="text-gray-700 font-semibold mb-2">Selecciona la Fecha</label>
           <CalendarComponent 
@@ -148,6 +151,8 @@ const BookingPage = () => {
             onBookingDataChange={handleBookingDataChange}
           />
         </div>
+
+
 
         <button type="submit" className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
           Confirmar
