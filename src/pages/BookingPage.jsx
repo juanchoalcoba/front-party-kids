@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import CalendarComponent from '../components/CalendarComponent';
-import Modal from '../components/Modal'; // Modal de confirmación de reserva
-import ConfirmationModal from '../components/ConfirmationModal'; // Modal para confirmar reserva
+import Modal from '../components/Modal'; 
+import ConfirmationModal from '../components/ConfirmationModal'; 
 
 const BookingPage = () => {
   const [bookingData, setBookingData] = useState({
@@ -10,12 +10,13 @@ const BookingPage = () => {
     email: '',
     phone: '',
     date: new Date(),
+    hours: '',
+    timeSlot: '',
   });
 
   const [showModal, setShowModal] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
-  
 
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
@@ -25,8 +26,11 @@ const BookingPage = () => {
     setBookingData({ ...bookingData, date });
   };
 
+  const handleBookingDataChange = (updatedBookingData) => {
+    setBookingData((prev) => ({ ...prev, ...updatedBookingData }));
+  };
+
   const handleConfirmSubmit = async () => {
-    // Aquí hacemos el envío final de los datos al backend
     const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
       method: 'POST',
       headers: {
@@ -129,7 +133,10 @@ const BookingPage = () => {
 
         <div className="flex flex-col">
           <label className="text-gray-700 font-semibold mb-2">Selecciona la Fecha</label>
-          <CalendarComponent onDateChange={handleDateChange} />
+          <CalendarComponent 
+            onDateChange={handleDateChange} 
+            onBookingDataChange={handleBookingDataChange} // Pasar función de callback
+          />
         </div>
 
         
