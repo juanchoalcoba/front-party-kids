@@ -10,8 +10,6 @@ const BookingPage = () => {
     email: '',
     phone: '',
     date: new Date(),
-    hours: '',
-    timeSlot: ''
   });
 
   const [showModal, setShowModal] = useState(false);
