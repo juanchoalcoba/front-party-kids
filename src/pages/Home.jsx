@@ -1,7 +1,7 @@
 import Features from "../components/Features";
-import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import HomePage from "../components/HomePage";
+import HomePage2 from "../components/HomePage2";
 import Navbar from "../components/Navbar";
 
 
@@ -12,7 +12,7 @@ function Home() {
         <Hero />
         <HomePage />
         <Features />
-        <Footer /> 
+        <HomePage2 />
       </main>
 
   );
