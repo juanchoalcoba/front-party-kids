@@ -11,7 +11,6 @@ function HomePage2() {
 
       {/* Contenedor con fondo blur */}
       <div className="relative flex flex-col md:flex-row justify-center md:justify-evenly items-center z-10 bg-white/50 backdrop-blur-lg font-robert-medium p-8 shadow-lg w-full text-center">
-        
         <img
           className="w-[250px] rounded-full p-4 shadow-md shadow-black"
           src="logo.png"
@@ -28,18 +27,15 @@ function HomePage2() {
             <i className="fab fa-instagram text-pink-700 text-4xl hover:text-pink-900 transition-all duration-300"></i>
           </Link>
 
-          <Link target="_blank" to="https://web.whatsapp.com">
+          <Link target="_blank" to="https://wa.me/59898015337">
             <i className="fab fa-whatsapp text-green-700 text-4xl hover:text-green-900 transition-all duration-300"></i>
           </Link>
         </div>
-
-
       </div>
 
       <div className="text-center text-xs md:text-xl p-4 text-gray-400">
         © {new Date().getFullYear()} Kids Party. Todos los derechos reservados.
       </div>
-
     </div>
   );
 }

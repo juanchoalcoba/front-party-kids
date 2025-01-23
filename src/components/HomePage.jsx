@@ -66,11 +66,11 @@ function HomePage() {
     <i className="fab fa-instagram text-pink-700 text-4xl hover:text-pink-900 transition-all duration-300"></i>
   </Link>
   
-  <Link 
+  <Link  
   target='_blank'
-  to="https://web.whatsapp.com">
+  to="https://wa.me/59898015337">
     <i className="fab fa-whatsapp text-green-700 text-4xl hover:text-green-900 transition-all duration-300"></i>
-  </Link>
+</Link>
     </div>
       </div>
     </div>
