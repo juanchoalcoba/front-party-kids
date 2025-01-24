@@ -1,20 +1,22 @@
-import { useState } from 'react';
-import CalendarComponent from '../components/CalendarComponent';
-import Modal from '../components/Modal'; 
-import ConfirmationModal from '../components/ConfirmationModal'; 
+import { useState } from "react";
+import CalendarComponent from "../components/CalendarComponent";
+import Modal from "../components/Modal";
+import ConfirmationModal from "../components/ConfirmationModal";
+import bookingImage from "../assets/calendar.webp"; // Asegúrate de que la ruta sea correcta
+import { Link } from "react-router-dom";
 
 const BookingPage = () => {
   const [bookingData, setBookingData] = useState({
-    name: '',
-    namekid: '',
-    email: '',
-    phone: '',
+    name: "",
+    namekid: "",
+    email: "",
+    phone: "",
     date: new Date(),
   });
 
   const [showModal, setShowModal] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const [modalMessage, setModalMessage] = useState('');
+  const [modalMessage, setModalMessage] = useState("");
 
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
@@ -30,31 +32,44 @@ const BookingPage = () => {
 
   const handleConfirmSubmit = async () => {
     // Validar que todos los campos están completos
-    if (!bookingData.name || !bookingData.namekid || !bookingData.email || !bookingData.phone || !bookingData.date || !bookingData.hours || !bookingData.timeSlot) {
-      setModalMessage('Por favor, completa todos los campos.');
+    if (
+      !bookingData.name ||
+      !bookingData.namekid ||
+      !bookingData.email ||
+      !bookingData.phone ||
+      !bookingData.date ||
+      !bookingData.hours ||
+      !bookingData.timeSlot
+    ) {
+      setModalMessage("Por favor, completa todos los campos.");
       setShowModal(true);
       return;
     }
 
     // Enviar los datos
     try {
-      const response = await fetch('https://api-party-kids.vercel.app/api/bookings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(bookingData),
-      });
+      const response = await fetch(
+        "https://api-party-kids.vercel.app/api/bookings",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(bookingData),
+        }
+      );
 
       if (response.ok) {
-        setModalMessage('Reserva completada, nos pondremos en contacto a la brevedad');
+        setModalMessage(
+          "Reserva completada, nos pondremos en contacto a la brevedad"
+        );
         setShowConfirmationModal(false);
         setShowModal(true);
       } else {
-        throw new Error('Error al enviar la reserva');
+        throw new Error("Error al enviar la reserva");
       }
     } catch (error) {
-      setModalMessage('Error enviando la reserva: ' + error.message);
+      setModalMessage("Error enviando la reserva: " + error.message);
       setShowConfirmationModal(false);
       setShowModal(true);
     }
@@ -67,7 +82,7 @@ const BookingPage = () => {
 
   const closeModal = () => {
     setShowModal(false);
-    window.location.href = '/';
+    window.location.href = "/";
   };
 
   const closeConfirmationModal = () => {
@@ -75,12 +90,26 @@ const BookingPage = () => {
   };
 
   return (
-    <div className="p-8 flex flex-col justify-center items-center bg-gradient-to-r from-violet-950 via-purple-600 to-blue-500 w-full min-h-screen font-robert-medium">
-      <h1 className="text-3xl mb-6 font-bold text-center text-blue-50">¡Completa el formulario para registrar tu fiesta!</h1>
+    <div className="p-8 flex flex-col justify-center items-center  w-full min-h-screen font-robert-medium">
+      <div
+        className="absolute top-0 left-0 w-full h-[160vh] bg-no-repeat blur-md bg-center opacity-60 bg-cover z-[-1]"
+        style={{ backgroundImage: `url(${bookingImage})` }}
+      ></div>
 
-      <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-xl shadow-xl w-full sm:w-96">
+      {/* Overlay con opacidad para dar un efecto más elegante al hero */}
+      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-90 z-[-2]"></div>
+      <h1 className="text-3xl mb-6 font-robert-medium font-bold text-center text-blue-50">
+        ¡Completa el formulario para registrar tu fiesta!
+      </h1>
+
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-6 bg-white p-8 rounded-xl shadow-xl w-full sm:w-96"
+      >
         <div className="flex flex-col">
-          <label htmlFor="name" className="text-gray-700 font-semibold mb-2">Tu Nombre</label>
+          <label htmlFor="name" className="text-gray-700 font-semibold mb-2">
+            Tu Nombre
+          </label>
           <input
             type="text"
             id="name"
@@ -94,7 +123,9 @@ const BookingPage = () => {
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="namekid" className="text-gray-700 font-semibold mb-2">Nombre del Niño/a</label>
+          <label htmlFor="namekid" className="text-gray-700 font-semibold mb-2">
+            Nombre del Niño/a
+          </label>
           <input
             type="text"
             id="namekid"
@@ -108,7 +139,9 @@ const BookingPage = () => {
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="email" className="text-gray-700 font-semibold mb-2">Email</label>
+          <label htmlFor="email" className="text-gray-700 font-semibold mb-2">
+            Email
+          </label>
           <input
             type="email"
             id="email"
@@ -122,7 +155,9 @@ const BookingPage = () => {
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="phone" className="text-gray-700 font-semibold mb-2">Teléfono</label>
+          <label htmlFor="phone" className="text-gray-700 font-semibold mb-2">
+            Teléfono
+          </label>
           <input
             type="tel"
             id="phone"
@@ -139,22 +174,31 @@ const BookingPage = () => {
           />
         </div>
 
-
-        
-
         <div className="flex flex-col">
-          <label className="text-gray-700 font-semibold mb-2">Selecciona la Fecha</label>
-          <CalendarComponent 
-            onDateChange={handleDateChange} 
+          <label className="text-gray-700 font-semibold mb-2">
+            Selecciona la Fecha
+          </label>
+          <CalendarComponent
+            onDateChange={handleDateChange}
             onBookingDataChange={handleBookingDataChange}
           />
         </div>
 
+        <div className="flex justify-between gap-4">
+          <Link
+            to={-1}
+            className="bg-gray-500 hover:bg-gray-700 text-white font-bold p-2 rounded-lg transition-all duration-300 w-full text-center block"
+          >
+            Atrás
+          </Link>
 
-
-        <button type="submit" className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-3 rounded-lg transition-all duration-300 w-full">
-          Confirmar
-        </button>
+          <button
+            type="submit"
+            className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-2 rounded-lg transition-all duration-300 w-full"
+          >
+            Confirmar
+          </button>
+        </div>
       </form>
 
       <ConfirmationModal
