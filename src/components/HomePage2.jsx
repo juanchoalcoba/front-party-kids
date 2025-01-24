@@ -12,7 +12,7 @@ function HomePage2() {
       {/* Contenedor con fondo blur */}
       <div className="relative flex flex-col md:flex-row justify-center md:justify-evenly items-center z-10 bg-white/50 backdrop-blur-lg font-robert-medium p-8 shadow-lg w-full text-center">
         <img
-          className="w-[250px] rounded-full p-4 shadow-md shadow-black"
+          className="w-[120px] md:w-[200px] rounded-full p-4 shadow-md shadow-black"
           src="logo.png"
           alt="Logo"
         />
