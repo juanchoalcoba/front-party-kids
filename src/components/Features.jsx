@@ -124,7 +124,7 @@ const Features = () => {
 >
   <BentoCard
     
-    src="img/6.jpg"
+    src="img/6.webp"
     title={
       <div className="backdrop-blur-md tracking-widest bg-black/50 p-2 rounded-md inline-block">
         divers<b>i</b>ón
@@ -144,7 +144,7 @@ const Features = () => {
     className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2"
   >
     <BentoCard
-      src="img/7.jpg"
+      src="img/7.webp"
       title={
         <div className="backdrop-blur-md tracking-widest bg-black/50 p-2 rounded-md inline-block">
           fies<b>t</b>a
@@ -163,7 +163,7 @@ const Features = () => {
     className="bento-tilt_1 row-span-1 md:col-span-1 md:ms-0"
   >
     <BentoCard
-      src="img/8.jpg"
+      src="img/8.webp"
       title={
         <div className="backdrop-blur-md tracking-widest bg-black/50 p-2 rounded-md inline-block">
           celebraci<b>ó</b>n
@@ -182,7 +182,7 @@ const Features = () => {
     className="bento-tilt_1  md:col-span-1 md:me-0"
   >
     <BentoCard
-      src="img/9.jpg"
+      src="img/9.webp"
       title={
         <div className="backdrop-blur-md tracking-widest bg-black/50 p-2 rounded-md inline-block">
           sonris<b>a</b>s
