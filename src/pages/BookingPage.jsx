@@ -17,6 +17,7 @@ const BookingPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
@@ -75,8 +76,18 @@ const BookingPage = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+
+    // Simula una llamada a la API o proceso de reserva
+    await new Promise((resolve) => setTimeout(resolve, 2000)); // Simula un retraso de 2 segundos
+
+    // Después de que el proceso termine, vuelve a habilitar el botón
+    setIsLoading(false);
+
+
+
     setShowConfirmationModal(true);
   };
 
@@ -111,18 +122,17 @@ const BookingPage = () => {
             Tu Nombre
           </label>
           <input
-  type="text"
-  id="name"
-  name="name"
-  placeholder="Escribe tu nombre y apellido"
-  value={bookingData.name}
-  onChange={handleChange}
-  className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-  required
-  pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ]+\s+[A-Za-záéíóúÁÉÍÓÚñÑ]+$"
-  title="Por favor, ingresa al menos un nombre y un apellido"
-/>
-
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Escribe tu nombre y apellido"
+            value={bookingData.name}
+            onChange={handleChange}
+            className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+            required
+            pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ]+\s+[A-Za-záéíóúÁÉÍÓÚñÑ]+$"
+            title="Por favor, ingresa al menos un nombre y un apellido"
+          />
         </div>
 
         <div className="flex flex-col">
@@ -196,11 +206,12 @@ const BookingPage = () => {
           </Link>
 
           <button
-            type="submit"
-            className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-2 rounded-lg transition-all duration-300 w-full"
-          >
-            Confirmar
-          </button>
+        type="submit"
+        className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-2 rounded-lg transition-all duration-300 w-full"
+        disabled={isLoading} // Deshabilita el botón mientras se está enviando
+      >
+      {isLoading ? 'Enviando...' : 'Confirmar'}
+      </button>
         </div>
       </form>
 
