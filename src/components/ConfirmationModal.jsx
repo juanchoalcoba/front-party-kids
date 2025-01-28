@@ -7,7 +7,7 @@ const ConfirmationModal = ({ show, onClose, onConfirm, bookingData }) => {
     setIsLoading(true); // Activamos el estado de carga
 
     // Simulamos un retraso para la confirmación (ej. llamada a una API)
-    await new Promise((resolve) => setTimeout(resolve, 3000)); // 2 segundos de simulación
+    await new Promise((resolve) => setTimeout(resolve, 2000)); // 2 segundos de simulación
 
     // Después de que el proceso termine, ejecutamos la función onConfirm
     onConfirm();
