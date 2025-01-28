@@ -111,15 +111,18 @@ const BookingPage = () => {
             Tu Nombre
           </label>
           <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Escribe tu nombre y apellido"
-            value={bookingData.name}
-            onChange={handleChange}
-            className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-            required
-          />
+  type="text"
+  id="name"
+  name="name"
+  placeholder="Escribe tu nombre y apellido"
+  value={bookingData.name}
+  onChange={handleChange}
+  className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+  required
+  pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ]+\s+[A-Za-záéíóúÁÉÍÓÚñÑ]+$"
+  title="Por favor, ingresa al menos un nombre y un apellido"
+/>
+
         </div>
 
         <div className="flex flex-col">
