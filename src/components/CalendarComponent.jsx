@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-
-import '../App.css'
+import '../App.css';
 
 const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
   const [date, setDate] = useState(new Date());
@@ -18,7 +17,13 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     try {
       const response = await fetch('https://api-party-kids.vercel.app/api/bookings');
       const data = await response.json();
-      const booked = data.map(booking => new Date(booking.date));
+      
+      // Guardar reservas con fecha, duración y horario
+      const booked = data.map(booking => ({
+        date: new Date(booking.date),
+        hours: booking.hours,
+        timeSlot: booking.timeSlot,
+      }));
       setBookedDates(booked);
     } catch (error) {
       console.error('Error fetching booked dates:', error);
@@ -30,14 +35,31 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
   }, []);
 
   const handleDateChange = (newDate) => {
+    // Establecemos la nueva fecha seleccionada
     setDate(newDate);
-    onDateChange(newDate);
+  
+    // Llamamos a la función para generar horarios disponibles
+    const availableTimes = generateStartTimes(newDate);
+  
+    // Actualizamos el estado del componente con los horarios disponibles
+    setBookingData((prev) => ({
+      ...prev,
+      date: newDate,
+      timeSlot: '', // Reiniciamos la selección del horario
+      availableTimes, // Guardamos los horarios disponibles generados
+    }));
+  
+    // Llamamos a cualquier otra función que necesite la nueva fecha (como una prop onDateChange)
+    if (onDateChange) {
+      onDateChange(newDate);
+    }
   };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setBookingData({ ...bookingData, [name]: value });
-    onBookingDataChange({ ...bookingData, [name]: value }); // Pasar los datos al componente principal
+    onBookingDataChange({ ...bookingData, [name]: value }); 
   };
 
   const disableDates = ({ date, view }) => {
@@ -49,7 +71,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
 
   const tileClassName = ({ date, view }) => {
     if (view === 'month') {
-      if (bookedDates.some(bookedDate => bookedDate.toDateString() === date.toDateString())) {
+      if (bookedDates.some(booking => booking.date.toDateString() === date.toDateString())) {
         return 'booked-date';
       }
       if (date < today) {
@@ -65,14 +87,34 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     const maxStartHourFor4Hours = 20;
     const maxStartHourFor8Hours = 16;
 
+    const selectedDateBookings = bookedDates.filter(
+      booking => booking.date.toDateString() === date.toDateString()
+    );
+
+    const isTimeSlotAvailable = (hour) => {
+      return !selectedDateBookings.some(booking => {
+        const bookedHour = parseInt(booking.timeSlot.split(':')[0]);
+        if (booking.hours === '4') {
+          return hour >= bookedHour && hour < bookedHour + 4;
+        } else if (booking.hours === '8') {
+          return hour >= bookedHour && hour < bookedHour + 8;
+        }
+        return false;
+      });
+    };
+
     if (bookingData.hours === '4') {
       while (startHour <= maxStartHourFor4Hours) {
-        times.push(`${startHour}:00`);
+        if (isTimeSlotAvailable(startHour)) {
+          times.push(`${startHour}:00`);
+        }
         startHour++;
       }
     } else if (bookingData.hours === '8') {
       while (startHour <= maxStartHourFor8Hours) {
-        times.push(`${startHour}:00`);
+        if (isTimeSlotAvailable(startHour)) {
+          times.push(`${startHour}:00`);
+        }
         startHour++;
       }
     }
