@@ -83,34 +83,43 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
 
   const generateStartTimes = () => {
     const times = [];
-    let startHour = 8;
-    const maxStartHourFor4Hours = 20;
-    const maxStartHourFor8Hours = 16;
-
+    let startHour = 8; // La primera hora disponible es 8:00
+    const maxStartHourFor4Hours = 20; // Última hora posible para una reserva de 4 horas (20:00)
+    const maxStartHourFor8Hours = 16; // Última hora posible para una reserva de 8 horas (16:00)
+  
     const selectedDateBookings = bookedDates.filter(
-      booking => booking.date.toDateString() === date.toDateString()
+      (booking) => booking.date.toDateString() === date.toDateString()
     );
-
+  
     const isTimeSlotAvailable = (hour) => {
-      return !selectedDateBookings.some(booking => {
+      return !selectedDateBookings.some((booking) => {
         const bookedHour = parseInt(booking.timeSlot.split(':')[0]);
+        // Para 4 horas, bloqueamos las horas de la reserva + 1 hora adicional (para el espacio)
         if (booking.hours === '4') {
-          return hour >= bookedHour && hour < bookedHour + 4;
-        } else if (booking.hours === '8') {
+          return (
+            hour >= bookedHour && hour < bookedHour + 4 || hour === bookedHour + 4
+          ); 
+        } 
+        // Para 8 horas, bloqueamos las horas correspondientes a la duración de la reserva
+        else if (booking.hours === '8') {
           return hour >= bookedHour && hour < bookedHour + 8;
         }
         return false;
       });
     };
-
+  
+    // Lógica para generar horarios disponibles para 4 horas
     if (bookingData.hours === '4') {
       while (startHour <= maxStartHourFor4Hours) {
+        // Verifica que el horario esté libre, y también excluye la siguiente hora para crear un espacio
         if (isTimeSlotAvailable(startHour)) {
           times.push(`${startHour}:00`);
         }
         startHour++;
       }
-    } else if (bookingData.hours === '8') {
+    } 
+    // Lógica para generar horarios disponibles para 8 horas
+    else if (bookingData.hours === '8') {
       while (startHour <= maxStartHourFor8Hours) {
         if (isTimeSlotAvailable(startHour)) {
           times.push(`${startHour}:00`);
@@ -120,6 +129,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     }
     return times;
   };
+  
 
   return (
     <div>
