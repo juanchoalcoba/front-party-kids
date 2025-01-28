@@ -17,7 +17,6 @@ const BookingPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     setBookingData({ ...bookingData, [e.target.name]: e.target.value });
@@ -76,18 +75,8 @@ const BookingPage = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    // Simula una llamada a la API o proceso de reserva
-    await new Promise((resolve) => setTimeout(resolve, 2000)); // Simula un retraso de 2 segundos
-
-    // Después de que el proceso termine, vuelve a habilitar el botón
-    setIsLoading(false);
-
-
-
     setShowConfirmationModal(true);
   };
 
@@ -206,12 +195,11 @@ const BookingPage = () => {
           </Link>
 
           <button
-        type="submit"
-        className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-2 rounded-lg transition-all duration-300 w-full"
-        disabled={isLoading} // Deshabilita el botón mientras se está enviando
-      >
-      {isLoading ? 'Enviando...' : 'Confirmar'}
-      </button>
+            type="submit"
+            className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-2 rounded-lg transition-all duration-300 w-full"
+          >
+            Confirmar
+          </button>
         </div>
       </form>
 

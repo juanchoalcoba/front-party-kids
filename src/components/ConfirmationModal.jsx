@@ -1,4 +1,21 @@
+import { useState } from 'react';
+
 const ConfirmationModal = ({ show, onClose, onConfirm, bookingData }) => {
+  const [isLoading, setIsLoading] = useState(false); // Estado para controlar el loading
+
+  const handleConfirm = async () => {
+    setIsLoading(true); // Activamos el estado de carga
+
+    // Simulamos un retraso para la confirmación (ej. llamada a una API)
+    await new Promise((resolve) => setTimeout(resolve, 2000)); // 2 segundos de simulación
+
+    // Después de que el proceso termine, ejecutamos la función onConfirm
+    onConfirm();
+
+    // Desactivamos el estado de carga
+    setIsLoading(false);
+  };
+
   if (!show) return null;
 
   return (
@@ -16,21 +33,23 @@ const ConfirmationModal = ({ show, onClose, onConfirm, bookingData }) => {
             <p><strong>Email:</strong> {bookingData.email}</p>
             <p><strong>Teléfono:</strong> {bookingData.phone}</p>
             <p><strong>Fecha de la Fiesta:</strong> {bookingData.date.toLocaleDateString()}</p>
-            <p><strong>Duracion</strong> {bookingData.hours} horas</p>
-            <p><strong>Franja Horaria</strong> {bookingData.timeSlot}</p>
+            <p><strong>Duración:</strong> {bookingData.hours} horas</p>
+            <p><strong>Franja Horaria:</strong> {bookingData.timeSlot}</p>
           </div>
           <div className="flex justify-between">
             <button
               className="bg-gray-600 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 transition-all duration-300"
               onClick={onClose}
+              disabled={isLoading} // Deshabilita el botón durante el proceso de carga
             >
               Cancelar
             </button>
             <button
               className="bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700 transition-all duration-300"
-              onClick={onConfirm}
+              onClick={handleConfirm} // Usamos handleConfirm para simular el envío
+              disabled={isLoading} // Deshabilita el botón durante el proceso de carga
             >
-              Confirmar
+              {isLoading ? 'Enviando...' : 'Confirmar'}
             </button>
           </div>
         </div>
