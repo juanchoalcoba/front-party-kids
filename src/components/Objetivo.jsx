@@ -8,7 +8,7 @@ const AboutUs = () => {
           El cumpleaños de tus sueños desde  {" "}
           <span className="text-blue-50 bg-gradient-to-t from-purple-800 to-pink-800 rounded-full leading-[18rem] md:leading-[15rem] px-8 py-12 mt-8 lg:mt-0 text-5xl  border-4 border-white">$11.111</span>
         </h2>
-        <p className="text-xl mb-8 text-center">
+        <p className="text-xl w-96 mb-8 text-center">
           Nos ajustamos a tu presupuesto y a lo que imaginas para tu
           celebración.
         </p>
