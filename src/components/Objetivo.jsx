@@ -13,7 +13,7 @@ const AboutUs = () => {
           celebración.
         </p>
 
-        <h3 className="text-3xl font-bold mt-12 text-center text-purple-200">
+        <h3 className="text-3xl font-bold mt-12 lg:mt-4 text-center text-purple-200">
           ¿Quiénes somos?
         </h3>
         <p className="text-lg mt-2 w-96 text-center">
