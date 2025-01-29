@@ -146,7 +146,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
         tileClassName={tileClassName}
       />
 
-      <div className="flex flex-col">
+      <div className="flex flex-col mt-4">
         <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">
           Referencias
         </label>
@@ -167,7 +167,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
         </div>
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col mt-4">
         <label htmlFor="hours" className="text-gray-700 font-semibold mb-2">
           Duración de la Fiesta
         </label>
