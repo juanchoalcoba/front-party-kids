@@ -82,7 +82,7 @@ body {
     }
 
     .hero-heading {
-        @apply uppercase font-zentry font-black text-8xl sm:right-10 sm:text-8xl md:text-9xl lg:text-[12rem];
+        @apply uppercase font-zentry font-black text-[10rem] leading-[9rem] md:leading-[11rem] sm:right-10 lg:text-[12rem];
         
     }
 
