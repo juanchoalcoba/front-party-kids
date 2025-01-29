@@ -3,7 +3,7 @@ import { FaWhatsapp } from 'react-icons/fa';
 const AboutUs = () => {
   return (
     <section className="bg-gradient-to-b from-purple-900 to-pink-900 text-white flex flex-col lg:flex-row justify-between items-center font-circular-web py-12 px-4 md:px-8 lg:px-16">
-      <div className="flex flex-col justify-center mt-24 items-center">
+      <div className="flex flex-col justify-center mt-16 items-center">
         <h2 className="text-4xl  font-bold mb-6 text-center">
           El cumpleaños de tus sueños desde  {" "}
           <span className="text-blue-50 bg-gradient-to-t from-purple-800 to-pink-800 rounded-full leading-[18rem] md:leading-[15rem] px-8 py-12 mt-8 lg:mt-0 text-5xl  border-4 border-white">$11.111</span>
