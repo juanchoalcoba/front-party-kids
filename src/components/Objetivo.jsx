@@ -21,7 +21,7 @@ const AboutUs = () => {
           único, donde la diversión y los recuerdos se conviertan en momentos
           inolvidables.
         </p>
-        <a href='https://wa.me/xxxxxxxxxx' className=' bg-green-600 hover:bg-green-700 transition text-white font-semibold px-6 py-3 mt-4 rounded-full flex items-center justify-center gap-2 mx-auto mb-12'>
+        <a href='https://wa.me/59898015337' className=' bg-green-600 hover:bg-green-700 transition text-white font-semibold px-6 py-3 mt-4 rounded-full flex items-center justify-center gap-2 mx-auto mb-12'>
           <FaWhatsapp className='text-xl' /> ¡Consulta más detalles por WhatsApp!
         </a>
       </div>
