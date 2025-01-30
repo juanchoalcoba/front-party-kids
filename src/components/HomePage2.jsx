@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function HomePage2() {
   return (
     <div
-      id="fiestas"
+      id="contacto"
       className="relative mt-2 flex flex-col justify-center items-center w-full"
     >
       {/* Overlay con opacidad para dar un efecto más elegante al hero */}

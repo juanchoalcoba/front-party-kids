@@ -10,7 +10,7 @@ import Button from "./Button";
 import ButtonAdmin from "./ButtonAdmin";
 import { Link } from "react-router-dom";
 
-const navItems = ["Inicio", "Fiestas", "Servicios", "Sobre Nosotros", "Contacto"];
+const navItems = ["Inicio", "Fiestas", "Reservas", "Nosotros", "Contacto"];
 
 const Navbar = () => {
     const [isAudioPlaying, setIsAudioPlaying] = useState(false);
