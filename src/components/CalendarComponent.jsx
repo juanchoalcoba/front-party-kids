@@ -107,11 +107,11 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
             (hour >= bookedHour - 4 && hour < bookedHour) // Bloquea las 4 horas anteriores
           );
         }
-        // Para 8 horas, bloqueamos las horas correspondientes a la duración de la reserva + 4 horas anteriores
+        // Para 8 horas, bloqueamos las horas correspondientes a la duración de la reserva + 8 horas anteriores
         else if (booking.hours === "8") {
           return (
             (hour >= bookedHour && hour < bookedHour + 8) ||
-            (hour >= bookedHour - 4 && hour < bookedHour) // Bloquea las 4 horas anteriores
+            (hour >= bookedHour - 8 && hour < bookedHour) // Bloquea las 8 horas anteriores
           );
         }
         return false;
@@ -139,6 +139,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     }
     return times;
   };
+  
   
   
 
