@@ -91,11 +91,11 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     let startHour = 8; // La primera hora disponible es 8:00
     const maxStartHourFor4Hours = 20; // Última hora posible para una reserva de 4 horas (20:00)
     const maxStartHourFor8Hours = 16; // Última hora posible para una reserva de 8 horas (16:00)
-  
+
     const selectedDateBookings = bookedDates.filter(
       (booking) => booking.date.toDateString() === date.toDateString()
     );
-  
+
     const isTimeSlotAvailable = (hour) => {
       return !selectedDateBookings.some((booking) => {
         const bookedHour = parseInt(booking.timeSlot.split(":")[0]);
@@ -107,18 +107,14 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
             (hour >= bookedHour - 4 && hour < bookedHour) // Bloquea las 4 horas anteriores
           );
         }
-        // Para 8 horas, bloqueamos las horas correspondientes a la duración de la reserva + 4 horas anteriores
+        // Para 8 horas, bloqueamos las horas correspondientes a la duración de la reserva
         else if (booking.hours === "8") {
-          return (
-            (hour >= bookedHour && hour < bookedHour + 8) ||
-            (hour >= bookedHour - 4 && hour < bookedHour) || // Bloquea las 4 horas anteriores
-            (hour + 8 > bookedHour) // Bloquea si una reserva de 8 horas se solapa con otra
-          );
+          return hour >= bookedHour && hour < bookedHour + 8;
         }
         return false;
       });
     };
-  
+
     // Lógica para generar horarios disponibles para 4 horas
     if (bookingData.hours === "4") {
       while (startHour <= maxStartHourFor4Hours) {
@@ -140,7 +136,6 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     }
     return times;
   };
-  
 
   return (
     <div>
