@@ -96,9 +96,10 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
       (booking) => booking.date.toDateString() === date.toDateString()
     );
   
-    const isTimeSlotAvailable = (hour, duration) => {
+    const isTimeSlotAvailable = (hour) => {
       return !selectedDateBookings.some((booking) => {
         const bookedHour = parseInt(booking.timeSlot.split(":")[0]);
+        // Para 4 horas, bloqueamos las horas de la reserva + 1 hora adicional (para el espacio)
         if (booking.hours === "4") {
           return (
             (hour >= bookedHour && hour < bookedHour + 4) ||
@@ -106,11 +107,11 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
             (hour >= bookedHour - 4 && hour < bookedHour) // Bloquea las 4 horas anteriores
           );
         }
-        // Para las reservas de 8 horas, solo bloqueamos cuando la duración seleccionada es de 8 horas
-        else if (booking.hours === "8" && duration === "8") {
+        // Para 8 horas, bloqueamos las horas correspondientes a la duración de la reserva + 4 horas anteriores
+        else if (booking.hours === "8") {
           return (
             (hour >= bookedHour && hour < bookedHour + 8) ||
-            (hour >= bookedHour - 8 && hour < bookedHour) // Bloquea las 8 horas anteriores
+            (hour >= bookedHour - 4 && hour < bookedHour) // Bloquea las 4 horas anteriores
           );
         }
         return false;
@@ -120,7 +121,8 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     // Lógica para generar horarios disponibles para 4 horas
     if (bookingData.hours === "4") {
       while (startHour <= maxStartHourFor4Hours) {
-        if (isTimeSlotAvailable(startHour, "4")) {
+        // Verifica que el horario esté libre, y también excluye la siguiente hora para crear un espacio
+        if (isTimeSlotAvailable(startHour)) {
           times.push(`${startHour}:00`);
         }
         startHour++;
@@ -129,7 +131,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     // Lógica para generar horarios disponibles para 8 horas
     else if (bookingData.hours === "8") {
       while (startHour <= maxStartHourFor8Hours) {
-        if (isTimeSlotAvailable(startHour, "8")) {
+        if (isTimeSlotAvailable(startHour)) {
           times.push(`${startHour}:00`);
         }
         startHour++;
@@ -137,7 +139,6 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     }
     return times;
   };
-  
   
   
 
