@@ -174,7 +174,7 @@ const Features = () => {
           Cada celebración es única, por eso creamos ambientes personalizados que harán de tu fiesta un evento memorable.
         </div>
       }
-      isComingSoon
+
     />
   </BentoTilt>
 
@@ -193,7 +193,7 @@ const Features = () => {
           La diversión nunca termina, y nos encargamos de que todos los invitados, sin importar la edad, disfruten juntos.
         </div>
       }
-      isComingSoon
+
     />
   </BentoTilt>
 </div>
