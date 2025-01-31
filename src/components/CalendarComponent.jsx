@@ -126,6 +126,11 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
         [12, 13, 14, 15, 16].includes(parseInt(booking.timeSlot.split(":")[0]))
     );
   
+    // Verifica si ya existe una reserva de 8 horas en el mismo día
+    const has8HourBooking = selectedDateBookings.some(
+      (booking) => booking.hours === "8"
+    );
+  
     // Lógica para generar horarios disponibles para 4 horas
     if (bookingData.hours === "4") {
       while (startHour <= maxStartHourFor4Hours) {
@@ -135,9 +140,10 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
         startHour++;
       }
     }
-    // Lógica para generar horarios disponibles para 8 horas, deshabilitando si hay una reserva de 4 horas en horas críticas
+    // Lógica para generar horarios disponibles para 8 horas
     else if (bookingData.hours === "8") {
-      if (!hasCritical4HourBooking) {
+      // Deshabilita la opción de 8 horas si ya existe una reserva de 8 horas
+      if (!has8HourBooking && !hasCritical4HourBooking) {
         while (startHour <= maxStartHourFor8Hours) {
           if (isTimeSlotAvailable(startHour)) {
             times.push(`${startHour}:00`);
@@ -149,6 +155,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
   
     return times;
   };
+  
   
   
   
