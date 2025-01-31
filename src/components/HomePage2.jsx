@@ -36,8 +36,8 @@ function HomePage2() {
           <h2 className="text-center">Redes Sociales</h2>
 
           <div className="flex flex-row justify-center mb-4 items-center gap-4">
-          <Link target="_blank" to="https://www.tiktok.com/@kids.party27?_t=ZM-8tXLZ2AzRn4&_r=1">
-      <SiTiktok className="text-blue-700 text-4xl hover:text-blue-900 transition-all duration-300" />
+          <Link target="_blank" to="https://www.tiktok.com/@kids.party.pdlt?_t=ZM-8tXN5ZUyAMf&_r=1">
+      <SiTiktok className="text-gray-800 text-4xl hover:text-gray-900 transition-all duration-300" />
     </Link>
 
           <Link to="https://www.instagram.com/kidsparty.pdlt?igsh=MWt0eTdpMTdvdDBiMQ==" target="_blank">

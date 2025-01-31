@@ -54,8 +54,8 @@ function HomePage() {
 
         {/* Sección de iconos centrados debajo del botón */}
         <div className="flex justify-center gap-8 mt-8">
-        <Link target="_blank" to="https://www.tiktok.com/@kids.party27?_t=ZM-8tXLZ2AzRn4&_r=1">
-      <SiTiktok className="text-blue-700 text-4xl hover:text-blue-900 transition-all duration-300" />
+        <Link target="_blank" to="https://www.tiktok.com/@kids.party.pdlt?_t=ZM-8tXN5ZUyAMf&_r=1">
+      <SiTiktok className="text-gray-800 text-4xl hover:text-gray-900 transition-all duration-300" />
     </Link>
   
   <Link to="https://www.instagram.com/kidsparty.pdlt?igsh=MWt0eTdpMTdvdDBiMQ=="
