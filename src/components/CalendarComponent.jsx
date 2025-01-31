@@ -72,7 +72,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
 
   const tileClassName = ({ date, view }) => {
     if (view === "month") {
-      // Verifica si ya existe una reserva o si el día ya está bloqueado
+      // Verifica si la fecha ya tiene reservas existentes
       if (
         bookedDates.some(
           (booking) => booking.date.toDateString() === date.toDateString()
@@ -80,17 +80,21 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
       ) {
         return "booked-date";
       }
+  
       // Verifica si la fecha está en el pasado
       if (date < today) {
         return "disabled-date";
       }
   
-      // Verifica si no hay horas disponibles para 4 o 8 horas para este día
+      // Genera los horarios disponibles para este día
       const availableTimes = generateStartTimes(date); // Pasa la fecha aquí si lo necesitas
+  
+      // Si no hay horarios disponibles para ese día, márcalo como "no disponible" (rojo)
       if (availableTimes.length === 0) {
         return "no-available-time"; // Añadimos esta clase para marcar el día en rojo
       }
     }
+  
     return "";
   };
   
