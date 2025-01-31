@@ -30,7 +30,7 @@ const AboutUs = () => {
       <div className="space-y-2">
         <h2 className="text-3xl font-semibold mb-2 text-pink-200 text-center p-4">¿Que Ofrecemos?</h2>
         <h4 className="text-xl font-semibold mb-2 text-pink-200">- Limpieza</h4>
-        <p className="text-gray-300">
+        <p className="text-gray-300 text-md">
           Mantenemos el lugar impecable para que solo te preocupes por
           disfrutar.
         </p>
