@@ -72,6 +72,13 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
 
   const tileClassName = ({ date, view }) => {
     if (view === "month") {
+      const { isDayFullyBooked } = generateStartTimes(date); // Obtenemos si el día está ocupado
+  
+      if (isDayFullyBooked) {
+        return "complete-day"; // Si el día está totalmente ocupado, lo pintamos de rojo
+      }
+  
+      // Si ya tiene alguna reserva, lo marcamos como "booked-date"
       if (
         bookedDates.some(
           (booking) => booking.date.toDateString() === date.toDateString()
@@ -79,12 +86,15 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
       ) {
         return "booked-date";
       }
+  
+      // Si la fecha es anterior a hoy, lo marcamos como "disabled-date"
       if (date < today) {
         return "disabled-date";
       }
     }
     return "";
   };
+  
 
   const generateStartTimes = (date) => {
     const times = [];
