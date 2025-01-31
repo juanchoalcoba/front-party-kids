@@ -223,7 +223,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
           name="hours"
           value={bookingData.hours}
           onChange={handleChange}
-          className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+          className="border-2 border-cyan-400 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
           required
         >
           <option value="">Selecciona la duración</option>
@@ -245,7 +245,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
             name="timeSlot"
             value={bookingData.timeSlot}
             onChange={handleChange}
-            className="border-2 border-gray-300 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+            className="border-2 border-cyan-400 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
             required
           >
             <option value="">Selecciona una opción</option>
