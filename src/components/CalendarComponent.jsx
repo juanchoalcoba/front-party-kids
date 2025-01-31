@@ -87,75 +87,75 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
   };
 
   const generateStartTimes = () => {
-    const times = [];
-    let startHour = 8; // La primera hora disponible es 8:00
-    const maxStartHourFor4Hours = 20; // Última hora posible para una reserva de 4 horas (20:00)
-    const maxStartHourFor8Hours = 16; // Última hora posible para una reserva de 8 horas (16:00)
-  
-    const selectedDateBookings = bookedDates.filter(
-      (booking) => booking.date.toDateString() === date.toDateString()
-    );
-  
-    const isTimeSlotAvailable = (hour) => {
-      return !selectedDateBookings.some((booking) => {
-        const bookedHour = parseInt(booking.timeSlot.split(":")[0]);
-  
-        // Validación para reservas de 4 horas
-        if (booking.hours === "4") {
-          return (
-            (hour >= bookedHour && hour < bookedHour + 4) ||
-            hour === bookedHour + 4 ||
-            (hour >= bookedHour - 4 && hour < bookedHour) // Bloquea las 4 horas anteriores
-          );
-        }
-        // Validación para reservas de 8 horas
-        else if (booking.hours === "8") {
-          return (
-            (hour >= bookedHour && hour < bookedHour + 8) ||
-            (hour >= bookedHour - 4 && hour < bookedHour) // Bloquea las 4 horas anteriores
-          );
-        }
-        return false;
-      });
-    };
-  
-    // Verifica si existe alguna reserva de 4 horas en las horas críticas (16, 15, 14, 13 o 12)
-    const hasCritical4HourBooking = selectedDateBookings.some(
-      (booking) =>
-        booking.hours === "4" &&
-        [12, 13, 14, 15, 16].includes(parseInt(booking.timeSlot.split(":")[0]))
-    );
-  
-    // Verifica si ya existe una reserva de 8 horas en el mismo día
-    const has8HourBooking = selectedDateBookings.some(
-      (booking) => booking.hours === "8"
-    );
-  
-    // Lógica para generar horarios disponibles para 4 horas
-    if (bookingData.hours === "4") {
-      while (startHour <= maxStartHourFor4Hours) {
+  const times = [];
+  let startHour = 8; // La primera hora disponible es 8:00
+  const maxStartHourFor4Hours = 20; // Última hora posible para una reserva de 4 horas (20:00)
+  const maxStartHourFor8Hours = 16; // Última hora posible para una reserva de 8 horas (16:00)
+
+  const selectedDateBookings = bookedDates.filter(
+    (booking) => booking.date.toDateString() === date.toDateString()
+  );
+
+  const isTimeSlotAvailable = (hour) => {
+    return !selectedDateBookings.some((booking) => {
+      const bookedHour = parseInt(booking.timeSlot.split(":")[0]);
+
+      // Validación para reservas de 4 horas
+      if (booking.hours === "4") {
+        return (
+          (hour >= bookedHour && hour < bookedHour + 4) ||
+          hour === bookedHour + 4 ||
+          (hour >= bookedHour - 4 && hour < bookedHour) // Bloquea las 4 horas anteriores
+        );
+      }
+      // Validación para reservas de 8 horas
+      else if (booking.hours === "8") {
+        return (
+          (hour >= bookedHour && hour < bookedHour + 8) ||
+          (hour >= bookedHour - 4 && hour < bookedHour) // Bloquea las 4 horas anteriores
+        );
+      }
+      return false;
+    });
+  };
+
+  // Verifica si existe alguna reserva de 4 horas en las horas críticas (16, 15, 14, 13 o 12)
+  const hasCritical4HourBooking = selectedDateBookings.some(
+    (booking) =>
+      booking.hours === "4" &&
+      [12, 13, 14, 15, 16].includes(parseInt(booking.timeSlot.split(":")[0]))
+  );
+
+  // Verifica si ya existe una reserva de 8 horas en el mismo día
+  const has8HourBooking = selectedDateBookings.some(
+    (booking) => booking.hours === "8"
+  );
+
+  // Lógica para generar horarios disponibles para 4 horas
+  if (bookingData.hours === "4") {
+    while (startHour <= maxStartHourFor4Hours) {
+      if (isTimeSlotAvailable(startHour)) {
+        times.push(`${startHour}:00`);
+      }
+      startHour++;
+    }
+  }
+  // Lógica para generar horarios disponibles para 8 horas
+  else if (bookingData.hours === "8") {
+    // Deshabilita la opción de 8 horas si ya existe una reserva de 8 horas
+    if (!has8HourBooking && !hasCritical4HourBooking) {
+      while (startHour <= maxStartHourFor8Hours) {
         if (isTimeSlotAvailable(startHour)) {
           times.push(`${startHour}:00`);
         }
         startHour++;
       }
     }
-    // Lógica para generar horarios disponibles para 8 horas
-    else if (bookingData.hours === "8") {
-      // Deshabilita la opción de 8 horas si ya existe una reserva de 8 horas
-      if (!has8HourBooking && !hasCritical4HourBooking) {
-        while (startHour <= maxStartHourFor8Hours) {
-          if (isTimeSlotAvailable(startHour)) {
-            times.push(`${startHour}:00`);
-          }
-          startHour++;
-        }
-      }
-    }
-  
-    return times;
-  };
-  
+  }
+
+  return times;
+};
+
   
   
   
