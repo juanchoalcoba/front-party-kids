@@ -2,7 +2,7 @@ import { FaWhatsapp } from 'react-icons/fa';
 
 const AboutUs = () => {
   return (
-    <section id="nosotros" className="bg-gradient-to-b from-gray-600 to-pink-900 text-white flex flex-col lg:flex-row justify-between items-center font-circular-web py-12 px-4 md:px-8 lg:px-16">
+    <section id="nosotros" className="bg-gradient-to-b from-gray-600 to-cyan-900 text-white flex flex-col lg:flex-row justify-between items-center font-circular-web py-12 px-4 md:px-8 lg:px-16">
       <div className="flex flex-col justify-center mt-16 items-center">
         <h2 className="text-4xl  font-bold mb-6 text-center">
           El cumpleaños de tus sueños desde  {" "}
