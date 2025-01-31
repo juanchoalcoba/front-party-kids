@@ -15,5 +15,9 @@
  }
 
 
- 
+ .unavailable-date {
+  background-color: #ff4d4d !important; /* Rojo intenso */
+  color: white !important; /* Texto blanco */
+  pointer-events: none !important;
+ }
  

@@ -72,19 +72,39 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
 
   const tileClassName = ({ date, view }) => {
     if (view === "month") {
+      const selectedDateBookings = bookedDates.filter(
+        (booking) => booking.date.toDateString() === date.toDateString()
+      );
+  
+      const has4HourBooking = selectedDateBookings.some(
+        (booking) => booking.hours === "4"
+      );
+      const has8HourBooking = selectedDateBookings.some(
+        (booking) => booking.hours === "8"
+      );
+  
+      // Si hay una reserva de 8 horas y una de 4 horas el mismo día, pintar de rojo
+      if (has4HourBooking && has8HourBooking) {
+        return "unavailable-date"; // clase para marcar fecha como completamente ocupada (rojo)
+      }
+  
+      // Lógica existente para pintar la fecha como reservada
       if (
         bookedDates.some(
           (booking) => booking.date.toDateString() === date.toDateString()
         )
       ) {
-        return "booked-date";
+        return "booked-date"; // clase para fechas reservadas
       }
+  
+      // Lógica existente para fechas pasadas
       if (date < today) {
-        return "disabled-date";
+        return "disabled-date"; // clase para fechas deshabilitadas
       }
     }
     return "";
   };
+  
 
   const generateStartTimes = () => {
   const times = [];
