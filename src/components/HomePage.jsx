@@ -54,11 +54,11 @@ function HomePage() {
 
         {/* Sección de iconos centrados debajo del botón */}
         <div className="flex justify-center gap-8 mt-8">
-        <Link target="_blank" to="https://tiktok.com">
+        <Link target="_blank" to="https://www.tiktok.com/@kids.party27?_t=ZM-8tXLZ2AzRn4&_r=1">
       <SiTiktok className="text-blue-700 text-4xl hover:text-blue-900 transition-all duration-300" />
     </Link>
   
-  <Link to="https://www.instagram.com"
+  <Link to="https://www.instagram.com/kidsparty.pdlt?igsh=MWt0eTdpMTdvdDBiMQ=="
   target='_blank'
   >
     <i className="fab fa-instagram text-pink-700 text-4xl hover:text-pink-900 transition-all duration-300"></i>
