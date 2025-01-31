@@ -36,21 +36,21 @@ const AboutUs = () => {
         </p>
 
         <h4 className="text-xl font-semibold mb-2 text-pink-200">- Mozos</h4>
-        <p className="text-gray-300">
+        <p className="text-gray-300 text-sm">
           Personal calificado para atender a tus invitados con excelencia.
         </p>
 
         <h4 className="text-xl font-semibold mb-2 text-pink-200">
          - Supervisor de salón
         </h4>
-        <p className="text-gray-300">
+        <p className="text-gray-300 ">
           Nos encargamos de coordinar cada detalle para que todo salga perfecto.
         </p>
 
         <h4 className="text-xl font-semibold mb-2 text-pink-200">
           - Organización de catering
         </h4>
-        <p className="text-gray-300">
+        <p className="text-gray-300 text-sm">
           Deliciosos menús adaptados a los gustos y preferencias de tus
           invitados.
         </p>
@@ -58,7 +58,7 @@ const AboutUs = () => {
         <h4 className="text-xl font-semibold mb-2 text-pink-200">
           - Tarjetas de invitación digitales
         </h4>
-        <p className="text-gray-300">
+        <p className="text-gray-300 text-sm">
           Invitaciones personalizadas para que tus invitados no olviden el gran
           día.
         </p>
@@ -66,14 +66,14 @@ const AboutUs = () => {
         <h4 className="text-xl font-semibold mb-2 text-pink-200">
           - Mesa de dulces
         </h4>
-        <p className="text-gray-300">
+        <p className="text-gray-300 text-sm">
           Un rincón delicioso que encantará a grandes y pequeños.
         </p>
 
         <h4 className="text-xl font-semibold mb-2 text-pink-200">
           - Decoración personalizada
         </h4>
-        <p className="text-gray-300">
+        <p className="text-gray-300 text-sm">
           Transformamos tu evento en un espacio mágico y único.
         </p>
       </div>
