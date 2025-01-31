@@ -30,27 +30,27 @@ const AboutUs = () => {
       <div className="space-y-2">
         <h2 className="text-3xl font-semibold mb-2 text-pink-200 text-center p-4">¿Que Ofrecemos?</h2>
         <h4 className="text-xl font-semibold mb-2 text-pink-200">- Limpieza</h4>
-        <p className="text-gray-300 text-sm">
+        <p className="text-gray-300">
           Mantenemos el lugar impecable para que solo te preocupes por
           disfrutar.
         </p>
 
         <h4 className="text-xl font-semibold mb-2 text-pink-200">- Mozos</h4>
-        <p className="text-gray-300 text-sm">
+        <p className="text-gray-300">
           Personal calificado para atender a tus invitados con excelencia.
         </p>
 
         <h4 className="text-xl font-semibold mb-2 text-pink-200">
          - Supervisor de salón
         </h4>
-        <p className="text-gray-300 text-sm">
+        <p className="text-gray-300">
           Nos encargamos de coordinar cada detalle para que todo salga perfecto.
         </p>
 
         <h4 className="text-xl font-semibold mb-2 text-pink-200">
           - Organización de catering
         </h4>
-        <p className="text-gray-300 text-sm">
+        <p className="text-gray-300">
           Deliciosos menús adaptados a los gustos y preferencias de tus
           invitados.
         </p>
@@ -58,7 +58,7 @@ const AboutUs = () => {
         <h4 className="text-xl font-semibold mb-2 text-pink-200">
           - Tarjetas de invitación digitales
         </h4>
-        <p className="text-gray-300 text-sm">
+        <p className="text-gray-300">
           Invitaciones personalizadas para que tus invitados no olviden el gran
           día.
         </p>
@@ -66,14 +66,14 @@ const AboutUs = () => {
         <h4 className="text-xl font-semibold mb-2 text-pink-200">
           - Mesa de dulces
         </h4>
-        <p className="text-gray-300 text-sm">
+        <p className="text-gray-300">
           Un rincón delicioso que encantará a grandes y pequeños.
         </p>
 
         <h4 className="text-xl font-semibold mb-2 text-pink-200">
           - Decoración personalizada
         </h4>
-        <p className="text-gray-300 text-sm">
+        <p className="text-gray-300">
           Transformamos tu evento en un espacio mágico y único.
         </p>
       </div>
