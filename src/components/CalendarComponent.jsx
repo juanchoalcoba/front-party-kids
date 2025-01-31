@@ -99,7 +99,8 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     const isTimeSlotAvailable = (hour) => {
       return !selectedDateBookings.some((booking) => {
         const bookedHour = parseInt(booking.timeSlot.split(":")[0]);
-        // Para 4 horas, bloqueamos las horas de la reserva + 1 hora adicional (para el espacio)
+  
+        // Validación para reservas de 4 horas
         if (booking.hours === "4") {
           return (
             (hour >= bookedHour && hour < bookedHour + 4) ||
@@ -107,7 +108,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
             (hour >= bookedHour - 4 && hour < bookedHour) // Bloquea las 4 horas anteriores
           );
         }
-        // Para 8 horas, bloqueamos las horas correspondientes a la duración de la reserva + 4 horas anteriores
+        // Validación para reservas de 8 horas
         else if (booking.hours === "8") {
           return (
             (hour >= bookedHour && hour < bookedHour + 8) ||
@@ -118,27 +119,37 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
       });
     };
   
+    // Verifica si existe alguna reserva de 4 horas en las horas críticas (16, 15, 14, 13 o 12)
+    const hasCritical4HourBooking = selectedDateBookings.some(
+      (booking) =>
+        booking.hours === "4" &&
+        [12, 13, 14, 15, 16].includes(parseInt(booking.timeSlot.split(":")[0]))
+    );
+  
     // Lógica para generar horarios disponibles para 4 horas
     if (bookingData.hours === "4") {
       while (startHour <= maxStartHourFor4Hours) {
-        // Verifica que el horario esté libre, y también excluye la siguiente hora para crear un espacio
         if (isTimeSlotAvailable(startHour)) {
           times.push(`${startHour}:00`);
         }
         startHour++;
       }
     }
-    // Lógica para generar horarios disponibles para 8 horas
+    // Lógica para generar horarios disponibles para 8 horas, deshabilitando si hay una reserva de 4 horas en horas críticas
     else if (bookingData.hours === "8") {
-      while (startHour <= maxStartHourFor8Hours) {
-        if (isTimeSlotAvailable(startHour)) {
-          times.push(`${startHour}:00`);
+      if (!hasCritical4HourBooking) {
+        while (startHour <= maxStartHourFor8Hours) {
+          if (isTimeSlotAvailable(startHour)) {
+            times.push(`${startHour}:00`);
+          }
+          startHour++;
         }
-        startHour++;
       }
     }
+  
     return times;
   };
+  
   
   
 
