@@ -117,7 +117,7 @@ const BookingPage = () => {
             placeholder="Escribe tu nombre y apellido"
             value={bookingData.name}
             onChange={handleChange}
-            className="border-2 border-violet-500 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+            className="border-2 border-gray-400 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
             required
             pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ]+\s+[A-Za-záéíóúÁÉÍÓÚñÑ]+$"
             title="Por favor, ingresa al menos un nombre y un apellido"
@@ -135,7 +135,7 @@ const BookingPage = () => {
             placeholder="Escribe el nombre del niño/a"
             value={bookingData.namekid}
             onChange={handleChange}
-            className="border-2 border-violet-500 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+            className="border-2 border-gray-400 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
             required
           />
         </div>
@@ -151,7 +151,7 @@ const BookingPage = () => {
             placeholder="Escribe tu email"
             value={bookingData.email}
             onChange={handleChange}
-            className="border-2 border-violet-500 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+            className="border-2 border-gray-400 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
             required
           />
         </div>
@@ -167,7 +167,7 @@ const BookingPage = () => {
             placeholder="Escribe tu número de teléfono"
             value={bookingData.phone}
             onChange={handleChange}
-            className="border-2 border-violet-500 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+            className="border-2 border-gray-400 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
             required
             minLength="8"
             maxLength="9"
