@@ -3,17 +3,17 @@ import { FaWhatsapp } from 'react-icons/fa';
 const AboutUs = () => {
   return (
     <section id="nosotros" className="bg-gradient-to-b from-gray-700 to-cyan-900 text-white flex flex-col lg:flex-row justify-between items-center font-circular-web py-12 px-4 md:px-8 lg:px-16">
-      <div className="flex flex-col justify-center mt-16 items-center">
-        <h2 className="text-4xl  font-bold mb-6 text-center">
+      <div className="flex flex-col justify-center items-center">
+        <h2 className="text-4xl w-[48rem]  font-bold text-center ">
           El cumpleaños de tus sueños desde  {" "}
-          <span className="text-blue-50 bg-gradient-to-t from-violet-600 to-cyan-600 rounded-full leading-[18rem] md:leading-[15rem] px-8 py-12 mt-8 lg:mt-0 text-5xl  border-2 border-white">$11.111</span>
+          <span className="text-blue-50 bg-gradient-to-t from-purple-800 to-pink-800 rounded-full leading-[18rem] md:leading-[15rem] px-8 py-10 mt-8 lg:mt-0 text-5xl  border-4 border-white">$11.111</span>
         </h2>
-        <p className="text-xl w-96 mb-8 text-center">
+        <p className="text-2xl w-96 mt-4 text-center text-blue-100">
           Nos ajustamos a tu presupuesto y a lo que imaginas para tu
           celebración.
         </p>
 
-        <h3 className="text-3xl font-bold mt-12 lg:mt-4 text-center text-purple-200">
+        <h3 className="text-3xl font-bold mt-12 lg:mt-4 text-center text-yellow-300">
           ¿Quiénes somos?
         </h3>
         <p className="text-lg mt-2 w-96 text-center">
