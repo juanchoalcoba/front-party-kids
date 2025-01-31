@@ -124,9 +124,9 @@ const Features = () => {
 >
   <BentoCard
     
-    src="img/6.webp"
+    src="img/piñata.webp"
     title={
-      <div className="backdrop-blur-md tracking-widest bg-black/50 p-2 rounded-md inline-block">
+      <div className="backdrop-blur-md  bg-black/50 p-2 rounded-md inline-block">
         divers<b>i</b>ón
       </div>
     }
@@ -146,7 +146,7 @@ const Features = () => {
     <BentoCard
       src="img/7.webp"
       title={
-        <div className="backdrop-blur-md tracking-widest bg-black/50 p-2 rounded-md inline-block">
+        <div className="backdrop-blur-md  bg-black/50 p-2 rounded-md inline-block">
           fies<b>t</b>a
         </div>
       }
@@ -163,14 +163,14 @@ const Features = () => {
     className="bento-tilt_1 row-span-1 md:col-span-1 md:ms-0"
   >
     <BentoCard
-      src="img/8.webp"
+      src="img/niños.webp"
       title={
-        <div className="backdrop-blur-md tracking-widest bg-black/50 p-2 rounded-md inline-block">
+        <div className="backdrop-blur-md  bg-black/50 p-2 rounded-md inline-block">
           celebraci<b>ó</b>n
         </div>
       }
       description={
-        <div className="backdrop-blur-md bg-black/50 rounded-md inline-A cross-world AI Agent - elevating your gameplay to be more fun and productive.block">
+        <div className="backdrop-blur-md bg-black/50 rounded-md p-2">
           Cada celebración es única, por eso creamos ambientes personalizados que harán de tu fiesta un evento memorable.
         </div>
       }
@@ -184,12 +184,12 @@ const Features = () => {
     <BentoCard
       src="img/9.webp"
       title={
-        <div className="backdrop-blur-md tracking-widest bg-black/50 p-2 rounded-md inline-block">
+        <div className="backdrop-blur-md bg-black/50 p-2 rounded-md inline-block">
           sonris<b>a</b>s
         </div>
       }
       description={
-        <div className="backdrop-blur-md bg-black/50 rounded-md inline-block">
+        <div className="backdrop-blur-md bg-black/50 rounded-md inline-block p-2">
           La diversión nunca termina, y nos encargamos de que todos los invitados, sin importar la edad, disfruten juntos.
         </div>
       }

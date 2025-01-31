@@ -4,7 +4,7 @@ function HomePage2() {
   return (
     <div
       id="contacto"
-      className="relative mt-2 flex text-gray-800 flex-col justify-center items-center w-full"
+      className="relative  flex text-gray-800 flex-col justify-center items-center w-full"
     >
       {/* Overlay con opacidad para dar un efecto más elegante al hero */}
       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-[-2]"></div>
