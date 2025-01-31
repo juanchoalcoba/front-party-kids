@@ -43,7 +43,7 @@ const AboutUs = () => {
         <h4 className="text-xl font-semibold mb-2 text-pink-200">
          - Supervisor de salón
         </h4>
-        <p className="text-gray-300 ">
+        <p className="text-gray-300 text-sm">
           Nos encargamos de coordinar cada detalle para que todo salga perfecto.
         </p>
 
