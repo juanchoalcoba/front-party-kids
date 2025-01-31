@@ -4,7 +4,7 @@ import Button from '../components/Button';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Link } from 'react-router-dom';
-
+import { SiTiktok } from "react-icons/si";
 
 function HomePage() {
   useEffect(() => {
@@ -54,11 +54,9 @@ function HomePage() {
 
         {/* Sección de iconos centrados debajo del botón */}
         <div className="flex justify-center gap-8 mt-8">
-        <Link 
-        target='_blank'
-        to="https://facebook.com">
-    <i className="fab fa-facebook text-blue-700 text-4xl hover:text-blue-900 transition-all duration-300"></i>
-  </Link>
+        <Link target="_blank" to="https://tiktok.com">
+      <SiTiktok className="text-blue-700 text-4xl hover:text-blue-900 transition-all duration-300" />
+    </Link>
   
   <Link to="https://www.instagram.com"
   target='_blank'

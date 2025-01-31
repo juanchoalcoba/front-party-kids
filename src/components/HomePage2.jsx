@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { SiTiktok } from "react-icons/si";
 
 function HomePage2() {
   return (
@@ -35,9 +36,9 @@ function HomePage2() {
           <h2 className="text-center">Redes Sociales</h2>
 
           <div className="flex flex-row justify-center mb-4 items-center gap-4">
-          <Link target="_blank" to="https://facebook.com">
-            <i className="fab fa-facebook text-blue-700 text-4xl hover:text-blue-900 transition-all duration-300"></i>
-          </Link>
+          <Link target="_blank" to="https://tiktok.com">
+      <SiTiktok className="text-blue-700 text-4xl hover:text-blue-900 transition-all duration-300" />
+    </Link>
 
           <Link to="https://www.instagram.com" target="_blank">
             <i className="fab fa-instagram text-pink-700 text-4xl hover:text-pink-900 transition-all duration-300"></i>
