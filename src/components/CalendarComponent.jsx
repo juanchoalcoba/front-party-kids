@@ -72,13 +72,6 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
 
   const tileClassName = ({ date, view }) => {
     if (view === "month") {
-      const { isDayFullyBooked } = generateStartTimes(date); // Obtenemos si el día está ocupado
-  
-      if (isDayFullyBooked) {
-        return "complete-day"; // Si el día está totalmente ocupado, lo pintamos de rojo
-      }
-  
-      // Si ya tiene alguna reserva, lo marcamos como "booked-date"
       if (
         bookedDates.some(
           (booking) => booking.date.toDateString() === date.toDateString()
@@ -86,17 +79,14 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
       ) {
         return "booked-date";
       }
-  
-      // Si la fecha es anterior a hoy, lo marcamos como "disabled-date"
       if (date < today) {
         return "disabled-date";
       }
     }
     return "";
   };
-  
 
-  const generateStartTimes = (date) => {
+  const generateStartTimes = () => {
     const times = [];
     let startHour = 8; // La primera hora disponible es 8:00
     const maxStartHourFor4Hours = 20; // Última hora posible para una reserva de 4 horas (20:00)
@@ -129,35 +119,42 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
       });
     };
   
-    let isDayFullyBooked = true; // Variable para indicar si el día está totalmente ocupado
+    // Verifica si existe alguna reserva de 4 horas en las horas críticas (16, 15, 14, 13 o 12)
+    const hasCritical4HourBooking = selectedDateBookings.some(
+      (booking) =>
+        booking.hours === "4" &&
+        [12, 13, 14, 15, 16].includes(parseInt(booking.timeSlot.split(":")[0]))
+    );
+  
+    // Verifica si ya existe una reserva de 8 horas en el mismo día
+    const has8HourBooking = selectedDateBookings.some(
+      (booking) => booking.hours === "8"
+    );
   
     // Lógica para generar horarios disponibles para 4 horas
     if (bookingData.hours === "4") {
       while (startHour <= maxStartHourFor4Hours) {
         if (isTimeSlotAvailable(startHour)) {
           times.push(`${startHour}:00`);
-          isDayFullyBooked = false; // Si hay al menos un horario disponible, el día no está completo
         }
         startHour++;
       }
     }
     // Lógica para generar horarios disponibles para 8 horas
     else if (bookingData.hours === "8") {
-      if (!selectedDateBookings.some((b) => b.hours === "8")) {
+      // Deshabilita la opción de 8 horas si ya existe una reserva de 8 horas
+      if (!has8HourBooking && !hasCritical4HourBooking) {
         while (startHour <= maxStartHourFor8Hours) {
           if (isTimeSlotAvailable(startHour)) {
             times.push(`${startHour}:00`);
-            isDayFullyBooked = false; // Si hay al menos un horario disponible, el día no está completo
           }
           startHour++;
         }
       }
     }
   
-    // Devolver horarios y si el día está completamente ocupado
-    return { times, isDayFullyBooked };
+    return times;
   };
-  
   
   
   

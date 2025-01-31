@@ -14,9 +14,6 @@
    pointer-events: auto !important; /* Asegurarse de que se puedan seleccionar */
  }
 
- .complete-day {
-  background-color: red !important;
-  color: white !important;
-}
+
  
  
