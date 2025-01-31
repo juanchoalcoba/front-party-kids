@@ -82,9 +82,12 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
       const has8HourBooking = selectedDateBookings.some(
         (booking) => booking.hours === "8"
       );
+      const fourHourBookingsCount = selectedDateBookings.filter(
+        (booking) => booking.hours === "4"
+      ).length;
   
       // Si hay una reserva de 8 horas y una de 4 horas el mismo día, pintar de rojo
-      if (has4HourBooking && has8HourBooking) {
+      if ((has4HourBooking && has8HourBooking) || fourHourBookingsCount >= 3) {
         return "unavailable-date"; // clase para marcar fecha como completamente ocupada (rojo)
       }
   
@@ -104,6 +107,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     }
     return "";
   };
+  
   
 
   const generateStartTimes = () => {
