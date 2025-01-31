@@ -2,9 +2,11 @@ import { useState } from 'react';
 
 const ConfirmationModal = ({ show, onClose, onConfirm, bookingData }) => {
   const [isLoading, setIsLoading] = useState(false); // Estado para controlar el loading
+  const [isDisabled, setIsDisabled] = useState(false); // Estado para deshabilitar el botón después del envío
 
   const handleConfirm = async () => {
     setIsLoading(true); // Activamos el estado de carga
+    setIsDisabled(true); // Deshabilitamos el botón permanentemente
 
     // Simulamos un retraso para la confirmación (ej. llamada a una API)
     await new Promise((resolve) => setTimeout(resolve, 2000)); // 2 segundos de simulación
@@ -12,8 +14,9 @@ const ConfirmationModal = ({ show, onClose, onConfirm, bookingData }) => {
     // Después de que el proceso termine, ejecutamos la función onConfirm
     onConfirm();
 
-    // Desactivamos el estado de carga
+    // Mantener el botón deshabilitado y cerrar el modal
     setIsLoading(false);
+    onClose(); // Cerramos el modal solo después de confirmar
   };
 
   if (!show) return null;
@@ -47,7 +50,7 @@ const ConfirmationModal = ({ show, onClose, onConfirm, bookingData }) => {
             <button
               className="bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700 transition-all duration-300"
               onClick={handleConfirm} // Usamos handleConfirm para simular el envío
-              disabled={isLoading} // Deshabilita el botón durante el proceso de carga
+              disabled={isDisabled} // El botón se mantiene deshabilitado permanentemente
             >
               {isLoading ? 'Enviando...' : 'Confirmar'}
             </button>
