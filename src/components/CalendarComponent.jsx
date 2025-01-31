@@ -195,7 +195,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
 
       <div className="flex flex-col mt-4">
         <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">
-          Referencias
+          Disponibilidad
         </label>
 
         <div className="flex items-center mb-2">
