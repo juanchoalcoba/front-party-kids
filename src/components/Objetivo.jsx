@@ -6,7 +6,7 @@ const AboutUs = () => {
       <div className="flex flex-col justify-center items-center">
         <h2 className="text-4xl w-[48rem]  font-bold text-center ">
           El cumpleaños de tus sueños desde  {" "}
-          <span className="text-blue-50 bg-gradient-to-t from-purple-800 to-pink-800 rounded-full leading-[18rem] md:leading-[15rem] px-8 py-10 mt-8 lg:mt-0 text-5xl  border-4 border-white">$11.111</span>
+          <span className="text-blue-50 bg-gradient-to-t from-cyan-800 to-pink-500 rounded-full leading-[18rem] md:leading-[15rem] px-8 py-10 mt-8 lg:mt-0 text-5xl  border-4 border-white">$11.111</span>
         </h2>
         <p className="text-2xl w-96 mt-4 text-center text-blue-100">
           Nos ajustamos a tu presupuesto y a lo que imaginas para tu
