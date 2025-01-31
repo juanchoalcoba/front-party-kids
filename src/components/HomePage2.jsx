@@ -17,7 +17,7 @@ function HomePage2() {
           <div className="flex border-2 border-violet-600 p-4 rounded-xl flex-col justify-center items-center">
           <p><b>Teléfono: </b> +598 98 015 337</p>
           <p><b>Email: </b> kidspartypdlt@gmail.com</p>
-          <p><b>Dirección </b> Paso de los Toros - Tacuarembó</p>
+          <p><b>Dirección </b>18 de Julio 1340 | Paso de los Toros</p>
           </div>
         </div>
 
