@@ -11,6 +11,7 @@
  
  .booked-date {
    background-color: yellow !important; /* Color para fechas reservadas */
+   color: black !important;
    pointer-events: auto !important; /* Asegurarse de que se puedan seleccionar */
  }
 

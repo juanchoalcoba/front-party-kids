@@ -209,7 +209,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
         </div>
 
         <div className="flex items-center mb-2">
-          <div className="w-4 h-4 bg-cyan-600 rounded-sm mr-2"></div>
+          <div className="w-4 h-4 border border-black bg-white rounded-sm mr-2"></div>
           <span className="text-gray-700">Disponibilidad total</span>
         </div>
       </div>
