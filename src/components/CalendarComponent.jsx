@@ -199,6 +199,10 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
         </label>
 
         <div className="flex items-center mb-2">
+          <div className="w-4 h-4 border border-black bg-white rounded-sm mr-2"></div>
+          <span className="text-gray-700">Disponibilidad total</span>
+        </div>
+        <div className="flex items-center mb-2">
           <div className="w-4 h-4 bg-yellow-400 rounded-sm mr-2"></div>
           <span className="text-gray-700">Parcialmente ocupado</span>
         </div>
@@ -208,10 +212,6 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
           <span className="text-gray-700">Sin disponibilidad</span>
         </div>
 
-        <div className="flex items-center mb-2">
-          <div className="w-4 h-4 border border-black bg-white rounded-sm mr-2"></div>
-          <span className="text-gray-700">Disponibilidad total</span>
-        </div>
       </div>
 
       <div className="flex flex-col mt-4">
