@@ -95,11 +95,17 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
         // Verificar combinaciones específicas de dos reservas de 4 horas que dejan una tercera
         const validCombinations = [
           [8, 13],
-          [8, 14],
-          [8, 15],
-          [9, 14],
-          [9, 15],
-          [10, 15],
+        [8, 14],
+        [8, 15],
+        [9, 14],
+        [9, 15],
+        [10, 15],
+        [13, 18],
+        [13, 19],
+        [13, 20],
+        [14, 19],
+        [14, 20],
+        [15, 20],
         ];
   
         return validCombinations.some(
