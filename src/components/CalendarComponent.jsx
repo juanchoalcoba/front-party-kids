@@ -90,12 +90,12 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
   
       // Definir pares de horas de excepción
       const exceptionPairs = [
-        [8, 13],
-        [8, 14],
-        [8, 15],
-        [9, 14],
-        [9, 15],
-        [10, 15]
+        ["08:00", "13:00"],
+        ["08:00", "14:00"],
+        ["08:00", "15:00"],
+        ["09:00", "14:00"],
+        ["09:00", "15:00"],
+        ["10:00", "15:00"]
       ];
   
       // Obtener las horas de las reservas de 4 horas
