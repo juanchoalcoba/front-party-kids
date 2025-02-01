@@ -86,9 +86,39 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
         (booking) => booking.hours === "4"
       ).length;
   
-      // Si hay una reserva de 8 horas y una de 4 horas el mismo día, pintar de rojo
-      if ((has4HourBooking && has8HourBooking) || fourHourBookingsCount >= 3) {
+      // Función para verificar si hay combinaciones específicas de 2 reservas de 4 horas
+      const hasValid4HourCombination = () => {
+        const fourHourBookingHours = selectedDateBookings
+          .filter((booking) => booking.hours === "4")
+          .map((booking) => parseInt(booking.timeSlot.split(":")[0]));
+  
+        // Verificar combinaciones específicas de dos reservas de 4 horas que dejan una tercera
+        const validCombinations = [
+          [8, 13],
+          [8, 14],
+          [8, 15],
+          [9, 14],
+          [9, 15],
+          [10, 15],
+        ];
+  
+        return validCombinations.some(
+          (combination) =>
+            combination.every((hour) => fourHourBookingHours.includes(hour))
+        );
+      };
+  
+      // Si hay una reserva de 8 horas y una de 4 horas el mismo día, o hay más de 2 reservas de 4 horas, marcar como rojo
+      if (
+        (has4HourBooking && has8HourBooking) ||
+        fourHourBookingsCount >= 3
+      ) {
         return "unavailable-date"; // clase para marcar fecha como completamente ocupada (rojo)
+      }
+  
+      // Si hay exactamente dos reservas de 4 horas, pero son combinaciones válidas que permiten una tercera, no marcar como rojo
+      if (fourHourBookingsCount === 2 && !hasValid4HourCombination()) {
+        return "unavailable-date"; // clase para fechas completamente ocupadas (rojo)
       }
   
       // Lógica existente para pintar la fecha como reservada
@@ -107,6 +137,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     }
     return "";
   };
+  
   
   
 
