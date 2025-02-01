@@ -82,13 +82,42 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
       const has8HourBooking = selectedDateBookings.some(
         (booking) => booking.hours === "8"
       );
-      const fourHourBookingsCount = selectedDateBookings.filter(
+      const fourHourBookings = selectedDateBookings.filter(
         (booking) => booking.hours === "4"
-      ).length;
+      );
   
-      // Si hay una reserva de 8 horas y una de 4 horas el mismo día, pintar de rojo
-      if ((has4HourBooking && has8HourBooking) || fourHourBookingsCount >= 3) {
-        return "unavailable-date"; // clase para marcar fecha como completamente ocupada (rojo)
+      const fourHourBookingsCount = fourHourBookings.length;
+  
+      // Definir pares de horas de excepción
+      const exceptionPairs = [
+        [8, 13],
+        [8, 14],
+        [8, 15],
+        [9, 14],
+        [9, 15],
+        [10, 15]
+      ];
+  
+      // Obtener las horas de las reservas de 4 horas
+      const bookingHours = fourHourBookings.map((booking) => booking.time);
+  
+      // Chequear si las horas cumplen alguna de las excepciones
+      const isException = exceptionPairs.some(
+        (pair) =>
+          bookingHours.includes(pair[0]) && bookingHours.includes(pair[1])
+      );
+  
+      // Si hay una reserva de 8 horas o dos reservas de 4 horas que no cumplen la excepción, pintar de rojo
+      if (
+        (has4HourBooking && has8HourBooking) ||
+        (fourHourBookingsCount === 2 && !isException)
+      ) {
+        return "unavailable-date"; // rojo
+      }
+  
+      // Si se cumplen las excepciones y hay dos reservas de 4 horas, pintar de amarillo
+      if (fourHourBookingsCount === 2 && isException) {
+        return "partially-booked-date"; // amarillo
       }
   
       // Lógica existente para pintar la fecha como reservada
@@ -107,6 +136,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     }
     return "";
   };
+  
   
   
 
