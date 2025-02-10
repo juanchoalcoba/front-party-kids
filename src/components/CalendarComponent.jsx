@@ -111,39 +111,47 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
   
   const generateStartTimes = () => {
     const times = [];
+    const startTimesFor5Hours = ["10:00", "17:00"];
+    const startTimeFor14Hours = "08:00";
   
     const selectedDateBookings = bookedDates.filter(
       (booking) => booking.date.toDateString() === date.toDateString()
     );
   
-    const has5HourBooking1 = selectedDateBookings.some(
-      (booking) => booking.timeSlot === "10:00" && booking.hours === "5"
-    );
-    const has5HourBooking2 = selectedDateBookings.some(
-      (booking) => booking.timeSlot === "17:00" && booking.hours === "5"
-    );
-    const has14HourBooking = selectedDateBookings.some(
-      (booking) => booking.hours === "14"
-    );
+    const isTimeSlotAvailable = (time) => {
+      return !selectedDateBookings.some((booking) => {
+        const bookedTime = booking.timeSlot;
   
-    // Lógica para generar horarios disponibles
+        // Validación para reservas de 5 horas
+        if (booking.hours === "5") {
+          return bookedTime === time;
+        }
+        // Validación para reserva de 14 horas
+        else if (booking.hours === "14") {
+          return true; // Bloquea todas las horas en este caso
+        }
+        return false;
+      });
+    };
+  
+    // Lógica para generar horarios disponibles para 5 horas
     if (bookingData.hours === "5") {
-      // Verifica si las franjas horarias de 5 horas están disponibles
-      if (!has5HourBooking1) {
-        times.push("10:00");
-      }
-      if (!has5HourBooking2) {
-        times.push("17:00");
-      }
-    } else if (bookingData.hours === "14") {
-      // Deshabilita la opción de 14 horas si ya existe una reserva de 14 horas
-      if (!has14HourBooking && !has5HourBooking1 && !has5HourBooking2) {
-        times.push("08:00");
+      startTimesFor5Hours.forEach((time) => {
+        if (isTimeSlotAvailable(time)) {
+          times.push(time);
+        }
+      });
+    }
+    // Lógica para generar el único horario disponible para 14 horas
+    else if (bookingData.hours === "14") {
+      if (isTimeSlotAvailable(startTimeFor14Hours)) {
+        times.push(startTimeFor14Hours);
       }
     }
   
     return times;
   };
+  
   
 
   return (
