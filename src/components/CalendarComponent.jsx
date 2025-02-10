@@ -124,6 +124,10 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
   
         // Validación para reservas de 5 horas
         if (booking.hours === "5") {
+          // Deshabilita la opción de 14 horas si ya hay una reserva de 5 horas
+          if (booking.hours === "5" && booking.timeSlot !== startTimeFor14Hours) {
+            return true; // Bloquea la opción de 14 horas
+          }
           return bookedTime === time;
         }
         // Validación para reserva de 14 horas
@@ -151,6 +155,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
   
     return times;
   };
+  
   
   
 
