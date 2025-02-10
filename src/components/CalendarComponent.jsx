@@ -75,63 +75,32 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
       const selectedDateBookings = bookedDates.filter(
         (booking) => booking.date.toDateString() === date.toDateString()
       );
-
-      const has4HourBooking = selectedDateBookings.some(
-        (booking) => booking.hours === "4"
+  
+      const has5HourBooking1 = selectedDateBookings.some(
+        (booking) => booking.timeSlot === "10:00" && booking.hours === "5"
       );
-      const has8HourBooking = selectedDateBookings.some(
-        (booking) => booking.hours === "8"
+      const has5HourBooking2 = selectedDateBookings.some(
+        (booking) => booking.timeSlot === "17:00" && booking.hours === "5"
       );
-      const fourHourBookingsCount = selectedDateBookings.filter(
-        (booking) => booking.hours === "4"
-      ).length;
-
-      // Función para verificar si hay combinaciones específicas de 2 reservas de 4 horas
-      const hasValid4HourCombination = () => {
-        const fourHourBookingHours = selectedDateBookings
-          .filter((booking) => booking.hours === "4")
-          .map((booking) => parseInt(booking.timeSlot.split(":")[0]));
-
-        // Verificar combinaciones específicas de dos reservas de 4 horas que dejan una tercera
-        const validCombinations = [
-          [8, 13],
-          [8, 14],
-          [8, 15],
-          [9, 14],
-          [9, 15],
-          [10, 15],
-          [13, 18],
-          [13, 19],
-          [13, 20],
-          [14, 19],
-          [14, 20],
-          [15, 20],
-        ];
-
-        return validCombinations.some((combination) =>
-          combination.every((hour) => fourHourBookingHours.includes(hour))
-        );
-      };
-
-      // Si hay una reserva de 8 horas y una de 4 horas el mismo día, o hay más de 2 reservas de 4 horas, marcar como rojo
-      if ((has4HourBooking && has8HourBooking) || fourHourBookingsCount >= 3) {
+      const has14HourBooking = selectedDateBookings.some(
+        (booking) => booking.hours === "14"
+      );
+  
+      // Si hay una reserva de 14 horas, marcar todo el día como rojo
+      if (has14HourBooking) {
         return "unavailable-date"; // clase para marcar fecha como completamente ocupada (rojo)
       }
-
-      // Si hay exactamente dos reservas de 4 horas, pero son combinaciones válidas que permiten una tercera, no marcar como rojo
-      if (fourHourBookingsCount === 2 && !hasValid4HourCombination()) {
-        return "unavailable-date"; // clase para fechas completamente ocupadas (rojo)
+  
+      // Si hay dos reservas de 5 horas, marcar el día como completamente ocupado (rojo)
+      if (has5HourBooking1 && has5HourBooking2) {
+        return "unavailable-date"; // clase para marcar fecha como completamente ocupada (rojo)
       }
-
-      // Lógica existente para pintar la fecha como reservada
-      if (
-        bookedDates.some(
-          (booking) => booking.date.toDateString() === date.toDateString()
-        )
-      ) {
-        return "booked-date"; // clase para fechas reservadas
+  
+      // Si hay una sola reserva de 5 horas, marcar el día como parcialmente ocupado (amarillo)
+      if (has5HourBooking1 || has5HourBooking2) {
+        return "partially-booked-date"; // clase para marcar fecha parcialmente ocupada (amarillo)
       }
-
+  
       // Lógica existente para fechas pasadas
       if (date < today) {
         return "disabled-date"; // clase para fechas deshabilitadas
@@ -139,150 +108,114 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     }
     return "";
   };
-
+  
   const generateStartTimes = () => {
     const times = [];
-    let startHour = 8; // La primera hora disponible es 8:00
-    const maxStartHourFor4Hours = 20; // Última hora posible para una reserva de 4 horas (20:00)
-    const maxStartHourFor8Hours = 16; // Última hora posible para una reserva de 8 horas (16:00)
-
+  
     const selectedDateBookings = bookedDates.filter(
       (booking) => booking.date.toDateString() === date.toDateString()
     );
-
-    const isTimeSlotAvailable = (hour) => {
-      return !selectedDateBookings.some((booking) => {
-        const bookedHour = parseInt(booking.timeSlot.split(":")[0]);
-
-        // Validación para reservas de 4 horas
-        if (booking.hours === "4") {
-          return (
-            (hour >= bookedHour && hour < bookedHour + 4) ||
-            hour === bookedHour + 4 ||
-            (hour >= bookedHour - 4 && hour < bookedHour) // Bloquea las 4 horas anteriores
-          );
-        }
-        // Validación para reservas de 8 horas
-        else if (booking.hours === "8") {
-          return (
-            (hour >= bookedHour && hour < bookedHour + 8) ||
-            (hour >= bookedHour - 4 && hour < bookedHour) // Bloquea las 4 horas anteriores
-          );
-        }
-        return false;
-      });
-    };
-
-    // Verifica si existe alguna reserva de 4 horas en las horas críticas (16, 15, 14, 13 o 12)
-    const hasCritical4HourBooking = selectedDateBookings.some(
-      (booking) =>
-        booking.hours === "4" &&
-        [12, 13, 14, 15, 16].includes(parseInt(booking.timeSlot.split(":")[0]))
+  
+    const has5HourBooking1 = selectedDateBookings.some(
+      (booking) => booking.timeSlot === "10:00" && booking.hours === "5"
     );
-
-    // Verifica si ya existe una reserva de 8 horas en el mismo día
-    const has8HourBooking = selectedDateBookings.some(
-      (booking) => booking.hours === "8"
+    const has5HourBooking2 = selectedDateBookings.some(
+      (booking) => booking.timeSlot === "17:00" && booking.hours === "5"
     );
-
-    // Lógica para generar horarios disponibles para 4 horas
-    if (bookingData.hours === "4") {
-      while (startHour <= maxStartHourFor4Hours) {
-        if (isTimeSlotAvailable(startHour)) {
-          times.push(`${startHour}:00`);
-        }
-        startHour++;
+    const has14HourBooking = selectedDateBookings.some(
+      (booking) => booking.hours === "14"
+    );
+  
+    // Lógica para generar horarios disponibles
+    if (bookingData.hours === "5") {
+      // Verifica si las franjas horarias de 5 horas están disponibles
+      if (!has5HourBooking1) {
+        times.push("10:00");
+      }
+      if (!has5HourBooking2) {
+        times.push("17:00");
+      }
+    } else if (bookingData.hours === "14") {
+      // Deshabilita la opción de 14 horas si ya existe una reserva de 14 horas
+      if (!has14HourBooking && !has5HourBooking1 && !has5HourBooking2) {
+        times.push("08:00");
       }
     }
-    // Lógica para generar horarios disponibles para 8 horas
-    else if (bookingData.hours === "8") {
-      // Deshabilita la opción de 8 horas si ya existe una reserva de 8 horas
-      if (!has8HourBooking && !hasCritical4HourBooking) {
-        while (startHour <= maxStartHourFor8Hours) {
-          if (isTimeSlotAvailable(startHour)) {
-            times.push(`${startHour}:00`);
-          }
-          startHour++;
-        }
-      }
-    }
-
+  
     return times;
   };
+  
 
   return (
     <div>
-      <Calendar
-        onChange={handleDateChange}
-        value={date}
-        tileDisabled={disableDates}
-        tileClassName={tileClassName}
-      />
+  <Calendar
+    onChange={handleDateChange}
+    value={date}
+    tileDisabled={disableDates}
+    tileClassName={tileClassName}
+  />
 
-      <div className="flex flex-col mt-4">
-        <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">
-          Disponibilidad
-        </label>
+  <div className="flex flex-col mt-4">
+    <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">
+      Disponibilidad
+    </label>
 
-        <div className="flex items-center mb-2">
-          <div className="w-4 h-4 border border-black bg-white rounded-sm mr-2"></div>
-          <span className="text-gray-700">Disponibilidad total</span>
-        </div>
-        <div className="flex items-center mb-2">
-          <div className="w-4 h-4 bg-yellow-400 rounded-sm mr-2"></div>
-          <span className="text-gray-700">Parcialmente ocupado</span>
-        </div>
-
-        <div className="flex items-center mb-2">
-          <div className="w-4 h-4 bg-red-600 rounded-sm mr-2"></div>
-          <span className="text-gray-700">Sin disponibilidad</span>
-        </div>
-      </div>
-
-      <div className="flex flex-col mt-4">
-        <label htmlFor="hours" className="text-gray-700 font-semibold mb-2">
-          Duración de la Fiesta
-        </label>
-        <select
-          id="hours"
-          name="hours"
-          value={bookingData.hours}
-          onChange={handleChange}
-          className="border-2 border-gray-400 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-          required
-        >
-          <option value="">Selecciona la duración</option>
-          <option value="4">4 horas</option>
-          <option value="8">8 horas</option>
-        </select>
-      </div>
-
-      {bookingData.hours && (
-        <div className="flex flex-col">
-          <label
-            htmlFor="timeSlot"
-            className="text-gray-700 font-semibold mb-2"
-          >
-            Selecciona la hora de inicio
-          </label>
-          <select
-            id="timeSlot"
-            name="timeSlot"
-            value={bookingData.timeSlot}
-            onChange={handleChange}
-            className="border-2 border-gray-400 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-            required
-          >
-            <option value="">Selecciona una opción</option>
-            {generateStartTimes().map((time, index) => (
-              <option key={index} value={time}>
-                {time}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
+    <div className="flex items-center mb-2">
+      <div className="w-4 h-4 border border-black bg-white rounded-sm mr-2"></div>
+      <span className="text-gray-700">Disponibilidad total</span>
     </div>
+    <div className="flex items-center mb-2">
+      <div className="w-4 h-4 bg-yellow-400 rounded-sm mr-2"></div>
+      <span className="text-gray-700">Parcialmente ocupado</span>
+    </div>
+
+    <div className="flex items-center mb-2">
+      <div className="w-4 h-4 bg-red-600 rounded-sm mr-2"></div>
+      <span className="text-gray-700">Sin disponibilidad</span>
+    </div>
+  </div>
+
+  <div className="flex flex-col mt-4">
+    <label htmlFor="hours" className="text-gray-700 font-semibold mb-2">
+      Duración de la Reserva
+    </label>
+    <select
+      id="hours"
+      name="hours"
+      value={bookingData.hours}
+      onChange={handleChange}
+      className="border-2 border-gray-400 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+      required
+    >
+      <option value="">Selecciona la duración</option>
+      <option value="5">5 horas</option>
+      <option value="14">14 horas</option>
+    </select>
+  </div>
+
+  {bookingData.hours && (
+    <div className="flex flex-col">
+      <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">
+        Selecciona la hora de inicio
+      </label>
+      <select
+        id="timeSlot"
+        name="timeSlot"
+        value={bookingData.timeSlot}
+        onChange={handleChange}
+        className="border-2 border-gray-400 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+        required
+      >
+        <option value="">Selecciona una opción</option>
+        {generateStartTimes().map((time, index) => (
+          <option key={index} value={time}>
+            {time}
+          </option>
+        ))}
+      </select>
+    </div>
+  )}
+</div>
   );
 };
 

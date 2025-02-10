@@ -9,7 +9,7 @@
    pointer-events: none !important; /* Evitar que se seleccionen */
  }
  
- .booked-date {
+ .partially-booked-date {
    background-color: yellow !important; /* Color para fechas reservadas */
    color: black !important;
    pointer-events: auto !important; /* Asegurarse de que se puedan seleccionar */
