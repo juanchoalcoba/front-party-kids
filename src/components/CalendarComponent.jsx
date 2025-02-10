@@ -134,6 +134,11 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
       });
     };
   
+    // Nueva validación para bloquear reservas de 14 horas si ya hay una reserva de 5 horas
+    const isFiveHourBookingExist = selectedDateBookings.some(
+      (booking) => booking.hours === "5"
+    );
+  
     // Lógica para generar horarios disponibles para 5 horas
     if (bookingData.hours === "5") {
       startTimesFor5Hours.forEach((time) => {
@@ -143,7 +148,8 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
       });
     }
     // Lógica para generar el único horario disponible para 14 horas
-    else if (bookingData.hours === "14") {
+    else if (bookingData.hours === "14" && !isFiveHourBookingExist) {
+      // Solo permite 14 horas si no hay reservas de 5 horas
       if (isTimeSlotAvailable(startTimeFor14Hours)) {
         times.push(startTimeFor14Hours);
       }
@@ -151,6 +157,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
   
     return times;
   };
+  
   
   
 
