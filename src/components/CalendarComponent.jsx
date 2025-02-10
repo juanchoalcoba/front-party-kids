@@ -202,7 +202,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
   </div>
 
   {bookingData.hours && (
-    <div className="flex flex-col">
+    <div className="flex flex-col mt-4">
       <label htmlFor="timeSlot" className="text-gray-700 font-semibold mb-2">
         Selecciona la hora de inicio
       </label>
