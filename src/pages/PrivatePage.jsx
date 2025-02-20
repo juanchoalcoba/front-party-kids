@@ -1,4 +1,5 @@
 import { useState } from 'react';  
+
 const PrivatePage = () => {   
   const [password, setPassword] = useState('');   
   const [authenticated, setAuthenticated] = useState(false);   
@@ -115,11 +116,14 @@ const PrivatePage = () => {
     );   
   }    
 
-  // Mostrar reservas   
+  // Filtrar reservas pendientes y confirmadas
+  const pendingBookings = bookings.filter((booking) => !booking.confirmed);
+  const confirmedBookings = bookings.filter((booking) => booking.confirmed);
+
   return (     
     <div className="bg-gray-900 min-h-screen p-6">       
       <div className="max-w-6xl mx-auto bg-gray-800 shadow-xl rounded-lg p-8 border-4 border-violet-400">         
-        <h2 className="text-3xl font-bold text-center text-white mb-6">Reservas</h2>         
+        <h2 className="text-3xl font-bold text-center text-white mb-6">Reservas Pendientes</h2>         
         <div className="overflow-x-auto">           
           <table className="min-w-full table-auto bg-gray-800 text-white shadow-md rounded-lg text-sm">             
             <thead>               
@@ -134,7 +138,7 @@ const PrivatePage = () => {
               </tr>             
             </thead>             
             <tbody>               
-              {bookings.map((booking) => (                 
+              {pendingBookings.map((booking) => (                 
                 <tr key={booking._id} className="border-b border-gray-600 hover:bg-gray-700 transition duration-300 ease-in-out">                   
                   <td className="px-4 py-2 text-gray-200">{booking.name}</td>                   
                   <td className="px-4 py-2 text-gray-200">{booking.namekid}</td>                   
@@ -143,27 +147,57 @@ const PrivatePage = () => {
                   <td className="px-4 py-2 text-gray-300">{booking.hours} horas</td>                   
                   <td className="px-4 py-2 text-gray-300">{booking.timeSlot}</td>                   
                   <td className="flex flex-row justify-center items-center px-4 py-2">
-  <button
-    onClick={() => handleDelete(booking.name)}
-    className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300 min-w-[120px]"
-  >
-    Eliminar
-  </button>
-  <button
-    onClick={() => handleConfirm(booking.name)}
-    className={`ml-4 py-2 px-4 ${booking.confirmed ? 'bg-green-500' : 'bg-blue-600'} text-white rounded hover:bg-green-600 transition duration-300 min-w-[120px]`}
-  >
-    {booking.confirmed ? 'Confirmada' : 'Confirmar'}
-  </button>
-</td>
-            
+                    <button
+                      onClick={() => handleDelete(booking.name)}
+                      className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300 min-w-[120px]"
+                    >
+                      Eliminar
+                    </button>
+                    <button
+                      onClick={() => handleConfirm(booking.name)}
+                      className={`ml-4 py-2 px-4 ${booking.confirmed ? 'bg-green-500' : 'bg-blue-600'} text-white rounded hover:bg-green-600 transition duration-300 min-w-[120px]`}
+                    >
+                      {booking.confirmed ? 'Confirmada' : 'Confirmar'}
+                    </button>
+                  </td>
                 </tr>               
               ))}             
             </tbody>           
           </table>         
         </div>       
-      </div>     
-    </div>   
+      </div>
+
+    {/* Panel de Reservas Confirmadas */}
+<div className="max-w-6xl mx-auto bg-gray-800 shadow-xl rounded-lg p-8 mt-8 border-4 border-green-400">         
+  <h2 className="text-3xl font-bold text-center text-white mb-6">Reservas Confirmadas</h2>         
+  <div className="overflow-x-auto">           
+    <table className="min-w-full table-auto bg-gray-800 text-white shadow-md rounded-lg text-sm">             
+      <thead>               
+        <tr className="bg-gray-700 text-gray-300 text-left">                 
+          <th className="px-4 py-2 font-semibold">Nombre</th>                 
+          <th className="px-4 py-2 font-semibold">Nombre del Niño/Niña</th>                 
+          <th className="px-4 py-2 font-semibold">Fecha</th>                 
+          <th className="px-4 py-2 font-semibold">Teléfono</th>                 
+          <th className="px-4 py-2 font-semibold">Duracion</th>                 
+          <th className="px-4 py-2 font-semibold">Horario</th>               
+        </tr>             
+      </thead>             
+      <tbody>               
+        {confirmedBookings.map((booking) => (                 
+          <tr key={booking._id} className="border-b border-gray-600 hover:bg-gray-700 transition duration-300 ease-in-out">                   
+            <td className="px-4 py-2 text-gray-200">{booking.name}</td>                   
+            <td className="px-4 py-2 text-gray-200">{booking.namekid}</td>                   
+            <td className="px-4 py-2 text-gray-300">{new Date(booking.date).toLocaleDateString('en-CA')}</td>                   
+            <td className="px-4 py-2 text-gray-300">{booking.phone}</td>                   
+            <td className="px-4 py-2 text-gray-300">{booking.hours} horas</td>                   
+            <td className="px-4 py-2 text-gray-300">{booking.timeSlot}</td>                 
+          </tr>               
+        ))}             
+      </tbody>           
+    </table>         
+  </div>       
+</div>
+</div>   
   ); 
 };  
 
