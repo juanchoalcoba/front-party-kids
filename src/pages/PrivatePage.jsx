@@ -167,7 +167,7 @@ const PrivatePage = () => {
         </div>       
       </div>
 
-    {/* Panel de Reservas Confirmadas */}
+{/* Panel de Reservas Confirmadas */}
 <div className="max-w-6xl mx-auto bg-gray-800 shadow-xl rounded-lg p-8 mt-8 border-4 border-green-400">         
   <h2 className="text-3xl font-bold text-center text-white mb-6">Reservas Confirmadas</h2>         
   <div className="overflow-x-auto">           
@@ -178,8 +178,9 @@ const PrivatePage = () => {
           <th className="px-4 py-2 font-semibold">Nombre del Niño/Niña</th>                 
           <th className="px-4 py-2 font-semibold">Fecha</th>                 
           <th className="px-4 py-2 font-semibold">Teléfono</th>                 
-          <th className="px-4 py-2 font-semibold">Duracion</th>                 
-          <th className="px-4 py-2 font-semibold">Horario</th>               
+          <th className="px-4 py-2 font-semibold">Duración</th>                 
+          <th className="px-4 py-2 font-semibold">Horario</th>                 
+          <th className="px-4 py-2 font-semibold">Acción</th> {/* Nueva columna para el botón de eliminar */}
         </tr>             
       </thead>             
       <tbody>               
@@ -190,13 +191,22 @@ const PrivatePage = () => {
             <td className="px-4 py-2 text-gray-300">{new Date(booking.date).toLocaleDateString('en-CA')}</td>                   
             <td className="px-4 py-2 text-gray-300">{booking.phone}</td>                   
             <td className="px-4 py-2 text-gray-300">{booking.hours} horas</td>                   
-            <td className="px-4 py-2 text-gray-300">{booking.timeSlot}</td>                 
+            <td className="px-4 py-2 text-gray-300">{booking.timeSlot}</td>                   
+            <td className="px-4 py-2 text-center">                     
+              <button 
+                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300" 
+                onClick={() => handleDelete(booking.name)} // Función de eliminación
+              >
+                Eliminar
+              </button>
+            </td>                 
           </tr>               
         ))}             
       </tbody>           
     </table>         
   </div>       
-</div>
+</div>  
+
 </div>   
   ); 
 };  
