@@ -142,7 +142,7 @@ const BookingPage = () => {
 
         <div className="flex flex-col">
           <label htmlFor="email" className="text-gray-700 font-semibold mb-2">
-            Email (Opcional)
+            Email
           </label>
           <input
             type="email"
@@ -152,6 +152,7 @@ const BookingPage = () => {
             value={bookingData.email}
             onChange={handleChange}
             className="border-2 border-gray-400 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+            required
           />
         </div>
 
