@@ -122,7 +122,7 @@ const PrivatePage = () => {
 
   return (     
     <div className="bg-gray-900 min-h-screen p-6 w-full">       
-      <div className="max-w-6xl mx-auto bg-gray-800 shadow-xl w-full rounded-lg p-4 border-4 border-violet-400">         
+      <div className="max-w-7xl mx-auto bg-gray-800 shadow-xl w-full rounded-lg p-4 border-4 border-violet-400">         
         <h2 className="text-3xl font-bold text-center text-white mb-6">Reservas Pendientes</h2>         
         <div className="overflow-x-auto">           
           <table className="min-w-full table-auto bg-gray-800 text-white shadow-md rounded-lg text-sm">             
@@ -171,7 +171,7 @@ const PrivatePage = () => {
       </div>
 
 {/* Panel de Reservas Confirmadas */}
-<div className="max-w-6xl mx-auto bg-gray-800 shadow-xl rounded-lg p-8 mt-8 border-4 border-green-400">         
+<div className="max-w-7xl mx-auto bg-gray-800 shadow-xl rounded-lg p-8 mt-8 border-4 border-green-400">         
   <h2 className="text-3xl font-bold text-center text-white mb-6">Reservas Confirmadas</h2>         
   <div className="overflow-x-auto">           
     <table className="min-w-full table-auto bg-gray-800 text-white shadow-md rounded-lg text-sm">             
