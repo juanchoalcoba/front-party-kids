@@ -9,6 +9,7 @@ const BookingPage = () => {
   const [bookingData, setBookingData] = useState({
     name: "",
     namekid: "",
+    email: "",
     phone: "",
     date: new Date(),
   });
@@ -34,6 +35,7 @@ const BookingPage = () => {
     if (
       !bookingData.name ||
       !bookingData.namekid ||
+      !bookingData.email ||
       !bookingData.phone ||
       !bookingData.date ||
       !bookingData.hours ||
@@ -132,6 +134,22 @@ const BookingPage = () => {
             name="namekid"
             placeholder="Escribe el nombre del niño/a"
             value={bookingData.namekid}
+            onChange={handleChange}
+            className="border-2 border-gray-400 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
+            required
+          />
+        </div>
+
+        <div className="flex flex-col">
+          <label htmlFor="email" className="text-gray-700 font-semibold mb-2">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Escribe tu email"
+            value={bookingData.email}
             onChange={handleChange}
             className="border-2 border-gray-400 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
             required
