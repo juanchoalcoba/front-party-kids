@@ -180,6 +180,7 @@ const PrivatePage = () => {
           <th className="px-4 py-2 font-semibold">Nombre</th>                 
           <th className="px-4 py-2 font-semibold">Nombre del Niño/Niña</th>                 
           <th className="px-4 py-2 font-semibold">Fecha</th>                 
+          <th className="px-4 py-2 font-semibold">Email</th>                 
           <th className="px-4 py-2 font-semibold">Teléfono</th>                 
           <th className="px-4 py-2 font-semibold">Duración</th>                 
           <th className="px-4 py-2 font-semibold">Horario</th>                 
@@ -192,6 +193,8 @@ const PrivatePage = () => {
             <td className="px-4 py-2 text-gray-200">{booking.name}</td>                   
             <td className="px-4 py-2 text-gray-200">{booking.namekid}</td>                   
             <td className="px-4 py-2 text-gray-300">{new Date(booking.date).toLocaleDateString('en-CA')}</td>                   
+            <td className="px-4 py-2 text-gray-300">{booking.email}</td>                   
+
             <td className="px-4 py-2 text-gray-300">{booking.phone}</td>                   
             <td className="px-4 py-2 text-gray-300">{booking.hours} horas</td>                   
             <td className="px-4 py-2 text-gray-300">{booking.timeSlot}</td>                   
