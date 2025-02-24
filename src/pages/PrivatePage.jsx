@@ -121,8 +121,8 @@ const PrivatePage = () => {
   const confirmedBookings = bookings.filter((booking) => booking.confirmed);
 
   return (     
-    <div className="bg-gray-900 min-h-screen p-6 w-full">       
-      <div className="max-w-7xl mx-auto bg-gray-800 shadow-xl w-full rounded-lg p-4 border-4 border-violet-400">         
+    <div className="bg-gray-900 min-h-screen p-6">       
+      <div className="max-w-6xl mx-auto bg-gray-800 shadow-xl rounded-lg p-8 border-4 border-violet-400">         
         <h2 className="text-3xl font-bold text-center text-white mb-6">Reservas Pendientes</h2>         
         <div className="overflow-x-auto">           
           <table className="min-w-full table-auto bg-gray-800 text-white shadow-md rounded-lg text-sm">             
@@ -131,7 +131,6 @@ const PrivatePage = () => {
                 <th className="px-4 py-2 font-semibold">Nombre</th>                 
                 <th className="px-4 py-2 font-semibold">Nombre del Niño/Niña</th>                 
                 <th className="px-4 py-2 font-semibold">Fecha</th>                 
-                <th className="px-4 py-2 font-semibold">Email</th>                 
                 <th className="px-4 py-2 font-semibold">Teléfono</th>                 
                 <th className="px-4 py-2 font-semibold">Duracion</th>                 
                 <th className="px-4 py-2 font-semibold">Horario</th>                 
@@ -144,8 +143,6 @@ const PrivatePage = () => {
                   <td className="px-4 py-2 text-gray-200">{booking.name}</td>                   
                   <td className="px-4 py-2 text-gray-200">{booking.namekid}</td>                   
                   <td className="px-4 py-2 text-gray-300">{new Date(booking.date).toLocaleDateString('en-CA')}</td>                   
-                  <td className="px-4 py-2 text-gray-300">{booking.email}</td>                   
-
                   <td className="px-4 py-2 text-gray-300">{booking.phone}</td>                   
                   <td className="px-4 py-2 text-gray-300">{booking.hours} horas</td>                   
                   <td className="px-4 py-2 text-gray-300">{booking.timeSlot}</td>                   
@@ -171,7 +168,7 @@ const PrivatePage = () => {
       </div>
 
 {/* Panel de Reservas Confirmadas */}
-<div className="max-w-7xl mx-auto bg-gray-800 shadow-xl rounded-lg p-8 mt-8 border-4 border-green-400">         
+<div className="max-w-6xl mx-auto bg-gray-800 shadow-xl rounded-lg p-8 mt-8 border-4 border-green-400">         
   <h2 className="text-3xl font-bold text-center text-white mb-6">Reservas Confirmadas</h2>         
   <div className="overflow-x-auto">           
     <table className="min-w-full table-auto bg-gray-800 text-white shadow-md rounded-lg text-sm">             
@@ -180,7 +177,6 @@ const PrivatePage = () => {
           <th className="px-4 py-2 font-semibold">Nombre</th>                 
           <th className="px-4 py-2 font-semibold">Nombre del Niño/Niña</th>                 
           <th className="px-4 py-2 font-semibold">Fecha</th>                 
-          <th className="px-4 py-2 font-semibold">Email</th>                 
           <th className="px-4 py-2 font-semibold">Teléfono</th>                 
           <th className="px-4 py-2 font-semibold">Duración</th>                 
           <th className="px-4 py-2 font-semibold">Horario</th>                 
@@ -193,8 +189,6 @@ const PrivatePage = () => {
             <td className="px-4 py-2 text-gray-200">{booking.name}</td>                   
             <td className="px-4 py-2 text-gray-200">{booking.namekid}</td>                   
             <td className="px-4 py-2 text-gray-300">{new Date(booking.date).toLocaleDateString('en-CA')}</td>                   
-            <td className="px-4 py-2 text-gray-300">{booking.email}</td>                   
-
             <td className="px-4 py-2 text-gray-300">{booking.phone}</td>                   
             <td className="px-4 py-2 text-gray-300">{booking.hours} horas</td>                   
             <td className="px-4 py-2 text-gray-300">{booking.timeSlot}</td>                   
