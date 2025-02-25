@@ -116,6 +116,9 @@ const PrivatePage = () => {
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify({
+            viewed: true, // Enviar el estado 'viewed' al servidor
+          })
         }
       );
 
