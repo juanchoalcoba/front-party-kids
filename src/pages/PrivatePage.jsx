@@ -114,7 +114,7 @@ const PrivatePage = () => {
 
     try {
       const response = await fetch(
-        `https://api-party-kids.vercel.app/api/bookings/viewed`,
+        `https://api-party-kids.vercel.app/api/bookings`,
         {
           method: "PATCH",
           headers: {
