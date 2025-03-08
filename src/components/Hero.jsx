@@ -54,7 +54,7 @@ const Hero = () => {
                 className='relative z-10 h-dvh w-screen aspect-video overflow-hidden rounded-lg bg-black'
             >
                 <video
-                    src="videos/herovideo.mp4"
+                    src="videos/herohd.mp4"
                     ref={videoRef}
                     autoPlay
                     loop
