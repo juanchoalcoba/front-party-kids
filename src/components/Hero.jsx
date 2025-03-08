@@ -59,7 +59,7 @@ const Hero = () => {
                     autoPlay
                     loop
                     muted
-                    style={{ filter: 'blur(5px)' }}
+                    style={{ filter: 'blur(2px)' }}
                     className='absolute left-0 aspect-w-16 aspect-h-9 top-0 size-full  object-cover'
                     onLoadedData={handleVideoLoad}
                 />
