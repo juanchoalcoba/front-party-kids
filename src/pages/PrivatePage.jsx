@@ -306,7 +306,7 @@ const PrivatePage = () => {
                       <td className="flex justify-center items-center px-4 py-2">
                         <button
                           onClick={() => handleDelete(booking.name)}
-                          className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300 min-w-[120px]"
+                          className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300"
                         >
                           Eliminar
                         </button>
