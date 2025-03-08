@@ -208,7 +208,7 @@ const PrivatePage = () => {
           <div key={monthYear} className="mb-8">
             <h3 className="text-2xl text-center text-white mb-4">{monthYear}</h3>
             <div className="overflow-x-auto">
-              <table className="min-w-full table-auto bg-gray-800 text-white shadow-md rounded-lg text-xs md:text-">
+              <table className="min-w-full table-auto bg-gray-800 text-white shadow-md rounded-lg text-sm">
                 <thead>
                   <tr className="bg-gray-700 text-gray-300 text-left">
                     <th className="px-4 py-2 font-semibold">Nombre</th>
@@ -277,7 +277,7 @@ const PrivatePage = () => {
           <div key={monthYear} className="mb-8">
             <h3 className="text-2xl text-center text-white mb-4">{monthYear}</h3>
             <div className="overflow-x-auto">
-              <table className="min-w-full table-auto bg-gray-800 text-white shadow-md rounded-lg text-xs md:text-sm">
+              <table className="min-w-full table-auto bg-gray-800 text-white shadow-md rounded-lg text-sm">
                 <thead>
                   <tr className="bg-gray-700 text-gray-300 text-left">
                     <th className="px-4 py-2 font-semibold">Nombre</th>
