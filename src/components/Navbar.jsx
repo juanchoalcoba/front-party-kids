@@ -70,7 +70,7 @@ const Navbar = () => {
             <header className="absolute top-1/2 w-full -translate-y-1/2">
                 <nav className="flex size-full items-center justify-between p-4">
                     <div className="flex items-center gap-7">
-                        <img src="/logo.png" alt="" className="w-[70px] rounded-full" />
+                        <img src="/logonuevo.jpeg" alt="" className="w-[70px] rounded-full" />
                         <Link to="booking">
                         <Button
                             id="product-button"
