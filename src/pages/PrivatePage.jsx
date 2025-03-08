@@ -201,7 +201,7 @@ const PrivatePage = () => {
     <div className="bg-gray-900 min-h-screen p-6">
       {/* Reservas Pendientes */}
       <div className="max-w-6xl mx-auto bg-gray-800 shadow-xl rounded-lg p-8 border-4 border-violet-400">
-        <h2 className="text-md lg:text-3xl font-bold text-center text-white mb-6">
+        <h2 className="text-md md:text-3xl font-bold text-center text-white mb-6">
           Reservas Pendientes
         </h2>
         {Object.keys(groupedPendingBookings).map((monthYear) => (
@@ -270,7 +270,7 @@ const PrivatePage = () => {
 
       {/* Reservas Confirmadas */}
       <div className="max-w-6xl mx-auto bg-gray-800 shadow-xl rounded-lg p-8 mt-8 border-4 border-green-400">
-        <h2 className="text-md lg:text-3xl font-bold text-center text-white mb-6">
+        <h2 className="text-md md:text-3xl font-bold text-center text-white mb-6">
           Reservas Confirmadas
         </h2>
         {Object.keys(groupedConfirmedBookings).map((monthYear) => (
