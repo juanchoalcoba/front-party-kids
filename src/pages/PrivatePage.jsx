@@ -233,6 +233,7 @@ const PrivatePage = () => {
                           checked={booking.viewedByAdmin}
                           onChange={() => handleViewed(booking.name)}
                           disabled={booking.viewedByAdmin}
+                          className="w-4 h-4 text-black bg-white border-gray-300 focus:ring-black disabled:cursor-not-allowed"
                         />
                       </td>
                       <td className="px-4 py-2 text-gray-200 whitespace-nowrap">{booking.name}</td>
