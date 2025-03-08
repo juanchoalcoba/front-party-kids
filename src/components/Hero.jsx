@@ -54,11 +54,12 @@ const Hero = () => {
                 className='relative z-10 h-dvh w-screen aspect-video overflow-hidden rounded-lg bg-black'
             >
                 <video
-                    src="videos/hd.mp4"
+                    src="videos/hero-1.mp4"
                     ref={videoRef}
                     autoPlay
                     loop
                     muted
+                    style={{ filter: 'blur(5px)' }}
                     className='absolute left-0 aspect-w-16 aspect-h-9 top-0 size-full  object-cover'
                     onLoadedData={handleVideoLoad}
                 />
