@@ -211,14 +211,14 @@ const PrivatePage = () => {
               <table className="min-w-full table-auto bg-gray-800 text-white shadow-md rounded-lg text-sm">
                 <thead>
                   <tr className="bg-gray-700 text-gray-300 text-left">
-                    <th className="px-4 py-2 font-semibold">Nombre</th>
-                    <th className="px-4 py-2 font-semibold">Nombre del Niño/a</th>
-                    <th className="px-4 py-2 font-semibold">Fecha</th>
-                    <th className="px-4 py-2 font-semibold">Teléfono</th>
-                    <th className="px-4 py-2 font-semibold">Duración</th>
-                    <th className="px-4 py-2 font-semibold">Horario</th>
-                    <th className="px-4 py-2 font-semibold">Leer/Ver</th>
-                    <th className="px-4 py-2 font-semibold">Acciones</th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Nombre</th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Nombre del Niño/a</th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Fecha</th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Teléfono</th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Duración</th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Horario</th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Leer/Ver</th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -227,15 +227,15 @@ const PrivatePage = () => {
                       key={booking._id}
                       className="border-b border-gray-600 hover:bg-gray-700 transition duration-300 ease-in-out"
                     >
-                      <td className="px-4 py-2 text-gray-200">{booking.name}</td>
-                      <td className="px-4 py-2 text-gray-200">{booking.namekid}</td>
-                      <td className="px-4 py-2 text-gray-300">
+                      <td className="px-4 py-2 text-gray-200 whitespace-nowrap">{booking.name}</td>
+                      <td className="px-4 py-2 text-gray-200 whitespace-nowrap">{booking.namekid}</td>
+                      <td className="px-4 py-2 text-gray-300 whitespace-nowrap">
                         {new Date(booking.date).toLocaleDateString("en-CA")}
                       </td>
-                      <td className="px-4 py-2 text-gray-300">{booking.phone}</td>
-                      <td className="px-4 py-2 text-gray-300">{booking.hours} horas</td>
-                      <td className="px-4 py-2 text-gray-300">{booking.timeSlot}</td>
-                      <td className="px-4 py-2 text-gray-300">
+                      <td className="px-4 py-2 text-gray-300 whitespace-nowrap">{booking.phone}</td>
+                      <td className="px-4 py-2 text-gray-300 whitespace-nowrap">{booking.hours} horas</td>
+                      <td className="px-4 py-2 text-gray-300 whitespace-nowrap">{booking.timeSlot}</td>
+                      <td className="px-4 py-2 text-gray-300 whitespace-nowrap">
                         <input
                           type="checkbox"
                           checked={booking.viewedByAdmin}
@@ -280,13 +280,13 @@ const PrivatePage = () => {
               <table className="min-w-full table-auto bg-gray-800 text-white shadow-md rounded-lg text-sm">
                 <thead>
                   <tr className="bg-gray-700 text-gray-300 text-left">
-                    <th className="px-4 py-2 font-semibold">Nombre</th>
-                    <th className="px-4 py-2 font-semibold">Nombre del Niño/a</th>
-                    <th className="px-4 py-2 font-semibold">Fecha</th>
-                    <th className="px-4 py-2 font-semibold">Teléfono</th>
-                    <th className="px-4 py-2 font-semibold">Duración</th>
-                    <th className="px-4 py-2 font-semibold">Horario</th>
-                    <th className="px-4 py-2 font-semibold">Acción</th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Nombre</th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Nombre del Niño/a</th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Fecha</th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Teléfono</th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Duración</th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Horario</th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Acción</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -295,14 +295,14 @@ const PrivatePage = () => {
                       key={booking._id}
                       className="border-b border-gray-600 hover:bg-gray-700 transition duration-300 ease-in-out"
                     >
-                      <td className="px-4 py-2 text-gray-200">{booking.name}</td>
-                      <td className="px-4 py-2 text-gray-200">{booking.namekid}</td>
-                      <td className="px-4 py-2 text-gray-300">
+                      <td className="px-4 py-2 text-gray-200 whitespace-nowrap">{booking.name}</td>
+                      <td className="px-4 py-2 text-gray-200 whitespace-nowrap">{booking.namekid}</td>
+                      <td className="px-4 py-2 text-gray-300 whitespace-nowrap">
                         {new Date(booking.date).toLocaleDateString("en-CA")}
                       </td>
-                      <td className="px-4 py-2 text-gray-300">{booking.phone}</td>
-                      <td className="px-4 py-2 text-gray-300">{booking.hours} horas</td>
-                      <td className="px-4 py-2 text-gray-300">{booking.timeSlot}</td>
+                      <td className="px-4 py-2 text-gray-300 whitespace-nowrap">{booking.phone}</td>
+                      <td className="px-4 py-2 text-gray-300 whitespace-nowrap">{booking.hours} horas</td>
+                      <td className="px-4 py-2 text-gray-300 whitespace-nowrap">{booking.timeSlot}</td>
                       <td className="flex justify-center items-center px-4 py-2">
                         <button
                           onClick={() => handleDelete(booking.name)}
