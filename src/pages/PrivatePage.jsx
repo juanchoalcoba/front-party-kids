@@ -227,7 +227,7 @@ const PrivatePage = () => {
                       key={booking._id}
                       className="border-b border-gray-600 hover:bg-gray-700 transition duration-300 ease-in-out"
                     >
-                      <td className="px-4 py-2 text-gray-300 whitespace-nowrap">
+                      <td className="px-4 py-2  whitespace-nowrap">
                         <input
                           type="checkbox"
                           checked={booking.viewedByAdmin}
