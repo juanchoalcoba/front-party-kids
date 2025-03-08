@@ -307,6 +307,14 @@ const PrivatePage = () => {
                         <td className="px-4 py-2 text-gray-300">
                           {booking.timeSlot}
                         </td>
+                        <td className="px-4 py-2 text-center">
+                    <button
+                      className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300"
+                      onClick={() => handleDelete(booking.name)} // Función de eliminación
+                    >
+                      Eliminar
+                    </button>
+                  </td>
                       </tr>
                     ))}
                   </tbody>
