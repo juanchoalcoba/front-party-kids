@@ -285,6 +285,7 @@ const PrivatePage = () => {
                       <th className="px-4 py-2 font-semibold">Teléfono</th>
                       <th className="px-4 py-2 font-semibold">Duracion</th>
                       <th className="px-4 py-2 font-semibold">Horario</th>
+                      <th className="px-4 py-2 font-semibold">Accion</th>
                     </tr>
                   </thead>
                   <tbody>
