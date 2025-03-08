@@ -206,7 +206,7 @@ const PrivatePage = () => {
         </h2>
         {Object.keys(groupedPendingBookings).map((monthYear) => (
           <div key={monthYear} className="mb-8">
-            <h3 className="text-2xl text-center text-white mb-4">{monthYear}</h3>
+            <h3 className="text-xl text-center text-white mb-4">{monthYear}</h3>
             <div className="overflow-x-auto">
               <table className="min-w-full table-auto bg-gray-800 text-white shadow-md rounded-lg text-sm">
                 <thead>
@@ -275,7 +275,7 @@ const PrivatePage = () => {
         </h2>
         {Object.keys(groupedConfirmedBookings).map((monthYear) => (
           <div key={monthYear} className="mb-8">
-            <h3 className="text-2xl text-center text-white mb-4">{monthYear}</h3>
+            <h3 className="text-xl text-center text-white mb-4">{monthYear}</h3>
             <div className="overflow-x-auto">
               <table className="min-w-full table-auto bg-gray-800 text-white shadow-md rounded-lg text-sm">
                 <thead>
