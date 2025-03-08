@@ -195,6 +195,7 @@ const PrivatePage = () => {
       {/* Panel de Reservas Pendientes */}
       {Object.keys(groupedPendingBookings).map((month) => (
         <div key={month} className="mb-8">
+          <h2 className="text-center">Reservas Pendientes</h2>
           <h3 className="text-2xl font-bold text-white mb-4">
             {month}
           </h3>
@@ -258,6 +259,8 @@ const PrivatePage = () => {
       {/* Panel de Reservas Confirmadas */}
       {Object.keys(groupedConfirmedBookings).map((month) => (
         <div key={month} className="mt-8">
+          <h2 className="text-center">Reservas Pendientes</h2>
+
           <h3 className="text-2xl font-bold text-white mb-4">
             {month}
           </h3>
