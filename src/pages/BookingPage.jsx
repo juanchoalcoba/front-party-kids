@@ -2,7 +2,7 @@ import { useState } from "react";
 import CalendarComponent from "../components/CalendarComponent";
 import Modal from "../components/Modal";
 import ConfirmationModal from "../components/ConfirmationModal";
-import bookingImage from "../assets/calendar.webp"; // Asegúrate de que la ruta sea correcta
+import bookingImage from "../assets/salon.jpg"; // Asegúrate de que la ruta sea correcta
 import { Link } from "react-router-dom";
 
 const BookingPage = () => {
