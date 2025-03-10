@@ -88,6 +88,7 @@ const BookingPage = () => {
   };
 
   return (
+    <>
     <div className="p-8 flex flex-col justify-center items-center  w-full min-h-screen font-robert-medium">
       <div
         className="absolute top-0 left-0 w-full h-[175vh] bg-no-repeat bg-center opacity-60 bg-cover z-[-1]"
@@ -195,11 +196,13 @@ const BookingPage = () => {
 
       <Modal show={showModal} onClose={closeModal} message={modalMessage} />
 
-      {/* Copyright */}
-      <div className="text-center text-xs mt-4 text-gray-400">
-        © {new Date().getFullYear()} Kids Party. Todos los derechos reservados.
-      </div>
+     
     </div>
+   
+     <div className="text-center text-xs mt-4 text-gray-400">
+     © {new Date().getFullYear()} Kids Party. Todos los derechos reservados.
+   </div>
+   </>
   );
 };
 
