@@ -194,6 +194,11 @@ const BookingPage = () => {
       />
 
       <Modal show={showModal} onClose={closeModal} message={modalMessage} />
+
+      {/* Copyright */}
+      <div className="text-center text-xs mt-4 text-gray-400">
+        © {new Date().getFullYear()} Kids Party. Todos los derechos reservados.
+      </div>
     </div>
   );
 };
