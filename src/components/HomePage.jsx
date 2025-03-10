@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import heroImage from '../assets/hero.jpg'; // Asegúrate de que la ruta sea correcta
+import heroImage from '../assets/futbolito.jpg'; // Asegúrate de que la ruta sea correcta
 import Button from '../components/Button';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
