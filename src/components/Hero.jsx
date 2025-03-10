@@ -54,12 +54,12 @@ const Hero = () => {
                 className='relative z-10 h-dvh w-screen aspect-video overflow-hidden rounded-lg bg-black'
             >
                 <video
-                    src="videos/videohd.mp4"
+                    src="videos/hero-1.mp4"
                     ref={videoRef}
                     autoPlay
                     loop
                     muted
-                    style={{ filter: 'blur(2px)' }}
+                    style={{ filter: 'blur(5px)' }}
                     className='absolute left-0 aspect-w-16 aspect-h-9 top-0 size-full  object-cover'
                     onLoadedData={handleVideoLoad}
                 />
@@ -75,7 +75,7 @@ const Hero = () => {
         backgroundImage: 'linear-gradient(to right, #FFCCE5, #FF8CFF, #A7D8FF, #FFEC6D)', // Colores más claros
         WebkitBackgroundClip: 'text',
         color: 'transparent',
-        WebkitTextStroke: '1px black',
+        WebkitTextStroke: '1.4px black',
         textShadow: '1px 1px 2px rgba(0, 0, 0, 0.02)', // Sombra aún más ligera
     }}
 >
@@ -89,7 +89,7 @@ const Hero = () => {
         backgroundImage: 'linear-gradient(to right, #FAE78C, #FF66A6, #FF8F5A, #60E36D)', // Colores más claros
         WebkitBackgroundClip: 'text',
         color: 'transparent',
-        WebkitTextStroke: '1px black', // Borde negro
+        WebkitTextStroke: '1.4px black', // Borde negro
         textShadow: '1px 1px 2px rgba(0, 0, 0, 0.02)', // Sombra aún más ligera
     }}
 >
