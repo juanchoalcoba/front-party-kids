@@ -2,7 +2,7 @@ import { useState } from "react";
 import CalendarComponent from "../components/CalendarComponent";
 import Modal from "../components/Modal";
 import ConfirmationModal from "../components/ConfirmationModal";
-import bookingImage from "../assets/salon.jpg"; // Asegúrate de que la ruta sea correcta
+import bookingImage from "../assets/calendar.webp"; // Asegúrate de que la ruta sea correcta
 import { Link } from "react-router-dom";
 
 const BookingPage = () => {
@@ -90,7 +90,7 @@ const BookingPage = () => {
   return (
     <div className="p-8 flex flex-col justify-center items-center  w-full min-h-screen font-robert-medium">
       <div
-        className="absolute top-0 left-0 w-full h-[175vh] bg-no-repeat aspect-auto  bg-center opacity-60 bg-cover z-[-1]"
+        className="absolute top-0 left-0 w-full h-[175vh] bg-no-repeat blur-md bg-center opacity-60 bg-cover z-[-1]"
         style={{ backgroundImage: `url(${bookingImage})` }}
       ></div>
 
