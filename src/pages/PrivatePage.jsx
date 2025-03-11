@@ -269,56 +269,58 @@ const PrivatePage = () => {
       </div>
 
       {/* Reservas Confirmadas */}
-      <div className="max-w-6xl mx-auto bg-gray-800 shadow-xl rounded-lg p-8 mt-8 border-4 border-green-400">
-        <h2 className="text-lg md:text-3xl font-bold text-center text-white mb-6">
-          Reservas Confirmadas
-        </h2>
-        {Object.keys(groupedConfirmedBookings).map((monthYear) => (
-          <div key={monthYear} className="mb-8">
-            <h3 className="text-xl text-center text-white mb-4">{monthYear}</h3>
-            <div className="overflow-x-auto">
-              <table className="min-w-full table-auto bg-gray-800 text-white shadow-md rounded-lg text-sm">
-                <thead>
-                  <tr className="bg-gray-700 text-gray-300 text-left">
-                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Nombre</th>
-                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Nombre del Niño/a</th>
-                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Fecha</th>
-                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Teléfono</th>
-                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Duración</th>
-                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Horario</th>
-                    <th className="px-4 py-2 font-semibold whitespace-nowrap">Acción</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {groupedConfirmedBookings[monthYear].map((booking) => (
-                    <tr
-                      key={booking._id}
-                      className="border-b border-gray-600 hover:bg-gray-700 transition duration-300 ease-in-out"
-                    >
-                      <td className="px-4 py-2 text-gray-200 whitespace-nowrap">{booking.name}</td>
-                      <td className="px-4 py-2 text-gray-200 whitespace-nowrap">{booking.namekid}</td>
-                      <td className="px-4 py-2 text-gray-300 whitespace-nowrap">
-                        {new Date(booking.date).toLocaleDateString("en-CA")}
-                      </td>
-                      <td className="px-4 py-2 text-gray-300 whitespace-nowrap">{booking.phone}</td>
-                      <td className="px-4 py-2 text-gray-300 whitespace-nowrap">{booking.hours} horas</td>
-                      <td className="px-4 py-2 text-gray-300 whitespace-nowrap">{booking.timeSlot}</td>
-                      <td className="flex justify-center items-center px-4 py-2">
-                        <button
-                          onClick={() => handleDelete(booking.name)}
-                          className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300"
-                        >
-                          Eliminar
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        ))}
+<div className="max-w-6xl mx-auto bg-gray-800 shadow-xl rounded-lg p-8 mt-8 border-4 border-green-400">
+  <h2 className="text-lg md:text-3xl font-bold text-center text-white mb-6">
+    Reservas Confirmadas
+  </h2>
+  {Object.keys(groupedConfirmedBookings).map((monthYear) => (
+    <details key={monthYear} className="mb-8">
+      <summary className="cursor-pointer text-xl text-center text-white mb-4">
+        {monthYear}
+      </summary>
+      <div className="overflow-x-auto">
+        <table className="min-w-full table-auto bg-gray-800 text-white shadow-md rounded-lg text-sm">
+          <thead>
+            <tr className="bg-gray-700 text-gray-300 text-left">
+              <th className="px-4 py-2 font-semibold whitespace-nowrap">Nombre</th>
+              <th className="px-4 py-2 font-semibold whitespace-nowrap">Nombre del Niño/a</th>
+              <th className="px-4 py-2 font-semibold whitespace-nowrap">Fecha</th>
+              <th className="px-4 py-2 font-semibold whitespace-nowrap">Teléfono</th>
+              <th className="px-4 py-2 font-semibold whitespace-nowrap">Duración</th>
+              <th className="px-4 py-2 font-semibold whitespace-nowrap">Horario</th>
+              <th className="px-4 py-2 font-semibold whitespace-nowrap">Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            {groupedConfirmedBookings[monthYear].map((booking) => (
+              <tr
+                key={booking._id}
+                className="border-b border-gray-600 hover:bg-gray-700 transition duration-300 ease-in-out"
+              >
+                <td className="px-4 py-2 text-gray-200 whitespace-nowrap">{booking.name}</td>
+                <td className="px-4 py-2 text-gray-200 whitespace-nowrap">{booking.namekid}</td>
+                <td className="px-4 py-2 text-gray-300 whitespace-nowrap">
+                  {new Date(booking.date).toLocaleDateString("en-CA")}
+                </td>
+                <td className="px-4 py-2 text-gray-300 whitespace-nowrap">{booking.phone}</td>
+                <td className="px-4 py-2 text-gray-300 whitespace-nowrap">{booking.hours} horas</td>
+                <td className="px-4 py-2 text-gray-300 whitespace-nowrap">{booking.timeSlot}</td>
+                <td className="flex justify-center items-center px-4 py-2">
+                  <button
+                    onClick={() => handleDelete(booking.name)}
+                    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
+    </details>
+  ))}
+</div>
     </div>
   );
 };
