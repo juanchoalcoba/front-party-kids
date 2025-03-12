@@ -147,36 +147,35 @@ const PrivatePage = () => {
   };
 
    // Archivar reserva
-   const handleArchive = async (name) => {
-    const confirmArchive = window.confirm(
+  const handleArchive = async (name) => {
+    const confirm = window.confirm(
       "¿Estás seguro de que quieres archivar esta reserva?"
     );
-    if (!confirmArchive) return;
+    if (!confirm) return;
 
     try {
       const response = await fetch(
-        `https://api-party-kids.vercel.app/api/bookings`,
+        `https://api-party-kids.vercel.app/api/bookings?name=${name}`,
         {
-          method: "PATCH",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name }), // Marcar como archivada
         }
       );
 
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.message || "Error archivando la reserva");
+        throw new Error(data.message || "Error confirmando la reserva");
       }
 
-      // Si la reserva se archiva correctamente, actualizamos el estado
+      // Si la confirmación es exitosa, actualizar el estado
       setBookings((prevBookings) =>
         prevBookings.map((booking) =>
           booking.name === name ? { ...booking, archived: true } : booking
         )
       );
-      alert("Reserva archivada con éxito");
+      alert("Reserva confirmada con éxito");
     } catch (error) {
       console.error("Error archivando la reserva:", error);
       alert("Hubo un error al intentar archivar la reserva");
