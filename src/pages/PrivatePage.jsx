@@ -203,7 +203,7 @@ const PrivatePage = () => {
   // Filtrar reservas pendientes y confirmadas
   const pendingBookings = bookings.filter((booking) => !booking.confirmed);
   const confirmedBookings = bookings.filter((booking) => booking.confirmed);
-  const archivedBookings = bookings.filter((booking) => booking.archived);
+  const archivedBookings = bookings.filter((booking) => booking.confirmed);
 
   // Agrupar reservas pendientes y confirmadas por mes
   const groupedPendingBookings = groupBookingsByMonth(pendingBookings);
