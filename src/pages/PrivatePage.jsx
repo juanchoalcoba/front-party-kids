@@ -161,7 +161,7 @@ const PrivatePage = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ archived: true }), // Marcar como archivada
+          body: JSON.stringify({ name }), // Marcar como archivada
         }
       );
 
