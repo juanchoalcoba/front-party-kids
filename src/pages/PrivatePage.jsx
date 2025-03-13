@@ -106,7 +106,7 @@ const PrivatePage = () => {
     }
   };
 
-  const handleViewed = async (date) => {
+  const handleViewed = async (name) => {
     const viewed = window.confirm(
       "¿Estás seguro de que quieres marcar esta reserva como leída?"
     );
@@ -114,12 +114,13 @@ const PrivatePage = () => {
 
     try {
       const response = await fetch(
-        `https://api-party-kids.vercel.app/api/bookings/${date}`,
+        `https://api-party-kids.vercel.app/api/bookings`,
         {
-          method: "PUT",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify({ name }), // Enviamos el 'name' en el cuerpo de la solicitud
         }
       );
 
@@ -133,7 +134,7 @@ const PrivatePage = () => {
       // Si la confirmación es exitosa, actualizamos el estado
       setBookings((prevBookings) =>
         prevBookings.map((booking) =>
-          booking.date === date ? { ...booking, viewedByAdmin: true } : booking
+          booking.name === name ? { ...booking, viewedByAdmin: true } : booking
         )
       );
       alert("Reserva marcada como leída con éxito");
