@@ -106,7 +106,7 @@ const PrivatePage = () => {
     }
   };
 
-  const handleViewed = async (name) => {
+  const handleViewed = async (namekid) => {
     const viewed = window.confirm(
       "¿Estás seguro de que quieres marcar esta reserva como leída?"
     );
@@ -120,7 +120,7 @@ const PrivatePage = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name }), // Enviamos el 'name' en el cuerpo de la solicitud
+          body: JSON.stringify({ namekid }), // Enviamos el 'name' en el cuerpo de la solicitud
         }
       );
 
@@ -134,7 +134,7 @@ const PrivatePage = () => {
       // Si la confirmación es exitosa, actualizamos el estado
       setBookings((prevBookings) =>
         prevBookings.map((booking) =>
-          booking.name === name ? { ...booking, viewedByAdmin: true } : booking
+          booking.namekid === namekid ? { ...booking, viewedByAdmin: true } : booking
         )
       );
       alert("Reserva marcada como leída con éxito");
@@ -247,7 +247,7 @@ const PrivatePage = () => {
                         <input
                           type="checkbox"
                           checked={booking.viewedByAdmin}
-                          onChange={() => handleViewed(booking.name)}
+                          onChange={() => handleViewed(booking.namekid)}
                           disabled={booking.viewedByAdmin}
                         />
                       </td>
