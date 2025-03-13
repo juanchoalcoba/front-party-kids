@@ -156,7 +156,7 @@ const PrivatePage = () => {
       const response = await fetch(
         `https://api-party-kids.vercel.app/api/bookings?name=${name}`,
         {
-          method: "PATCH",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
