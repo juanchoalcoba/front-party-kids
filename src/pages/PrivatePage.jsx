@@ -106,12 +106,12 @@ const PrivatePage = () => {
     }
   };
 
-  const handleViewed = async (date) => {
+  const handleViewed = async (name) => {
     const viewed = window.confirm(
       "¿Estás seguro de que quieres marcar esta reserva como leída?"
     );
     if (!viewed) return;
-  
+
     try {
       const response = await fetch(
         `https://api-party-kids.vercel.app/api/bookings`,
@@ -120,21 +120,21 @@ const PrivatePage = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ date }), // Ahora enviamos 'date' en lugar de 'name'
+          body: JSON.stringify({ name }), // Enviamos el 'name' en el cuerpo de la solicitud
         }
       );
-  
+
       if (!response.ok) {
         const data = await response.json();
         throw new Error(
           data.message || "Error al marcar la reserva como leída"
         );
       }
-  
+
       // Si la confirmación es exitosa, actualizamos el estado
       setBookings((prevBookings) =>
         prevBookings.map((booking) =>
-          booking.date === date ? { ...booking, viewedByAdmin: true } : booking
+          booking.name === name ? { ...booking, viewedByAdmin: true } : booking
         )
       );
       alert("Reserva marcada como leída con éxito");
@@ -143,7 +143,6 @@ const PrivatePage = () => {
       alert("Hubo un error al intentar marcar la reserva como leída");
     }
   };
-  
 
   // Función para agrupar reservas por mes
   const groupBookingsByMonth = (bookings) => {
