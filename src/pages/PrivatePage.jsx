@@ -114,13 +114,12 @@ const PrivatePage = () => {
   
     try {
       const response = await fetch(
-        `https://api-party-kids.vercel.app/api/bookings`,  // Ruta de la API
+        `https://api-party-kids.vercel.app/api/bookings/${_id}`,  // Ruta de la API
         {
-          method: "PATCH",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ _id }),  // Enviamos el _id en el cuerpo de la solicitud
         }
       );
   
