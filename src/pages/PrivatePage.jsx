@@ -106,7 +106,7 @@ const PrivatePage = () => {
     }
   };
 
-  const handleViewed = async (name) => {
+  const handleViewed = async (id) => {
     const viewed = window.confirm(
       "¿Estás seguro de que quieres marcar esta reserva como leída?"
     );
@@ -114,13 +114,13 @@ const PrivatePage = () => {
 
     try {
       const response = await fetch(
-        `https://api-party-kids.vercel.app/api/bookings`,
+        `https://api-party-kids.vercel.app/api/bookings/${id}`,
         {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name }), // Enviamos el 'name' en el cuerpo de la solicitud
+          body: JSON.stringify({ id }), // Enviamos el 'name' en el cuerpo de la solicitud
         }
       );
 
