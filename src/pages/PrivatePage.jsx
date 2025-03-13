@@ -85,6 +85,7 @@ const PrivatePage = () => {
           headers: {
             "Content-Type": "application/json",
           },
+          
         }
       );
 
@@ -159,7 +160,7 @@ const PrivatePage = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name }), // Enviamos el 'name' en el cuerpo de la solicitud
+          body: JSON.stringify({ name, archived: true, confirmed: false }),
         }
       );
 
