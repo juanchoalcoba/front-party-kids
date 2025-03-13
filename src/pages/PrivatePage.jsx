@@ -134,7 +134,7 @@ const PrivatePage = () => {
       // Si la confirmación es exitosa, actualizamos el estado
       setBookings((prevBookings) =>
         prevBookings.map((booking) =>
-          booking.name === name ? { ...booking, viewedByAdmin: true } : booking
+          booking.date === date ? { ...booking, viewedByAdmin: true } : booking
         )
       );
       alert("Reserva marcada como leída con éxito");
