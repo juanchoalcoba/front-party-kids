@@ -409,7 +409,7 @@ const PrivatePage = () => {
                         </button>
                         <button
                           onClick={() => handleArchived(booking._id)}
-                          className="bg-red-500 text-white px-4 py-2 ml-4 rounded-lg hover:bg-red-600 transition duration-300"
+                          className="bg-yellow-600 text-white px-4 py-2 ml-4 rounded-lg hover:bg-red-600 transition duration-300"
                         >
                           Archivar
                         </button>
@@ -425,7 +425,7 @@ const PrivatePage = () => {
 
 
 
-      <div className="max-w-6xl mx-auto bg-gray-800 shadow-xl rounded-lg p-8 mt-8 border-4 border-yellow-50000">
+      <div className="max-w-6xl mx-auto bg-gray-800 shadow-xl rounded-lg p-8 mt-8 border-4 border-yellow-600">
         <h2 className="text-lg md:text-3xl font-bold text-center text-white mb-6">
           Reservas Archivadas
         </h2>
