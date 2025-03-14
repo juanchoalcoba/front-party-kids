@@ -140,6 +140,43 @@ const PrivatePage = () => {
       alert("Hubo un error al intentar marcar la reserva como leída");
     }
   };
+
+  const handleArchived = async (id) => {
+    const viewed = window.confirm(
+      "¿Estás seguro de que quieres marcar esta reserva como leída?"
+    );
+    if (!viewed) return;
+  
+    try {
+      const response = await fetch(
+        `https://api-party-kids.vercel.app/api/bookings/${id}`, // Ahora enviamos el _id en la URL
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || "Error al marcar la reserva como leída");
+      }
+  
+      // Si la confirmación es exitosa, actualizamos el estado
+      setBookings((prevBookings) =>
+        prevBookings.map((booking) =>
+          booking._id === id ? { ...booking, archived: true, confirmed: false } : booking
+        )
+      );
+      alert("Reserva marcada como leída con éxito");
+    } catch (error) {
+      console.error("Error marcando la reserva como leída:", error);
+      alert("Hubo un error al intentar marcar la reserva como leída");
+    }
+  };
+
+
   
 
   // Función para agrupar reservas por mes
@@ -161,10 +198,12 @@ const PrivatePage = () => {
   // Filtrar reservas pendientes y confirmadas
   const pendingBookings = bookings.filter((booking) => !booking.confirmed);
   const confirmedBookings = bookings.filter((booking) => booking.confirmed);
+  const archivedBookings = bookings.filter((booking) => booking.confirmed);
 
   // Agrupar reservas pendientes y confirmadas por mes
   const groupedPendingBookings = groupBookingsByMonth(pendingBookings);
   const groupedConfirmedBookings = groupBookingsByMonth(confirmedBookings);
+  const groupedArchivedBookings = groupBookingsByMonth(archivedBookings);
 
   // Autenticación
   if (!authenticated) {
@@ -360,6 +399,12 @@ const PrivatePage = () => {
                         >
                           Eliminar
                         </button>
+                        <button
+                          onClick={() => handleArchived(booking._id)}
+                          className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300"
+                        >
+                          Archivar
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -369,6 +414,79 @@ const PrivatePage = () => {
           </details>
         ))}
       </div>
+
+      <div className="max-w-6xl mx-auto bg-gray-800 shadow-xl rounded-lg p-8 mt-8 border-4 border-green-400">
+        <h2 className="text-lg md:text-3xl font-bold text-center text-white mb-6">
+          Reservas Confirmadas
+        </h2>
+        {Object.keys(groupedArchivedBookings).map((monthYear) => (
+          <details key={monthYear} className="mb-8">
+            <summary className="cursor-pointer text-xl text-center text-white mb-4">
+              {monthYear}
+            </summary>
+            <div className="overflow-x-auto">
+              <table className="min-w-full table-auto bg-gray-800 text-white shadow-md rounded-lg text-sm">
+                <thead>
+                  <tr className="bg-gray-700 text-gray-300 text-left">
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">
+                      Nombre
+                    </th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">
+                      Nombre del Niño/a
+                    </th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">
+                      Fecha
+                    </th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">
+                      Teléfono
+                    </th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">
+                      Duración
+                    </th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">
+                      Horario
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {groupedArchivedBookings[monthYear].map((booking) => (
+                    <tr
+                      key={booking._id}
+                      className="border-b border-gray-600 hover:bg-gray-700 transition duration-300 ease-in-out"
+                    >
+                      <td className="px-4 py-2 text-gray-200 whitespace-nowrap">
+                        {booking.name}
+                      </td>
+                      <td className="px-4 py-2 text-gray-200 whitespace-nowrap">
+                        {booking.namekid}
+                      </td>
+                      <td className="px-4 py-2 text-gray-300 whitespace-nowrap">
+                        {new Date(booking.date).toLocaleDateString("en-CA")}
+                      </td>
+                      <td className="px-4 py-2 text-gray-300 whitespace-nowrap">
+                        {booking.phone}
+                      </td>
+                      <td className="px-4 py-2 text-gray-300 whitespace-nowrap">
+                        {booking.hours} horas
+                      </td>
+                      <td className="px-4 py-2 text-gray-300 whitespace-nowrap">
+                        {booking.timeSlot}
+                      </td>
+                     
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </details>
+        ))}
+      </div>
+
+
+
+
+
+
     </div>
   );
 };
