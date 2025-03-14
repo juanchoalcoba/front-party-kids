@@ -13,12 +13,12 @@ function HomePage2() {
       {/* Contenedor con fondo blur */}
       <div className="relative flex flex-col md:flex-row justify-center md:justify-evenly items-center z-10 bg-white/70 backdrop-blur-lg font-robert-medium p-8 shadow-lg w-full text-center">
 
-        <div className="flex flex-col justify-center items-center md:items-start">
-          <h3 className="text-xl p-4">CONTÁCTANOS</h3>
-          <div className="flex border-2 border-violet-600 p-4 rounded-xl flex-col justify-center items-center md:items-start">
+        <div className="flex flex-col justify-center items-center">
+          <h3 className="text-xl text-center p-4">CONTÁCTANOS</h3>
+          <div className="flex border-2 border-violet-600 p-4 rounded-xl flex-col justify-center items-center">
           <p><b>Teléfono: </b> +598 98 015 337</p>
           <p><b>Email: </b> kidspartypdlt@gmail.com</p>
-          <p><b>Dirección </b>18 de Julio 1340 | Paso de los Toros Uruguay</p>
+          <p><b>Dirección </b>18 de Julio 1340 | Paso de los Toros</p>
           </div>
         </div>
 
