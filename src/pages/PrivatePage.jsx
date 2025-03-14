@@ -149,7 +149,7 @@ const PrivatePage = () => {
   
     try {
       const response = await fetch(
-        `https://api-party-kids.vercel.app/api/bookings/${id}`, // Ahora enviamos el _id en la URL
+        `https://api-party-kids.vercel.app/api/bookings/archived/${id}`, // Ahora enviamos el _id en la URL
         {
           method: "PATCH",
           headers: {
