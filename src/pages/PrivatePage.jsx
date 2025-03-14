@@ -166,7 +166,7 @@ const PrivatePage = () => {
       // Si la confirmación es exitosa, actualizamos el estado
       setBookings((prevBookings) =>
         prevBookings.map((booking) =>
-          booking._id === id ? { ...booking, archived: true, confirmed: false } : booking
+          booking._id === id ? { ...booking, archived: true } : booking
         )
       );
       alert("Reserva archivada con éxito");
