@@ -425,7 +425,7 @@ const PrivatePage = () => {
 
 
 
-      <div className="max-w-6xl mx-auto bg-gray-800 shadow-xl rounded-lg p-8 mt-8 border-4 border-green-400">
+      <div className="max-w-6xl mx-auto bg-gray-800 shadow-xl rounded-lg p-8 mt-8 border-4 border-yellow-50000">
         <h2 className="text-lg md:text-3xl font-bold text-center text-white mb-6">
           Reservas Archivadas
         </h2>
