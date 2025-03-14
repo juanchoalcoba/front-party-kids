@@ -149,7 +149,7 @@ const PrivatePage = () => {
   
     try {
       const response = await fetch(
-        `https://api-party-kids.vercel.app/api/archived/${id}`, // Ahora usamos la nueva ruta /archived/:id
+        `https://api-party-kids.vercel.app/api/bookings/archived/${id}`, // Ahora usamos la nueva ruta /archived/:id
         {
           method: "PUT", // Cambiamos a PUT para archivar la reserva
           headers: {
