@@ -317,7 +317,7 @@ const PrivatePage = () => {
                       <td className="flex flex-row justify-center items-center px-4 py-2">
                         <button
                           onClick={() => handleDelete(booking.name)}
-                          className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300 min-w-[120px]"
+                          className="py-2 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-300"
                         >
                           Eliminar
                         </button>
@@ -325,7 +325,7 @@ const PrivatePage = () => {
                           onClick={() => handleConfirm(booking.name)}
                           className={`ml-4 py-2 px-4 ${
                             booking.confirmed ? "bg-green-500" : "bg-blue-600"
-                          } text-white rounded hover:bg-green-600 transition duration-300 min-w-[120px]`}
+                          } text-white rounded-lg hover:bg-green-600 transition duration-300`}
                         >
                           {booking.confirmed ? "Confirmada" : "Confirmar"}
                         </button>
