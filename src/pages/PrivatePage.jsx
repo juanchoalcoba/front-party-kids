@@ -456,6 +456,9 @@ const PrivatePage = () => {
                     <th className="px-4 py-2 font-semibold whitespace-nowrap">
                       Horario
                     </th>
+                    <th className="px-4 py-2 font-semibold whitespace-nowrap">
+                      Accion
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -482,7 +485,14 @@ const PrivatePage = () => {
                       <td className="px-4 py-2 text-gray-300 whitespace-nowrap">
                         {booking.timeSlot}
                       </td>
-                      
+                      <td className="flex justify-center items-center ml-4 px-4 py-2">
+                        <button
+                          onClick={() => handleDelete(booking.name)}
+                          className="bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300"
+                        >
+                          Eliminar
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
