@@ -200,7 +200,7 @@ const Features = () => {
 
 
     <div className="flex gap-8 flex-col items-center justify-center px-4 ">
-      <h1 className="text-xl sm:text-3xl text-blue-50 font-light mt-8 text-center">
+      <h1 className="text-3xl md:text-3xl text-blue-50 font-bold mt-8 text-center">
         Conocernos es el primer paso
       </h1>
       <video
