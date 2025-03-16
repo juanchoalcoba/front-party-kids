@@ -107,7 +107,7 @@ const Features = () => {
 
   return (
     <>
-  <section className="bg-gray-950 pb-12">
+  <section className="bg-gray-950">
     <div className="container mx-auto px-3 md:px-10">
       <div className="px-5 py-32" data-aos="fade-right">
         <p className="font-circular-web text-3xl text-blue-50" >
@@ -197,6 +197,28 @@ const Features = () => {
     />
   </BentoTilt>
 </div>
+
+
+    <div className="flex gap-8 flex-col items-center justify-center px-4 ">
+      <h1 className="text-xl sm:text-3xl text-blue-50 font-light mt-8 text-center">
+        Conocernos es el primer paso
+      </h1>
+      <video
+        loop
+        muted
+        autoPlay
+        className="w-full  aspect-h-16 aspect-w-9 rounded-lg mb-6 shadow-lg"
+      >
+        <source src="videos/hdfull.mp4" type="video/mp4" />
+        Tu navegador no soporta el video HTML5.
+      </video>
+    </div>
+
+
+
+
+      
+
 
       
     </div>
