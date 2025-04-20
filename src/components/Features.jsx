@@ -124,7 +124,7 @@ const Features = () => {
 >
   <BentoCard
     
-    src="img/platos.jpeg"
+    src="img/about.jpg"
     title={
       <div className="backdrop-blur-md  bg-black/50 p-2 rounded-md inline-block">
         divers<b>i</b>ón
@@ -139,7 +139,7 @@ const Features = () => {
   />
 </BentoTilt>
 
-<div className="grid h-[135vh] w-full md:grid-cols-2 md:grid-rows-3 gap-7">
+<div className="grid h-[100vh] md:h-[135vh] w-full md:grid-cols-2 md:grid-rows-3 gap-7">
   <BentoTilt
     className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2"
   >
@@ -200,7 +200,7 @@ const Features = () => {
 
 
     <div className="flex gap-8 flex-col items-center justify-center px-4 ">
-      <h1 className="text-3xl md:text-3xl text-blue-50 font-bold mt-8 text-center">
+      <h1 className="text-3xl md:text-3xl text-blue-50 font-bold text-center">
         Conocernos es el primer paso
       </h1>
       <video
