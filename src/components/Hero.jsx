@@ -35,7 +35,7 @@ const Hero = () => {
                                 backgroundImage: 'linear-gradient(to right, #FFCCE5, #FF8CFF, #A7D8FF, #FFEC6D)',
                                 WebkitBackgroundClip: 'text',
                                 color: 'transparent',
-                                WebkitTextStroke: '1.4px black',
+                                WebkitTextStroke: '0.8px black',
                                 textShadow: '1px 1px 2px rgba(0, 0, 0, 0.02)',
                             }}
                         >
@@ -49,7 +49,7 @@ const Hero = () => {
                                 backgroundImage: 'linear-gradient(to right, #FAE78C, #FF66A6, #FF8F5A, #60E36D)',
                                 WebkitBackgroundClip: 'text',
                                 color: 'transparent',
-                                WebkitTextStroke: '1.4px black',
+                                WebkitTextStroke: '0.8px black',
                                 textShadow: '1px 1px 2px rgba(0, 0, 0, 0.02)',
                             }}
                         >
