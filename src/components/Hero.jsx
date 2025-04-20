@@ -56,7 +56,7 @@ const Hero = () => {
                             PAR<b>T</b>Y
                         </h1>
 
-                        <p className='mb-5 text-center max-w-64 text-[20px] font-robert-medium text-gray-900'>
+                        <p className='mb-5 text-center max-w-64 text-[20px] text-white font-robert-medium '>
                             Una fiesta inolvidable<br />para los más chiquitos!!
                         </p>
                         <Link to="booking">
