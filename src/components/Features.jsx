@@ -199,7 +199,7 @@ const Features = () => {
 </div>
 
 
-    <div className="flex gap-12 flex-col items-center justify-center px-4 ">
+    <div className="flex gap-12 flex-col items-center justify-center px-4 mt-12">
       <h1 className="text-3xl md:text-3xl text-blue-50 font-bold text-center">
         Conocernos es el primer paso
       </h1>
