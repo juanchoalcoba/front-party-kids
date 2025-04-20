@@ -207,7 +207,7 @@ const Features = () => {
         loop
         muted
         autoPlay
-        className="w-full  aspect-h-16 aspect-w-9 rounded-lg mb-6 shadow-lg"
+        className="w-full  aspect-h-16 aspect-w-9 rounded-lg mb-24 shadow-lg"
       >
         <source src="videos/hdfull.mp4" type="video/mp4" />
         Tu navegador no soporta el video HTML5.
