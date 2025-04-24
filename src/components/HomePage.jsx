@@ -26,7 +26,7 @@ function HomePage() {
       {/* Contenedor con fondo blur */}
       <div 
         data-aos="fade-up"
-        className="relative flex flex-col justify-center items-center z-10 bg-white/40 backdrop-blur-lg font-robert-medium p-8 rounded-3xl shadow-lg max-w-xl text-center"
+        className="relative flex flex-col justify-center items-center z-10 bg-white/70 backdrop-blur-lg font-robert-medium p-8 rounded-3xl shadow-lg max-w-xl text-center"
       >
         <h1 className="text-4xl text-cyan-950 flex text-center flex-col font-extrabold sm:text-4xl p-4">
           Reserva Ahora 

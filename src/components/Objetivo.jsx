@@ -4,7 +4,7 @@ const AboutUs = () => {
   return (
     <section id="nosotros" className="bg-gradient-to-b from-gray-700 to-cyan-900 text-white flex flex-col lg:flex-row justify-between items-center font-circular-web py-12 px-4 md:px-8 lg:px-16">
       <div className="flex flex-col justify-center items-center">
-        <h2 className="text-4xl w-[48rem]  font-bold text-center ">
+        <h2 className="text-4xl w-[24rem]   text-center ">
           El cumpleaños de tus sueños desde  {" "}
           <span className="text-blue-50 bg-gradient-to-t from-cyan-800 to-pink-500 rounded-full leading-[18rem] md:leading-[15rem] px-8 py-10 mt-8 lg:mt-0 text-5xl  border-4 border-white">$7.800</span>
         </h2>
@@ -28,26 +28,26 @@ const AboutUs = () => {
 
 
       <div className="space-y-2">
-        <h2 className="text-3xl font-semibold mb-2 text-pink-200 text-center p-4">¿Que Ofrecemos?</h2>
-        <h4 className="text-xl font-semibold mb-2 text-pink-200">- Limpieza</h4>
+        <h2 className="text-3xl font-semibold mb-2 text-blue-50 text-center p-4">¿Que Ofrecemos?</h2>
+        <h4 className="text-xl font-semibold mb-2 text-blue-50">- Limpieza</h4>
         <p className="text-gray-300">
           Mantenemos el lugar impecable para que solo te preocupes por
           disfrutar.
         </p>
 
-        <h4 className="text-xl font-semibold mb-2 text-pink-200">- Mozos</h4>
+        <h4 className="text-xl font-semibold mb-2 text-blue-50">- Mozos</h4>
         <p className="text-gray-300">
           Personal calificado para atender a tus invitados con excelencia.
         </p>
 
-        <h4 className="text-xl font-semibold mb-2 text-pink-200">
+        <h4 className="text-xl font-semibold mb-2 text-blue-50">
          - Supervisor de salón
         </h4>
         <p className="text-gray-300">
           Nos encargamos de coordinar cada detalle para que todo salga perfecto.
         </p>
 
-        <h4 className="text-xl font-semibold mb-2 text-pink-200">
+        <h4 className="text-xl font-semibold mb-2 text-blue-50">
           - Organización de catering
         </h4>
         <p className="text-gray-300">
@@ -55,7 +55,7 @@ const AboutUs = () => {
           invitados.
         </p>
 
-        <h4 className="text-xl font-semibold mb-2 text-pink-200">
+        <h4 className="text-xl font-semibold mb-2 text-blue-50">
           - Tarjetas de invitación digitales
         </h4>
         <p className="text-gray-300">
@@ -63,14 +63,14 @@ const AboutUs = () => {
           día.
         </p>
 
-        <h4 className="text-xl font-semibold mb-2 text-pink-200">
+        <h4 className="text-xl font-semibold mb-2 text-blue-50">
           - Mesa de dulces
         </h4>
         <p className="text-gray-300">
           Un rincón delicioso que encantará a grandes y pequeños.
         </p>
 
-        <h4 className="text-xl font-semibold mb-2 text-pink-200">
+        <h4 className="text-xl font-semibold mb-2 text-blue-50">
           - Decoración personalizada
         </h4>
         <p className="text-gray-300">
