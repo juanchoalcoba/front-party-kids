@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 const TermsModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -14,7 +14,7 @@ const TermsModal = ({ isOpen, onClose }) => {
         </p>
 
         <ul className="list-disc pl-5 text-sm text-gray-700 space-y-2 mb-4">
-          <li>La reserva se considera válida solo tras la confirmación por parte de nuestro equipo mediante una seña del 50% del monto total.</li>
+          <li>La reserva se considera válida solo tras la confirmación por parte de nuestro equipo mediante una seña de $2000 del monto total.</li>
           <li>La llave del salón será entregada poco antes del horario de inicio del evento acordado.</li>
           <li>El inquilino es responsable por cualquier daño, pérdida o rotura de objetos, juegos o mobiliario del salón durante el uso del mismo.</li>
           <li>Está prohibido pegar cintas o clavos en las paredes, tirar papel picado, comer dentro de los juegos o subirse a la cama elástica con calzado.</li>
