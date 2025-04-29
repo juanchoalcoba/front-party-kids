@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CalendarComponent from "../components/CalendarComponent";
 import Modal from "../components/Modal";
 import ConfirmationModal from "../components/ConfirmationModal";

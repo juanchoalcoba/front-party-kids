@@ -79,7 +79,7 @@ function HomePage() {
 
 <button
   onClick={() => setIsModalOpen(true)}
-  className="mt-6 bg-cyan-900 text-white px-6 py-2 rounded-2xl hover:bg-cyan-700 transition"
+  className="mt-6 bg-gray-200 text-black px-6 py-2 rounded-2xl font-light font-sans hover:bg-cyan-700 hover:text-white transition"
 >
   Ver Términos y Condiciones
 </button>
