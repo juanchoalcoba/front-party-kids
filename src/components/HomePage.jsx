@@ -1,12 +1,17 @@
-import { useEffect } from 'react';
+import {useState, useEffect } from 'react';
 import heroImage from '../assets/futbolito.jpg'; // Asegúrate de que la ruta sea correcta
 import Button from '../components/Button';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Link } from 'react-router-dom';
 import { SiTiktok } from "react-icons/si";
+import TermsModal from './TermsModal';
+
 
 function HomePage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
   useEffect(() => {
     AOS.init({ duration: 1000 });
     AOS.refresh(); // Esto asegura que las animaciones se recalculen cuando sea necesario
@@ -70,6 +75,17 @@ function HomePage() {
     <i className="fab fa-whatsapp text-green-700 text-4xl hover:text-green-900 transition-all duration-300"></i>
 </Link>
     </div>
+
+
+<button
+  onClick={() => setIsModalOpen(true)}
+  className="mt-6 bg-cyan-900 text-white px-6 py-2 rounded-2xl hover:bg-cyan-700 transition"
+>
+  Ver Términos y Condiciones
+</button>
+
+<TermsModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
       </div>
     </div>
   );      
