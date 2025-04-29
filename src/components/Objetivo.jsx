@@ -8,7 +8,7 @@ const AboutUs = () => {
           El cumpleaños de tus sueños desde  {" "}
           <span className="text-blue-50 bg-gradient-to-t from-cyan-800 to-pink-500 rounded-full leading-[18rem] md:leading-[15rem] px-8 py-10 mt-8 lg:mt-0 text-5xl  border-4 border-white">$7.800</span>
         </h2>
-        <p className="text-2xl w-96 mt-4 text-center text-blue-100">
+        <p className="text-2xl w-72 mt-4 text-center text-blue-100">
           Nos ajustamos a tu presupuesto y a lo que imaginas para tu
           celebración.
         </p>
@@ -16,12 +16,12 @@ const AboutUs = () => {
         <h3 className="text-3xl font-bold mt-12 lg:mt-4 text-center text-yellow-300">
           ¿Quiénes somos?
         </h3>
-        <p className="text-lg mt-2 w-96 text-center">
+        <p className="text-md mt-2 w-80 text-center">
           Somos dos hermanos emprendedores con la misión de ofrecer un servicio
           único, donde la diversión y los recuerdos se conviertan en momentos
           inolvidables.
         </p>
-        <a href='https://wa.me/59898015337' className=' bg-green-600 hover:bg-green-700 transition text-white font-semibold px-6 py-3 mt-4 rounded-full flex items-center justify-center gap-2 mx-auto mb-12'>
+        <a href='https://wa.me/59898015337' className=' bg-green-600 hover:bg-green-700 transition text-white font-light px-6 py-3 mt-4 rounded-full flex items-center justify-center gap-2 mx-auto mb-12'>
           <FaWhatsapp className='text-xl' /> ¡Consulta más detalles por WhatsApp!
         </a>
       </div>
