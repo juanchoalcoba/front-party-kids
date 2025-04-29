@@ -1,11 +1,10 @@
-import { useEffect } from 'react';
+import {useState, useEffect } from 'react';
 import heroImage from '../assets/futbolito.jpg'; // Asegúrate de que la ruta sea correcta
 import Button from '../components/Button';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Link } from 'react-router-dom';
 import { SiTiktok } from "react-icons/si";
-import { TiLocationArrow } from 'react-icons/ti';
 
 
 function HomePage() {
@@ -45,13 +44,16 @@ function HomePage() {
 
         {/* Botón RESERVAS */}
         <Link to="booking">
-                            <Button
-                                id="watch-trailer"
-                                title="RESERVAR"
-                                leftIcon={<TiLocationArrow />}
-                                containerClass="font-bold bg-yellow-300 flex-center gap-1"
-                            />
-                        </Link>
+          <Button 
+            id="watch-trailer"
+            title={
+              <button className='text-[18px] text-black font-general text-center flex items-center justify-center'>
+                RESERVAS
+              </button>
+            }
+            containerClass="font-bold block  shadow-md shadow-gray-800"
+          />
+        </Link>
 
         {/* Sección de iconos centrados debajo del botón */}
         <div className="flex justify-center gap-8 mt-8">
@@ -71,7 +73,6 @@ function HomePage() {
     <i className="fab fa-whatsapp text-green-700 text-4xl hover:text-green-900 transition-all duration-300"></i>
 </Link>
     </div>
-
 
 
 
