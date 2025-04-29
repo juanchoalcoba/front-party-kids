@@ -1,4 +1,3 @@
-import { TiLocationArrow } from "react-icons/ti";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from 'react';
@@ -59,14 +58,18 @@ const Hero = () => {
                         <p className='mb-5 text-center max-w-64 text-[20px] text-white font-robert-medium '>
                             Una fiesta inolvidable<br />para los más chiquitos!!
                         </p>
+                        
                         <Link to="booking">
-                            <Button
-                                id="watch-trailer"
-                                title="RESERVAR"
-                                leftIcon={<TiLocationArrow />}
-                                containerClass="font-bold bg-yellow-300 flex-center gap-1"
-                            />
-                        </Link>
+                                  <Button 
+                                    id="watch-trailer"
+                                    title={
+                                      <button className='text-[18px] text-black font-general text-center flex items-center justify-center'>
+                                        RESERVAS
+                                      </button>
+                                    }
+                                    containerClass="font-bold block  shadow-md shadow-gray-800"
+                                  />
+                                </Link>
                     </div>
                 </div>
             </div>

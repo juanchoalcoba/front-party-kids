@@ -1,15 +1,14 @@
-import {useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import heroImage from '../assets/futbolito.jpg'; // Asegúrate de que la ruta sea correcta
 import Button from '../components/Button';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Link } from 'react-router-dom';
 import { SiTiktok } from "react-icons/si";
-import TermsModal from './TermsModal';
+import { TiLocationArrow } from 'react-icons/ti';
 
 
 function HomePage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
 
   useEffect(() => {
@@ -46,16 +45,13 @@ function HomePage() {
 
         {/* Botón RESERVAS */}
         <Link to="booking">
-          <Button 
-            id="watch-trailer"
-            title={
-              <button className='text-[18px] text-black font-general text-center flex items-center justify-center'>
-                RESERVAS
-              </button>
-            }
-            containerClass="font-bold block  shadow-md shadow-gray-800"
-          />
-        </Link>
+                            <Button
+                                id="watch-trailer"
+                                title="RESERVAR"
+                                leftIcon={<TiLocationArrow />}
+                                containerClass="font-bold bg-yellow-300 flex-center gap-1"
+                            />
+                        </Link>
 
         {/* Sección de iconos centrados debajo del botón */}
         <div className="flex justify-center gap-8 mt-8">
@@ -77,14 +73,8 @@ function HomePage() {
     </div>
 
 
-<button
-  onClick={() => setIsModalOpen(true)}
-  className="mt-6 bg-gray-200 text-black px-6 py-2 rounded-2xl font-light font-sans hover:bg-cyan-700 hover:text-white transition"
->
-  Ver Términos y Condiciones
-</button>
 
-<TermsModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
 
       </div>
     </div>
