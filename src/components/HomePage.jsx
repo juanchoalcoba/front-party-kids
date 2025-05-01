@@ -16,7 +16,7 @@ function HomePage() {
   }, []);
 
   return (
-    <div id="reservas" className="relative mt-2 flex flex-col justify-center items-center w-full min-h-screen">
+    <div id="reservas" className="relative flex flex-col justify-center items-center w-full min-h-screen">
       {/* Imagen de fondo */}
       <div
         className="absolute top-0 left-0 w-full h-full bg-no-repeat bg-center opacity-80 bg-cover z-[-1]"
