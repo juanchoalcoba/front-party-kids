@@ -9,9 +9,9 @@ function Home() {
   return (
       <main className='relative min-h-screen w-screen overflow-x-hidden'>
         <Navbar />
-        <Hero />
-        <AboutUs />
         <HomePage />
+        <AboutUs />
+        <Hero />
         <Features />
         <HomePage2 />
       </main>
