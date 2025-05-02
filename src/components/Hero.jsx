@@ -13,7 +13,7 @@ const Hero = () => {
     }, []);
 
     return (
-        <div id="inicio" className='relative h-dvh w-screen overflow-x-hidden bg-violet-950'>
+        <div id="reservas" className='relative h-dvh w-screen overflow-x-hidden bg-violet-950'>
             <div
                 id='image-frame'
                 className='relative z-10 h-dvh w-screen aspect-video overflow-hidden rounded-lg bg-black'
