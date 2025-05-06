@@ -70,6 +70,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     return false;
   };
 
+
   const tileClassName = ({ date, view }) => {
     if (view === "month") {
       const selectedDateBookings = bookedDates.filter(
@@ -167,7 +168,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     onChange={handleDateChange}
     value={date}
     tileDisabled={disableDates}
-    tileClassName={tileClassName}
+   
   />
 
   <div className="flex flex-col mt-4">
