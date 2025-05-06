@@ -1,9 +1,9 @@
-import { useState, useEffect,  useImperativeHandle } from "react";
+import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../App.css";
 
-const CalendarComponent = ({ onDateChange, onBookingDataChange }, ref) => {
+const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
   const [date, setDate] = useState(new Date());
   const [bookedDates, setBookedDates] = useState([]);
   const today = new Date();
@@ -31,11 +31,6 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }, ref) => {
       console.error("Error fetching booked dates:", error);
     }
   };
-
-  // 👉 Permitir que el padre acceda a esta función
-  useImperativeHandle(ref, () => ({
-    refetchDates: fetchBookedDates,
-  }));
 
   useEffect(() => {
     fetchBookedDates();
