@@ -68,14 +68,15 @@ const CalendarComponent = ({
     return view === "month" && date < today;
   });
 
-  // Fallback si no se pasa customTileClassName
   const tileClassName = customTileClassName || (({ date, view }) => {
     if (view !== "month") return "";
-
+  
     const selectedDateBookings = bookedDates.filter(
-      (booking) => booking.date.toDateString() === date.toDateString()
+      (booking) =>
+        booking.date.toDateString() === date.toDateString() &&
+        booking.confirmed === true // ✅ solo confirmadas
     );
-
+  
     const has5H_10 = selectedDateBookings.some(
       (b) => b.timeSlot === "10:00" && b.hours === "5"
     );
@@ -83,13 +84,14 @@ const CalendarComponent = ({
       (b) => b.timeSlot === "17:00" && b.hours === "5"
     );
     const has14H = selectedDateBookings.some((b) => b.hours === "14");
-
+  
     if (has14H || (has5H_10 && has5H_17)) return "unavailable-date";
     if (has5H_10 || has5H_17) return "partially-booked-date";
     if (date < today) return "disabled-date";
-
+  
     return "";
   });
+  
 
   const generateStartTimes = () => {
     const times = [];
