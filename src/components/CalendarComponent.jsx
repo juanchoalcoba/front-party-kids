@@ -19,18 +19,22 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
         "https://api-party-kids.vercel.app/api/bookings"
       );
       const data = await response.json();
-
-      // Guardar reservas con fecha, duración y horario
+  
+      // Guardar reservas con fecha, duración, horario y confirmación
       const booked = data.map((booking) => ({
-        date: new Date(booking.date),
-        hours: booking.hours,
-        timeSlot: booking.timeSlot,
+        date: new Date(booking.date),      // Convertir la fecha en un objeto Date
+        hours: booking.hours,              // Duración de la reserva
+        timeSlot: booking.timeSlot,        // Horario de la reserva
+        confirmed: booking.confirmed,      // Confirmación de la reserva (true o false)
       }));
+  
+      // Guardar las reservas con los datos completos (incluyendo "confirmed")
       setBookedDates(booked);
     } catch (error) {
       console.error("Error fetching booked dates:", error);
     }
   };
+  
 
   useEffect(() => {
     fetchBookedDates();
@@ -73,9 +77,9 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
   const tileClassName = ({ date, view }) => {
     if (view === "month") {
       const selectedDateBookings = bookedDates.filter(
-        (booking) => booking.date.toDateString() === date.toDateString()
+        (booking) => booking.date.toDateString() === date.toDateString() && booking.confirmed === true
       );
-  
+    
       const has5HourBooking1 = selectedDateBookings.some(
         (booking) => booking.timeSlot === "10:00" && booking.hours === "5"
       );
@@ -85,22 +89,22 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
       const has14HourBooking = selectedDateBookings.some(
         (booking) => booking.hours === "14"
       );
-  
+    
       // Si hay una reserva de 14 horas, marcar todo el día como rojo
       if (has14HourBooking) {
         return "unavailable-date"; // clase para marcar fecha como completamente ocupada (rojo)
       }
-  
+    
       // Si hay dos reservas de 5 horas, marcar el día como completamente ocupado (rojo)
       if (has5HourBooking1 && has5HourBooking2) {
         return "unavailable-date"; // clase para marcar fecha como completamente ocupada (rojo)
       }
-  
+    
       // Si hay una sola reserva de 5 horas, marcar el día como parcialmente ocupado (amarillo)
       if (has5HourBooking1 || has5HourBooking2) {
         return "partially-booked-date"; // clase para marcar fecha parcialmente ocupada (amarillo)
       }
-  
+    
       // Lógica existente para fechas pasadas
       if (date < today) {
         return "disabled-date"; // clase para fechas deshabilitadas
@@ -108,6 +112,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     }
     return "";
   };
+  
   
   const generateStartTimes = () => {
     const times = [];
