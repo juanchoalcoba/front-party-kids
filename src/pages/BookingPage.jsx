@@ -7,8 +7,6 @@ import bookingImage from "../assets/tejo.jpeg";
 import { Link } from "react-router-dom";
 
 const BookingPage = () => {
-
- 
   const [bookingData, setBookingData] = useState({
     name: "",
     namekid: "",
@@ -180,7 +178,6 @@ const BookingPage = () => {
               <CalendarComponent
                 onDateChange={handleDateChange}
                 onBookingDataChange={handleBookingDataChange}
-                
               />
             </div>
 
