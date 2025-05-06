@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const PrivatePage = () => {
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const [bookings, setBookings] = useState([]);
+  const calendarRef = useRef();
 
   const handleLogin = () => {
     const presetPassword = "Kids.2025"; // Contraseña preestablecida
@@ -100,6 +101,16 @@ const PrivatePage = () => {
         )
       );
       alert("Reserva confirmada con éxito");
+         // 👉 ACTUALIZAR el calendario
+         if (calendarRef.current) {
+          calendarRef.current.refetchDates();
+        }
+
+
+
+
+
+
     } catch (error) {
       console.error("Error confirmando la reserva:", error);
       alert("Hubo un error al intentar confirmar la reserva");

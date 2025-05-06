@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import CalendarComponent from "../components/CalendarComponent";
 import Modal from "../components/Modal";
 import ConfirmationModal from "../components/ConfirmationModal";
@@ -17,6 +17,7 @@ const BookingPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
+  const calendarRef = useRef();
 
   // ✅ Estado para el modal de términos
   const [termsOpen, setTermsOpen] = useState(true);
@@ -178,6 +179,7 @@ const BookingPage = () => {
               <CalendarComponent
                 onDateChange={handleDateChange}
                 onBookingDataChange={handleBookingDataChange}
+                ref={calendarRef}
               />
             </div>
 
