@@ -1,40 +1,51 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
-const PrivatePage = () => {
+const PrivatePage = ({onConfirmSuccess }) => {
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const [bookings, setBookings] = useState([]);
+  const [refreshFlag, setRefreshFlag] = useState(false);
 
-  const handleLogin = () => {
-    const presetPassword = "Kids.2025"; // Contraseña preestablecida
-    if (password === presetPassword) {
-      setAuthenticated(true);
-      fetchBookings(); // Cargar las reservas una vez autenticado
-    } else {
-      alert("Contraseña incorrecta");
-    }
-  };
+
+  
 
   // Obtener reservas
-  const fetchBookings = async () => {
-    try {
-      const response = await fetch(
-        "https://api-party-kids.vercel.app/api/bookings",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!response.ok) throw new Error("Error al obtener las reservas");
+const fetchBookings = async () => {
+  try {
+    const response = await fetch(
+      "https://api-party-kids.vercel.app/api/bookings",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!response.ok) throw new Error("Error al obtener las reservas");
 
-      const data = await response.json();
-      setBookings(data); // Actualizar estado con las reservas
-    } catch (error) {
-      console.error("Error fetching bookings:", error);
-    }
-  };
+    const data = await response.json();
+    setBookings(data); // Actualizar estado con las reservas
+  } catch (error) {
+    console.error("Error fetching bookings:", error);
+  }
+};
+
+const handleLogin = () => {
+  const presetPassword = "Kids.2025"; // Contraseña preestablecida
+  if (password === presetPassword) {
+    setAuthenticated(true);
+    fetchBookings(); // ✅ Ya se puede usar aquí
+  } else {
+    alert("Contraseña incorrecta");
+  }
+};
+
+// Llamar fetchBookings si refreshFlag cambia
+useEffect(() => {
+  if (authenticated) {
+    fetchBookings();
+  }
+}, [refreshFlag]);
 
   // Eliminar reserva
   const handleDelete = async (name) => {
@@ -100,6 +111,14 @@ const PrivatePage = () => {
         )
       );
       alert("Reserva confirmada con éxito");
+
+
+
+      if (onConfirmSuccess) {
+        onConfirmSuccess();
+      }
+      setRefreshFlag((prev) => !prev);
+
     } catch (error) {
       console.error("Error confirmando la reserva:", error);
       alert("Hubo un error al intentar confirmar la reserva");
