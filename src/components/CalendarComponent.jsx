@@ -73,7 +73,7 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
   const tileClassName = ({ date, view }) => {
     if (view === "month") {
       const selectedDateBookings = bookedDates.filter(
-        (booking) => booking.date.toDateString() === date.toDateString() && booking.confirmed === true
+        (booking) => booking.date.toDateString() === date.toDateString()
       );
   
       const has5HourBooking1 = selectedDateBookings.some(
@@ -108,7 +108,6 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     }
     return "";
   };
-  
   
   const generateStartTimes = () => {
     const times = [];
