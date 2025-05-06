@@ -112,56 +112,52 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     }
     return "";
   };
-  
+
+
   
   const generateStartTimes = () => {
     const times = [];
     const startTimesFor5Hours = ["10:00", "17:00"];
     const startTimeFor14Hours = "08:00";
   
+    // Filtrar solo reservas confirmadas para el día seleccionado
     const selectedDateBookings = bookedDates.filter(
-      (booking) => booking.date.toDateString() === date.toDateString()
+      (booking) =>
+        booking.date.toDateString() === date.toDateString() &&
+        booking.confirmed === true
     );
   
     const isTimeSlotAvailable = (time) => {
       return !selectedDateBookings.some((booking) => {
         const bookedTime = booking.timeSlot;
   
-        // Validación para reservas de 5 horas
         if (booking.hours === "5") {
           return bookedTime === time;
-        }
-        // Validación para reserva de 14 horas
-        else if (booking.hours === "14") {
-          return true; // Bloquea todas las horas en este caso
+        } else if (booking.hours === "14") {
+          return true;
         }
         return false;
       });
     };
   
-    // Nueva validación para bloquear reservas de 14 horas si ya hay una reserva de 5 horas
     const isFiveHourBookingExist = selectedDateBookings.some(
       (booking) => booking.hours === "5"
     );
   
-    // Lógica para generar horarios disponibles para 5 horas
     if (bookingData.hours === "5") {
       startTimesFor5Hours.forEach((time) => {
         if (isTimeSlotAvailable(time)) {
           times.push(time);
         }
       });
-    }
-    // Lógica para generar el único horario disponible para 14 horas
-    else if (bookingData.hours === "14" && !isFiveHourBookingExist) {
-      // Solo permite 14 horas si no hay reservas de 5 horas
+    } else if (bookingData.hours === "14" && !isFiveHourBookingExist) {
       if (isTimeSlotAvailable(startTimeFor14Hours)) {
         times.push(startTimeFor14Hours);
       }
     }
   
     return times;
-  };
+  }
   
   
   
