@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const ConfirmationModal = ({ show, onClose, onConfirm, bookingData }) => {
   const [isLoading, setIsLoading] = useState(false); // Estado para controlar el loading
@@ -29,14 +29,34 @@ const ConfirmationModal = ({ show, onClose, onConfirm, bookingData }) => {
       {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center">
         <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full relative z-50">
-          <h2 className="text-xl font-bold mb-4">¿Estás seguro de confirmar la reserva?</h2>
+          <h2 className="text-xl font-bold mb-4">
+            ¿Estás seguro de confirmar la reserva?
+          </h2>
           <div className="mb-4 space-y-2">
-            <p><strong>Tu Nombre:</strong> {bookingData.name}</p>
-            <p><strong>Nombre del Niño/a:</strong> {bookingData.namekid}</p>
-            <p><strong>Teléfono:</strong> {bookingData.phone}</p>
-            <p><strong>Fecha de la Fiesta:</strong> {bookingData.date.toLocaleDateString()}</p>
-            <p><strong>Duración:</strong> {bookingData.hours} horas</p>
-            <p><strong>Horario Inicial:</strong> {bookingData.timeSlot}</p>
+            <p>
+              <strong>Tu Nombre:</strong> {bookingData.name}
+            </p>
+            <p>
+              <strong>Nombre del Niño/a:</strong> {bookingData.namekid}
+            </p>
+            <p>
+              <strong>Teléfono:</strong> {bookingData.phone}
+            </p>
+            <p>
+              <strong>Fecha de la Fiesta:</strong>{" "}
+              {bookingData.date.toLocaleDateString()}
+            </p>
+            <p>
+              <strong>Duración:</strong> {bookingData.hours} horas
+            </p>
+            <p>
+              <strong>Horario Inicial:</strong> {bookingData.timeSlot}
+            </p>
+            <p className="text-sm text-red-600 mt-2">
+              ⚠️ Confirmar esta reserva implica un compromiso. Para asegurar la
+              disponibilidad del salón, deberás realizar una seña. La fecha no
+              será bloqueada hasta recibir el pago correspondiente.
+            </p>
           </div>
           <div className="flex justify-between">
             <button
@@ -51,7 +71,7 @@ const ConfirmationModal = ({ show, onClose, onConfirm, bookingData }) => {
               onClick={handleConfirm} // Usamos handleConfirm para simular el envío
               disabled={isDisabled} // El botón se mantiene deshabilitado permanentemente
             >
-              {isLoading ? 'Enviando...' : 'Confirmar'}
+              {isLoading ? "Enviando..." : "Confirmar"}
             </button>
           </div>
         </div>
