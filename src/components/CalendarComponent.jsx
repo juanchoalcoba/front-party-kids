@@ -120,7 +120,9 @@ const CalendarComponent = ({ onDateChange, onBookingDataChange }) => {
     const startTimeFor14Hours = "08:00";
   
     const selectedDateBookings = bookedDates.filter(
-      (booking) => booking.date.toDateString() === date.toDateString()
+      (booking) =>
+        booking.date.toDateString() === date.toDateString() &&
+        booking.confirmed === true
     );
   
     const isTimeSlotAvailable = (time) => {
