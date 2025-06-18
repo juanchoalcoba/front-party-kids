@@ -61,7 +61,9 @@ const BookingPage = () => {
       );
 
       if (response.ok) {
-        setModalMessage("Reserva completada, nos pondremos en contacto a la brevedad");
+        setModalMessage(
+          "Reserva completada, nos pondremos en contacto a la brevedad"
+        );
         setShowConfirmationModal(false);
         setShowModal(true);
       } else {
@@ -118,7 +120,10 @@ const BookingPage = () => {
             className="space-y-6 bg-white p-8 rounded-xl shadow-xl w-full sm:w-96"
           >
             <div className="flex flex-col">
-              <label htmlFor="name" className="text-gray-700 font-semibold mb-2">
+              <label
+                htmlFor="name"
+                className="text-gray-700 font-semibold mb-2"
+              >
                 Tu Nombre
               </label>
               <input
@@ -130,13 +135,16 @@ const BookingPage = () => {
                 onChange={handleChange}
                 className="border-2 border-gray-400 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
                 required
-                pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ]+\s+[A-Za-záéíóúÁÉÍÓÚñÑ]+$"
+                pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ]+(?:\s+[A-Za-záéíóúÁÉÍÓÚñÑ]+)+$"
                 title="Por favor, ingresa al menos un nombre y un apellido"
               />
             </div>
 
             <div className="flex flex-col">
-              <label htmlFor="namekid" className="text-gray-700 font-semibold mb-2">
+              <label
+                htmlFor="namekid"
+                className="text-gray-700 font-semibold mb-2"
+              >
                 Nombre del Niño/a
               </label>
               <input
@@ -152,7 +160,10 @@ const BookingPage = () => {
             </div>
 
             <div className="flex flex-col">
-              <label htmlFor="phone" className="text-gray-700 font-semibold mb-2">
+              <label
+                htmlFor="phone"
+                className="text-gray-700 font-semibold mb-2"
+              >
                 Teléfono
               </label>
               <input
