@@ -35,9 +35,9 @@ function HomePage() {
       {/* Contenedor con fondo blur */}
       <div 
         data-aos="fade-up"
-        className="relative flex flex-col justify-center items-center z-10 bg-white/70 backdrop-blur-lg font-robert-medium p-8 rounded-3xl shadow-lg max-w-xl text-center"
+        className="relative flex flex-col justify-center items-center z-10 bg-white/40 backdrop-blur-md font-robert-medium p-8 rounded-2xl shadow-lg max-w-xl text-center"
       >
-        <h1 className="text-4xl text-cyan-950 flex flex-col items-center justify-center text-center font-extrabold sm:text-2xl p-4">
+        <h1 className="text-2xl text-cyan-950 flex flex-col items-center justify-center text-center font-extrabold md:text-3xl p-4">
   Bienvenidos/as 
   <img 
     className="w-[170px] rounded-full p-4 shadow-md shadow-black"
