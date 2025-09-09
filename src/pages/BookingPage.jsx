@@ -99,7 +99,7 @@ const BookingPage = () => {
   return (
     <div className="p-8 flex flex-col justify-center items-center w-full min-h-screen font-robert-medium">
       <div
-        className="absolute top-0 left-0 w-full h-[175vh] bg-no-repeat blur-md bg-center opacity-60 bg-cover z-[-1]"
+        className="absolute top-0 left-0 w-full h-[175vh] bg-no-repeat  bg-center opacity-90 bg-cover z-[-1]"
         style={{ backgroundImage: `url(${bookingImage})` }}
       ></div>
 
