@@ -5,6 +5,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Link } from 'react-router-dom';
 import { SiTiktok } from "react-icons/si";
+import { FiChevronDown } from "react-icons/fi";
 
 
 function HomePage() {
@@ -37,24 +38,30 @@ function HomePage() {
         data-aos="fade-up"
         className="relative flex flex-col justify-center items-center z-10 bg-white/40 backdrop-blur-md font-robert-medium p-8 rounded-2xl shadow-lg max-w-xl text-center"
       >
-        <h1 className="text-2xl text-cyan-950 flex flex-col items-center justify-center text-center font-extrabold md:text-3xl p-4">
+        <h1 className="text-2xl text-cyan-950 flex flex-col items-center justify-center text-center font-robert-regular font-bold md:text-3xl p-4">
   Bienvenidos/as 
   <img 
     className="w-[170px] rounded-full p-4 shadow-md shadow-black"
     src="logo.png" alt="Logo" 
   />
 </h1>
+      <p className='text-gray-900 text-xl'>Cumpleaños - Bautismos</p>
+      <p className='text-gray-900'>Fiestas privadas - Eventos empresariales </p>
 
-        <p className="text-center text-cyan-950 font-bold font-circular-web mb-4 pt-4 text-[24px]">
+       
+
+        <p className="text-center text-cyan-950 font-bold font-circular-web mb-4 pt-4 text-[20px]">
           CONSULTAR FECHA
         </p>
+
+      
 
         {/* Botón RESERVAS */}
         <Link to="booking">
           <Button 
             id="watch-trailer"
             title={
-              <button className='text-[18px] text-black font-general text-center flex items-center justify-center'>
+              <button className='text-[15px] text-black font-general text-center flex items-center justify-center'>
                 RESERVAS
               </button>
             }
