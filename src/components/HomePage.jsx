@@ -45,8 +45,8 @@ function HomePage() {
     src="logo.png" alt="Logo" 
   />
 </h1>
-      <p className='text-gray-900 text-md '>Cumpleaños - Bautismos</p>
-      <p className='text-gray-900 text-md'>Fiestas privadas - Eventos </p>
+      <p className='text-gray-950 text-md '>Cumpleaños - Bautismos</p>
+      <p className='text-gray-950 text-md'>Fiestas privadas - Eventos </p>
 
        
 
