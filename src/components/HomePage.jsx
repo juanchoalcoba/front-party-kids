@@ -46,7 +46,7 @@ function HomePage() {
   />
 </h1>
       <p className='text-gray-900 text-md '>Cumpleaños - Bautismos</p>
-      <p className='text-gray-900 text-md'>Fiestas privadas - Eventos empresariales </p>
+      <p className='text-gray-900 text-md'>Fiestas privadas - Eventos </p>
 
        
 
