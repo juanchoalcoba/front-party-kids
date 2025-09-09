@@ -112,7 +112,7 @@ const BookingPage = () => {
       {acceptedTerms && (
         <>
           <h1 className="text-3xl mb-6 font-robert-medium font-bold text-center text-blue-50">
-            ¡Completa el formulario para registrar tu fiesta!
+            ¡Completa el formulario para registrar tu evento!
           </h1>
 
           <form
