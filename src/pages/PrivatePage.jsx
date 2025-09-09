@@ -111,7 +111,7 @@ const PrivatePage = () => {
       "¿Estás seguro de que quieres marcar esta reserva como leída?"
     );
     if (!viewed) return;
-  
+
     try {
       const response = await fetch(
         `https://api-party-kids.vercel.app/api/bookings/${id}`, // Ahora enviamos el _id en la URL
@@ -122,12 +122,14 @@ const PrivatePage = () => {
           },
         }
       );
-  
+
       if (!response.ok) {
         const data = await response.json();
-        throw new Error(data.message || "Error al marcar la reserva como leída");
+        throw new Error(
+          data.message || "Error al marcar la reserva como leída"
+        );
       }
-  
+
       // Si la confirmación es exitosa, actualizamos el estado
       setBookings((prevBookings) =>
         prevBookings.map((booking) =>
@@ -146,7 +148,7 @@ const PrivatePage = () => {
       "¿Estás seguro de que quieres archivar esta reserva?"
     );
     if (!confirmArchive) return;
-  
+
     try {
       const response = await fetch(
         `https://api-party-kids.vercel.app/api/bookings/archived/${id}`, // Ahora usamos la nueva ruta /archived/:id
@@ -157,12 +159,12 @@ const PrivatePage = () => {
           },
         }
       );
-  
+
       if (!response.ok) {
         const data = await response.json();
         throw new Error(data.message || "Error al archivar la reserva");
       }
-  
+
       // Si la confirmación es exitosa, actualizamos el estado
       setBookings((prevBookings) =>
         prevBookings.map((booking) =>
@@ -175,11 +177,6 @@ const PrivatePage = () => {
       alert("Hubo un error al intentar archivar la reserva");
     }
   };
-  
-
-
-
-  
 
   // Función para agrupar reservas por mes
   const groupBookingsByMonth = (bookings) => {
@@ -306,8 +303,19 @@ const PrivatePage = () => {
                         {new Date(booking.date).toLocaleDateString("en-CA")}
                       </td>
                       <td className="px-4 py-2 text-gray-300 whitespace-nowrap">
-                        {booking.phone}
+                        <a
+                          href={`https://wa.me/598${booking.phone.replace(
+                            /^0/,
+                            ""
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-green-500 hover:text-green-700 font-medium underline"
+                        >
+                          {booking.phone}
+                        </a>
                       </td>
+
                       <td className="px-4 py-2 text-gray-300 whitespace-nowrap">
                         {booking.hours} horas
                       </td>
@@ -423,8 +431,6 @@ const PrivatePage = () => {
         ))}
       </div>
 
-
-
       <div className="max-w-6xl mx-auto bg-gray-800 shadow-xl rounded-lg p-8 mt-8 border-4 border-yellow-600">
         <h2 className="text-lg md:text-3xl font-bold text-center text-white mb-6">
           Reservas Archivadas
@@ -501,7 +507,6 @@ const PrivatePage = () => {
           </details>
         ))}
       </div>
-      
     </div>
   );
 };
