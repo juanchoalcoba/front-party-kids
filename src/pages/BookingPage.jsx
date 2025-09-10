@@ -117,7 +117,7 @@ const BookingPage = () => {
 
           <form
   onSubmit={handleSubmit}
-  className="space-y-6 bg-gradient-to-b from-yellow-200 via-white to-cyan-100 p-8 rounded-2xl shadow-2xl w-full sm:w-96 border border-pink-200"
+  className="space-y-6 bg-gradient-to-b from-yellow-200 via-white to-cyan-100 p-8 rounded-2xl shadow-2xl w-full sm:w-[25rem] border border-pink-200"
 >
   <div className="flex flex-col">
     <label
