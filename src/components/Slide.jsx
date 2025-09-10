@@ -4,10 +4,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper/modules";
+import { FaBirthdayCake } from "react-icons/fa";
+import { GiPartyPopper } from "react-icons/gi";
 
 const images = [
-  "/img/foto1.jpg", "/img/foto2.jpg", "/img/foto3.jpg",
-  "/img/foto4.jpg", "/img/foto5.jpg", "/img/foto6.jpg",
+  "/img/foto1.jpg",
+  "/img/foto2.jpg",
+  "/img/foto3.jpg",
+  "/img/foto4.jpg",
+  "/img/foto5.jpg",
+  "/img/foto6.jpg",
 ];
 
 export default function ImageSlider() {
@@ -21,15 +27,15 @@ export default function ImageSlider() {
   }, []);
 
   return (
-    
     <div className="w-full max-w-3xl mx-auto text-center mt-12 ">
       {/* Título y párrafo */}
-      
-      <p className="text-gray-200 text-2xl md:text-2xl mb-6">
+
+      <p className="text-gray-200 text-xl md:text-2xl mb-6 flex justify-center items-center gap-2">
+        <FaBirthdayCake />
         Una fiesta pensada para compartir momentos únicos.
+        <GiPartyPopper />
       </p>
 
-      
       {/* Slider */}
       <Swiper
         modules={[Navigation, Autoplay]}
