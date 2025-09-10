@@ -111,103 +111,104 @@ const BookingPage = () => {
       {/* ✅ Solo mostrar el formulario si aceptó los términos */}
       {acceptedTerms && (
         <>
-          <h1 className="text-3xl mb-6 font-robert-medium font-bold text-center text-blue-50">
+          <h1 className="text-3xl mb-6 font-robert-medium font-bold text-center text-white">
             ¡Completa el formulario para registrar tu evento!
           </h1>
 
           <form
-            onSubmit={handleSubmit}
-            className="space-y-6 bg-white p-8 rounded-xl shadow-xl w-full sm:w-96"
-          >
-            <div className="flex flex-col">
-              <label
-                htmlFor="name"
-                className="text-gray-700 font-semibold mb-2"
-              >
-                Tu Nombre
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Escribe tu nombre y apellido"
-                value={bookingData.name}
-                onChange={handleChange}
-                className="border-2 border-gray-400 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-                required
-                pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ]+(?:\s+[A-Za-záéíóúÁÉÍÓÚñÑ]+)+$"
-                title="Por favor, ingresa al menos un nombre y un apellido"
-              />
-            </div>
+  onSubmit={handleSubmit}
+  className="space-y-6 bg-gradient-to-b from-pink-100 via-white to-cyan-100 p-8 rounded-2xl shadow-2xl w-full sm:w-96 border border-pink-200"
+>
+  <div className="flex flex-col">
+    <label
+      htmlFor="name"
+      className="text-pink-700 font-bold mb-2 tracking-wide"
+    >
+      ✨ Tu Nombre
+    </label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      placeholder="Escribe tu nombre y apellido"
+      value={bookingData.name}
+      onChange={handleChange}
+      className="border-2 border-pink-400 focus:border-cyan-500 focus:ring-4 focus:ring-pink-200 focus:outline-none p-3 w-full rounded-xl bg-white/90 placeholder-gray-400 transition-all duration-300 hover:shadow-lg"
+      required
+      pattern="^[A-Za-záéíóúÁÉÍÓÚñÑ]+(?:\s+[A-Za-záéíóúÁÉÍÓÚñÑ]+)+$"
+      title="Por favor, ingresa al menos un nombre y un apellido"
+    />
+  </div>
 
-            <div className="flex flex-col">
-              <label
-                htmlFor="namekid"
-                className="text-gray-700 font-semibold mb-2"
-              >
-                Nombre del Niño/a
-              </label>
-              <input
-                type="text"
-                id="namekid"
-                name="namekid"
-                placeholder="Escribe el nombre del niño/a"
-                value={bookingData.namekid}
-                onChange={handleChange}
-                className="border-2 border-gray-400 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-                required
-              />
-            </div>
+  <div className="flex flex-col">
+    <label
+      htmlFor="namekid"
+      className="text-cyan-700 font-bold mb-2 tracking-wide"
+    >
+      🎈 Nombre del Niño/a
+    </label>
+    <input
+      type="text"
+      id="namekid"
+      name="namekid"
+      placeholder="Escribe el nombre del niño/a"
+      value={bookingData.namekid}
+      onChange={handleChange}
+      className="border-2 border-cyan-400 focus:border-pink-500 focus:ring-4 focus:ring-cyan-200 focus:outline-none p-3 w-full rounded-xl bg-white/90 placeholder-gray-400 transition-all duration-300 hover:shadow-lg"
+      required
+    />
+  </div>
 
-            <div className="flex flex-col">
-              <label
-                htmlFor="phone"
-                className="text-gray-700 font-semibold mb-2"
-              >
-                Teléfono
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                placeholder="Escribe tu número de teléfono"
-                value={bookingData.phone}
-                onChange={handleChange}
-                className="border-2 border-gray-400 focus:border-cyan-600 focus:ring-2 focus:ring-pink-300 focus:outline-none p-3 w-full rounded-lg"
-                required
-                minLength="8"
-                maxLength="9"
-                pattern="^\d{8,9}$"
-                title="El número debe tener entre 8 y 9 dígitos"
-              />
-            </div>
+  <div className="flex flex-col">
+    <label
+      htmlFor="phone"
+      className="text-purple-700 font-bold mb-2 tracking-wide"
+    >
+      📞 Teléfono
+    </label>
+    <input
+      type="tel"
+      id="phone"
+      name="phone"
+      placeholder="Escribe tu número de teléfono"
+      value={bookingData.phone}
+      onChange={handleChange}
+      className="border-2 border-purple-400 focus:border-pink-500 focus:ring-4 focus:ring-purple-200 focus:outline-none p-3 w-full rounded-xl bg-white/90 placeholder-gray-400 transition-all duration-300 hover:shadow-lg"
+      required
+      minLength="8"
+      maxLength="9"
+      pattern="^\d{8,9}$"
+      title="El número debe tener entre 8 y 9 dígitos"
+    />
+  </div>
 
-            <div className="flex flex-col">
-              <label className="text-gray-700 font-semibold mb-2">
-                Selecciona la Fecha
-              </label>
-              <CalendarComponent
-                onDateChange={handleDateChange}
-                onBookingDataChange={handleBookingDataChange}
-              />
-            </div>
+  <div className="flex flex-col">
+    <label className="text-fuchsia-700 font-bold mb-2 tracking-wide">
+      📅 Selecciona la Fecha
+    </label>
+    <CalendarComponent
+      onDateChange={handleDateChange}
+      onBookingDataChange={handleBookingDataChange}
+    />
+  </div>
 
-            <div className="flex justify-between gap-4">
-              <Link
-                to={-1}
-                className="bg-gray-500 hover:bg-gray-700 text-white font-bold p-2 rounded-lg transition-all duration-300 w-full text-center block"
-              >
-                Atrás
-              </Link>
+  <div className="flex justify-between gap-4">
+    <Link
+      to={-1}
+      className="bg-gradient-to-r from-gray-500 to-gray-700 hover:from-gray-600 hover:to-gray-900 text-white font-bold p-2 rounded-xl transition-all duration-300 w-full text-center block shadow-md hover:scale-105"
+    >
+      ⬅️ Atrás
+    </Link>
 
-              <button
-                type="submit"
-                className="bg-cyan-600 hover:bg-pink-700 text-white font-bold p-2 rounded-lg transition-all duration-300 w-full"
-              >
-                Confirmar
-              </button>
-            </div>
-          </form>
+    <button
+      type="submit"
+      className="bg-gradient-to-r leading-4 from-pink-500 via-cyan-500 to-purple-500 hover:from-pink-600 hover:via-cyan-600 hover:to-purple-600 text-white font-bold p-2 rounded-xl transition-all duration-300 w-full shadow-lg hover:scale-105"
+    >
+      🎉 Confirmar
+    </button>
+  </div>
+</form>
+
 
           <ConfirmationModal
             show={showConfirmationModal}
