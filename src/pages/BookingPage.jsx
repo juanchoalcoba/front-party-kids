@@ -197,14 +197,14 @@ const BookingPage = () => {
       to={-1}
       className="bg-gradient-to-r from-gray-500 to-gray-700 hover:from-gray-600 hover:to-gray-900 text-white font-bold p-2 rounded-xl transition-all duration-300 w-full text-center block shadow-md hover:scale-105"
     >
-      ⬅️ Atrás
+      Atrás
     </Link>
 
     <button
       type="submit"
       className="bg-gradient-to-r leading-4 from-pink-500 via-cyan-500 to-purple-500 hover:from-pink-600 hover:via-cyan-600 hover:to-purple-600 text-white font-bold p-2 rounded-xl transition-all duration-300 w-full shadow-lg hover:scale-105"
     >
-      🎉 Confirmar
+     Confirmar
     </button>
   </div>
 </form>
