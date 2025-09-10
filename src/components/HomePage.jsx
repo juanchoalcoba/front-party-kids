@@ -42,12 +42,12 @@ function HomePage() {
         <h1 className="text-2xl text-cyan-950 flex flex-col items-center justify-center text-center font-robert-regular font-bold md:text-3xl p-4">
           Bienvenidos/as
           <img
-            className="w-[130px] rounded-full p-4 shadow-md shadow-black"
+            className="w-[150px] rounded-full p-4 shadow-md shadow-black"
             src="logo.png"
             alt="Logo"
           />
         </h1>
-        <div className="flex justify-center items-start flex-col text-gray-950 text-md mt-4">
+        <div className="flex justify-center items-start flex-col text-gray-950 text-lg mt-4">
           <div className="flex items-center gap-2">
             <FaBirthdayCake className="text-pink-600" />
             <span>Cumpleaños</span>
