@@ -25,7 +25,7 @@ export default function ImageSlider() {
     <div className="w-full max-w-3xl mx-auto text-center mt-12 ">
       {/* Título y párrafo */}
       
-      <p className="text-gray-200 text-md md:text-2xl mb-6">
+      <p className="text-gray-200 text-2xl md:text-2xl mb-6">
         Una fiesta pensada para compartir momentos únicos.
       </p>
 
