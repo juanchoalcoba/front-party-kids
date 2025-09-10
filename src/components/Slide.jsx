@@ -30,7 +30,7 @@ export default function ImageSlider() {
     <div className="w-full max-w-3xl mx-auto text-center mt-12 ">
       {/* Título y párrafo */}
 
-      <p className="text-gray-200 text-xl md:text-2xl mb-6 flex justify-center items-center gap-2">
+      <p className="text-gray-200 text-xl md:text-2xl mb-6 flex justify-center items-center gap-4 p-4">
         <FaBirthdayCake />
         Una fiesta pensada para compartir momentos únicos.
         <GiPartyPopper />
