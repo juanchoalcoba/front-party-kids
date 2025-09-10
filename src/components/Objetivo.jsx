@@ -4,10 +4,10 @@ const AboutUs = () => {
   return (
     <section
       id="nosotros"
-      className="bg-gradient-to-b from-gray-900 to-cyan-950 text-white flex flex-col lg:flex-row justify-between items-center font-circular-web py-12 px-4 md:px-8 lg:px-16"
+      className=" text-white flex flex-col lg:flex-row justify-between items-center font-circular-web py-12 px-4 md:px-8 lg:px-16"
     >
       <div className="flex flex-col justify-center items-center">
-        <h2 className="text-4xl w-[24rem]   text-center ">
+        <h2 className="text-4xl w-[24rem] text-cyan-100   text-center ">
           El cumpleaños de tus sueños desde{" "}
           <span className="text-blue-50 bg-gradient-to-t from-cyan-800 to-white- rounded-full leading-[18rem] md:leading-[15rem] px-8 py-6 mt-8 lg:mt-0 text-5xl  border-2 border-white">
             $7.800
@@ -36,7 +36,7 @@ const AboutUs = () => {
       </div>
 
       <div className="space-y-2">
-        <h2 className="text-3xl font-semibold mb-2 text-blue-50 text-center p-4">
+        <h2 className="text-3xl font-semibold mb-2 text-cyan-100 text-center p-4">
           ¿Que Ofrecemos?
         </h2>
         <h4 className="text-xl font-semibold mb-2 text-blue-50">- Limpieza</h4>

@@ -29,6 +29,7 @@ export default function ImageSlider() {
         Una fiesta pensada para compartir momentos únicos.
       </p>
 
+      
       {/* Slider */}
       <Swiper
         modules={[Navigation, Autoplay]}
