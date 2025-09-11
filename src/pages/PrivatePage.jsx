@@ -19,6 +19,7 @@ const PrivatePage = () => {
   // Obtener reservas
   const fetchBookings = async () => {
     try {
+       setLoading(true); // 👈 activar el loading antes de la petición
       const response = await fetch(
         "https://api-party-kids.vercel.app/api/bookings",
         {
