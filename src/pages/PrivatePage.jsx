@@ -4,6 +4,7 @@ const PrivatePage = () => {
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
   const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(false); // 👈 Estado para loading
 
   const handleLogin = () => {
     const presetPassword = "Kids.2025"; // Contraseña preestablecida
@@ -33,6 +34,8 @@ const PrivatePage = () => {
       setBookings(data); // Actualizar estado con las reservas
     } catch (error) {
       console.error("Error fetching bookings:", error);
+    } finally {
+      setLoading(false); // 👈 desactivar cargando siempre
     }
   };
 
@@ -234,6 +237,22 @@ const PrivatePage = () => {
           >
             Acceder
           </button>
+        </div>
+      </div>
+    );
+  }
+
+
+
+
+
+  // Si está cargando, mostramos un spinner o mensaje
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-900">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid mx-auto mb-4"></div>
+          <p className="text-white text-lg">Cargando reservas...</p>
         </div>
       </div>
     );
