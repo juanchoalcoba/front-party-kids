@@ -7,7 +7,7 @@ const PrivatePage = () => {
   const [loading, setLoading] = useState(false); // 👈 Estado para loading
 
   const handleLogin = () => {
-    const presetPassword = "mg.kids.2026"; // Contraseña preestablecida
+    const presetPassword = "47441536"; // Contraseña preestablecida
     if (password === presetPassword) {
       setAuthenticated(true);
       fetchBookings(); // Cargar las reservas una vez autenticado
